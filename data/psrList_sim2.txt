@@ -1,0 +1,12 @@
+NAME HDF5-PATH PARFILE-PATH TIMFILE-PATH
+#############################################
+J0613-0200 ../data/sim_hdf5files/J0613-0200.hdf5
+J0751+1807 ../data/sim_hdf5files/J0751+1807.hdf5
+J1012+5307 ../data/sim_hdf5files/J1012+5307.hdf5
+J1640+2224 ../data/sim_hdf5files/J1640+2224.hdf5
+J1643-1224 ../data/sim_hdf5files/J1643-1224.hdf5
+J1713+0747 ../data/sim_hdf5files/J1713+0747.hdf5
+J1744-1134 ../data/sim_hdf5files/J1744-1134.hdf5
+J1857+0943 ../data/sim_hdf5files/J1857+0943.hdf5
+J1909-3744 ../data/sim_hdf5files/J1909-3744.hdf5
+J2145-0750 ../data/sim_hdf5files/J2145-0750.hdf5
