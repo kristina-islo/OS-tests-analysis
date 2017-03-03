@@ -7,6 +7,7 @@
 *.o
 *.so
 *.pyc
+codes/.ipynb_checkpoints/
 
 # Packages #
 ############
