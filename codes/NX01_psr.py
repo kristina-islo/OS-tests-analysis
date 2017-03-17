@@ -31,6 +31,8 @@ class PsrObj(object):
     obs_freqs = None
     G = None
     Mmat = None
+    flags = None
+    flagvals = None
     sysflagdict = None
     Fred = None
     Fdm = None
@@ -50,6 +52,14 @@ class PsrObj(object):
     detsig_avetoas = None
     detsig_Uinds = None
     planet_ssb = None
+    parRedamp = None
+    parRedind = None
+    parDMamp = None
+    parDMind = None
+    Redamp = None
+    Redind = None
+    DMamp = None
+    DMind = None
 
     def __init__(self, t2obj):
         self.T2psr = t2obj
@@ -63,6 +73,8 @@ class PsrObj(object):
         self.obs_freqs = None
         self.G = None
         self.Mmat = None
+        self.flags = None
+        self.flagvals = None
         self.Fred = None
         self.Fdm = None
         self.Fephx = None
@@ -84,11 +96,21 @@ class PsrObj(object):
         self.detsig_avetoas = None
         self.detsig_Uinds = None
         self.planet_ssb = None
+        self.parRedamp = 1e-20
+        self.parRedind = 0.0
+        self.parDMamp = 1e-20
+        self.parDMind = 0.0
+        self.Redamp = 1e-20
+        self.Redind = 0.0
+        self.DMamp = 1e-20
+        self.DMind = 0.0
 
     """
     Initialise the libstempo object.
     """
-    def grab_all_vars(self, jitterbin=10., makeGmat=False, fastDesign=True): # jitterbin is in seconds
+    def grab_all_vars(self, jitterbin=10., makeGmat=False, fastDesign=True,
+                      planetssb=False, startMJD=None, endMJD=None):
+        # jitterbin is in seconds
 
         print "--> Processing {0}".format(self.T2psr.name)
         
@@ -99,39 +121,61 @@ class PsrObj(object):
         self.toaerrs = np.double(self.T2psr.toaerrs) * 1e-6
         self.obs_freqs = np.double(self.T2psr.ssbfreqs())
         self.Mmat = np.double(self.T2psr.designmatrix())
+        self.flags = self.T2psr.flags()
+        self.flagvals = OrderedDict.fromkeys(self.flags)
+        for flag in self.flags:
+            self.flagvals[flag] = self.T2psr.flagvals(flag)
 
+        if startMJD is not None and endMJD is not None:
+            mask = np.logical_and(self.T2psr.toas() >= startMJD,
+                                  self.T2psr.toas() <= endMJD)
+    
+            self.toas = self.toas[mask]
+            self.toaerrs = self.toaerrs[mask]
+            self.res = self.res[mask]
+            self.obs_freqs = self.obs_freqs[mask]
+    
+            self.Mmat = self.Mmat[mask,:]
+            dmx_mask = np.sum(self.Mmat, axis=0) != 0.0
+            self.Mmat = self.Mmat[:,dmx_mask]
+    
+            for flag in self.flags:
+                self.flagvals[flag] = self.T2psr.flagvals(flag)[mask]
+        
         # get the position vectors of the planets
-        for ii in range(1,10):
-            tag = 'DMASSPLANET'+str(ii)
-            self.T2psr[tag].val = 0.0
-        self.T2psr.formbats()
-        self.planet_ssb = np.zeros((len(self.toas),9,6))
-        self.planet_ssb[:,0,:] = self.T2psr.mercury_ssb
-        self.planet_ssb[:,1,:] = self.T2psr.venus_ssb
-        self.planet_ssb[:,2,:] = self.T2psr.earth_ssb
-        self.planet_ssb[:,3,:] = self.T2psr.mars_ssb
-        self.planet_ssb[:,4,:] = self.T2psr.jupiter_ssb
-        self.planet_ssb[:,5,:] = self.T2psr.saturn_ssb
-        self.planet_ssb[:,6,:] = self.T2psr.uranus_ssb
-        self.planet_ssb[:,7,:] = self.T2psr.neptune_ssb
-        self.planet_ssb[:,8,:] = self.T2psr.pluto_ssb
+        if planetssb:
+            for ii in range(1,10):
+                tag = 'DMASSPLANET'+str(ii)
+                self.T2psr[tag].val = 0.0
+            self.T2psr.formbats()
+            self.planet_ssb = np.zeros((len(self.T2psr.toas()),9,6))
+            self.planet_ssb[:,0,:] = self.T2psr.mercury_ssb
+            self.planet_ssb[:,1,:] = self.T2psr.venus_ssb
+            self.planet_ssb[:,2,:] = self.T2psr.earth_ssb
+            self.planet_ssb[:,3,:] = self.T2psr.mars_ssb
+            self.planet_ssb[:,4,:] = self.T2psr.jupiter_ssb
+            self.planet_ssb[:,5,:] = self.T2psr.saturn_ssb
+            self.planet_ssb[:,6,:] = self.T2psr.uranus_ssb
+            self.planet_ssb[:,7,:] = self.T2psr.neptune_ssb
+            self.planet_ssb[:,8,:] = self.T2psr.pluto_ssb
 
-        print "--> Grabbed the planet position-vectors at the pulsar timestamps."
+            if startMJD is not None and endMJD is not None:
+                mask = np.logical_and(self.T2psr.toas() >= startMJD,
+                                      self.T2psr.toas() <= endMJD)
+                self.planet_ssb = self.planet_ssb[mask,:,:]
+
+            print "--> Grabbed the planet position-vectors at the pulsar timestamps."
 
         isort, iisort = None, None
-        if 'pta' in self.T2psr.flags():
-            if 'NANOGrav' in list(set(self.T2psr.flagvals('pta'))):
+        if 'pta' in self.flags:
+            if 'NANOGrav' in list(set(self.flagvals['pta'])):
                 # now order everything
                 try:
-                    isort, iisort = utils.argsortTOAs(self.toas, self.T2psr.flagvals('group'),
+                    isort, iisort = utils.argsortTOAs(self.toas, self.flagvals['group'],
                                                       which='jitterext', dt=jitterbin/86400.)
                 except KeyError:
-                    try:
-                        isort, iisort = utils.argsortTOAs(self.toas, self.T2psr.flagvals('f'),
-                                                        which='jitterext', dt=jitterbin/86400.)
-                    except KeyError:
-                        isort, iisort = utils.argsortTOAs(self.toas, self.T2psr.flagvals('be'),
-                                                        which='jitterext', dt=jitterbin/86400.)
+                    isort, iisort = utils.argsortTOAs(self.toas, self.flagvals['f'],
+                                                      which='jitterext', dt=jitterbin/86400.)
         
                 # sort data
                 self.toas = self.toas[isort]
@@ -139,13 +183,14 @@ class PsrObj(object):
                 self.res = self.res[isort]
                 self.obs_freqs = self.obs_freqs[isort]
                 self.Mmat = self.Mmat[isort, :]
-                self.planet_ssb = self.planet_ssb[isort, :, :]
+                if planetssb:
+                    self.planet_ssb = self.planet_ssb[isort, :, :]
 
                 print "--> Initial sorting of data."
               
         # get the sky position
         if 'RAJ' and 'DECJ' in self.T2psr.pars():
-            self.psr_locs = [np.double(self.T2psr['RAJ'].val),np.double(self.T2psr['DECJ'].val)]
+            self.psr_locs = [np.double(self.T2psr['RAJ'].val), np.double(self.T2psr['DECJ'].val)]
         elif 'ELONG' and 'ELAT' in self.T2psr.pars():
             fac = 180./np.pi
             # check for B name
@@ -163,60 +208,52 @@ class PsrObj(object):
         ################################################################################################
             
         # These are all the relevant system flags used by the PTAs.
-        system_flags = ['group','sys','i','f','be']
+        system_flags = ['group','f','sys','g','h']
         self.sysflagdict = OrderedDict.fromkeys(system_flags)
 
         # Put the systems into a dictionary which 
         # has the locations of their toa placements.
         for systm in self.sysflagdict:
             try:
-                if systm in self.T2psr.flags():
-                    sys_uflagvals = list(set(self.T2psr.flagvals(systm)))
+                if systm in self.flags:
+                    sys_uflagvals = list(set(self.flagvals[systm]))
                     self.sysflagdict[systm] = OrderedDict.fromkeys(sys_uflagvals)
                     for kk,subsys in enumerate(sys_uflagvals):
                         if isort is not None:
                             self.sysflagdict[systm][subsys] = \
-                              np.where(self.T2psr.flagvals(systm)[isort] == sys_uflagvals[kk])
+                              np.where(self.flagvals[systm][isort] == sys_uflagvals[kk])
                         elif isort is None:
                             self.sysflagdict[systm][subsys] = \
-                              np.where(self.T2psr.flagvals(systm) == sys_uflagvals[kk])
+                              np.where(self.flagvals[systm] == sys_uflagvals[kk])
             except KeyError:
                 pass
 
         # If we have some NANOGrav data, then separate
         # this off for later ECORR assignment.
-        if 'pta' in self.T2psr.flags():
-            pta_names = list(set(self.T2psr.flagvals('pta')))
-            pta_mask = [self.T2psr.flagvals('pta')[isort]==ptaname for ptaname in pta_names]
+        if 'pta' in self.flags:
+            pta_names = list(set(self.flagvals['pta']))
+            pta_mask = [self.flagvals['pta'][isort]==ptaname for ptaname in pta_names]
             pta_maskdict = OrderedDict.fromkeys(pta_names)
             for ii,item in enumerate(pta_maskdict):
                 pta_maskdict[item] = pta_mask[ii]
             if len(pta_names)!=0 and ('NANOGrav' in pta_names):
                 try:
                     nanoflagdict = OrderedDict.fromkeys(['nano-f'])
-                    nano_flags = list(set(self.T2psr.flagvals('group')[pta_maskdict['NANOGrav']]))
+                    nano_flags = list(set(self.flagvals['group'][isort][pta_maskdict['NANOGrav']]))
                     nanoflagdict['nano-f'] = OrderedDict.fromkeys(nano_flags)
                     for kk,subsys in enumerate(nano_flags):
                         nanoflagdict['nano-f'][subsys] = \
-                          np.where(self.T2psr.flagvals('group')[isort] == nano_flags[kk])
+                          np.where(self.flagvals['group'][isort] == nano_flags[kk])
                     self.sysflagdict.update(nanoflagdict)
                 except KeyError:
-                    try:
-                        nanoflagdict = OrderedDict.fromkeys(['nano-f'])
-                        nano_flags = list(set(self.T2psr.flagvals('f')[pta_maskdict['NANOGrav']]))
-                        nanoflagdict['nano-f'] = OrderedDict.fromkeys(nano_flags)
-                        for kk,subsys in enumerate(nano_flags):
-                            nanoflagdict['nano-f'][subsys] = \
-                              np.where(self.T2psr.flagvals('f')[isort] == nano_flags[kk])
-                        self.sysflagdict.update(nanoflagdict)
-                    except KeyError:
-                        nanoflagdict = OrderedDict.fromkeys(['nano-f'])
-                        nano_flags = list(set(self.T2psr.flagvals('be')[pta_maskdict['NANOGrav']]))
-                        nanoflagdict['nano-f'] = OrderedDict.fromkeys(nano_flags)
-                        for kk,subsys in enumerate(nano_flags):
-                            nanoflagdict['nano-f'][subsys] = \
-                              np.where(self.T2psr.flagvals('be')[isort] == nano_flags[kk])
-                        self.sysflagdict.update(nanoflagdict)
+                    nanoflagdict = OrderedDict.fromkeys(['nano-f'])
+                    nano_flags = list(set(self.flagvals['f'][isort][pta_maskdict['NANOGrav']]))
+                    nanoflagdict['nano-f'] = OrderedDict.fromkeys(nano_flags)
+                    for kk,subsys in enumerate(nano_flags):
+                        nanoflagdict['nano-f'][subsys] = \
+                          np.where(self.flagvals['f'][isort] == nano_flags[kk])
+                    self.sysflagdict.update(nanoflagdict)
+                    
                     
         
         # If there are really no relevant flags,
@@ -230,20 +267,17 @@ class PsrObj(object):
         print "--> Processed all relevant flags plus associated locations."
         ##################################################################################################
 
-        if 'pta' in self.T2psr.flags():
+        if 'pta' in self.flags:
             if 'NANOGrav' in pta_names:
                 # now order everything
                 try:
                     #isort_b, iisort_b = utils.argsortTOAs(self.toas, self.T2psr.flagvals('group')[isort],
                     #which='jitterext', dt=jitterbin/86400.)
-                    flags = self.T2psr.flagvals('group')[isort]
+                    dummy_flags = self.flagvals['group'][isort]
                 except KeyError:
-                    try:
                     #isort_b, iisort_b = utils.argsortTOAs(self.toas, self.T2psr.flagvals('f')[isort],
                     #which='jitterext', dt=jitterbin/86400.)
-                        flags = self.T2psr.flagvals('f')[isort]
-                    except KeyError:
-                        flags = self.T2psr.flagvals('be')[isort]
+                    dummy_flags = self.flagvals['f'][isort]
         
                 # sort data
                 #self.toas = self.toas[isort_b]
@@ -256,23 +290,23 @@ class PsrObj(object):
                 print "--> Sorted data."
     
                 # get quantization matrix
-                avetoas, self.Umat, Ui = utils.quantize_split(self.toas, flags, dt=jitterbin/86400., calci=True)
+                avetoas, self.Umat, Ui = utils.quantize_split(self.toas, dummy_flags, dt=jitterbin/86400., calci=True)
                 print "--> Computed quantization matrix."
 
                 self.detsig_avetoas = avetoas.copy()
                 self.detsig_Uinds = utils.quant2ind(self.Umat)
 
                 # get only epochs that need jitter/ecorr
-                self.Umat, avetoas, aveflags = utils.quantreduce(self.Umat, avetoas, flags)
+                self.Umat, avetoas, aveflags = utils.quantreduce(self.Umat, avetoas, dummy_flags)
                 print "--> Excized epochs without jitter."
 
                 # get quantization indices
                 self.Uinds = utils.quant2ind(self.Umat)
-                self.epflags = flags[self.Uinds[:, 0]]
+                self.epflags = dummy_flags[self.Uinds[:, 0]]
 
                 print "--> Checking TOA sorting and quantization..."
-                print utils.checkTOAsort(self.toas, flags, which='jitterext', dt=jitterbin/86400.)
-                print utils.checkquant(self.Umat, flags)
+                print utils.checkTOAsort(self.toas, dummy_flags, which='jitterext', dt=jitterbin/86400.)
+                print utils.checkquant(self.Umat, dummy_flags)
                 print "...Finished checks."
 
         # perform SVD of design matrix to stabilise
@@ -287,29 +321,40 @@ class PsrObj(object):
         else:
             print "--> Performing SVD of design matrix for stabilization..."   
 
-            u,s,v = np.linalg.svd(self.Mmat)
-
             if makeGmat:
+                u,s,v = np.linalg.svd(self.Mmat)
+                
                 self.G = u[:,len(s):len(u)]
                 self.Gres = np.dot(self.G.T, self.res)
+                
+                self.Gc =  u[:,:len(s)]
+                
+            elif not makeGmat:
+                u,s,v = np.linalg.svd(self.Mmat, full_matrices=0)
 
-            self.Gc =  u[:,:len(s)]
+                self.Gc =  u
 
         print "--> Done reading in pulsar :-) \n"
 
-    def makeFred(self, nmodes, Ttot, phaseshift=False):
+    def makeFred(self, nmodes, Ttot, phaseshift=False, input_freqs=None):
         
-        self.Fred, self.ranphase = utils.createFourierDesignmatrix_red(self.toas, nmodes=nmodes,
-                                                                       pshift=phaseshift, Tspan=Ttot)
+        self.Fred, self.ranphase = \
+          utils.createFourierDesignmatrix_red(self.toas, nmodes=nmodes,
+                                              pshift=phaseshift, Tspan=Ttot,
+                                              input_freqs=input_freqs)
 
-    def makeFdm(self, nmodes, Ttot):
+    def makeFdm(self, nmodes, obs_freqs, Ttot, input_freqs=None):
         
-        self.Fdm = utils.createFourierDesignmatrix_dm(self.toas, nmodes, self.obs_freqs, Tspan=Ttot)
+        self.Fdm = utils.createFourierDesignmatrix_dm(self.toas, nmodes=nmodes,
+                                                      obs_freqs=self.obs_freqs,
+                                                      Tspan=Ttot, input_freqs=input_freqs)
 
-    def makeFeph(self, nmodes, Ttot):
+    def makeFeph(self, nmodes, psr_locs, Ttot, input_freqs=None):
         
         self.Fephx, self.Fephy, self.Fephz = \
-          utils.createFourierDesignmatrix_eph(self.toas, nmodes, self.psr_locs, Tspan=Ttot)
+          utils.createFourierDesignmatrix_eph(self.toas, nmodes=nmodes,
+                                              psr_locs=self.psr_locs, Tspan=Ttot,
+                                              input_freqs=input_freqs)
     
     def makeFtot(self, nmodes, Ttot, phaseshift=False):
         
@@ -319,23 +364,57 @@ class PsrObj(object):
 
         self.Ftot = np.append(self.Fred, self.Fdm, axis=1)
 
-    def makeTe(self, nmodes, Ttot, makeDM=False, makeEph=False, phaseshift=False):
+    def makeTe(self, nmodes_red, Ttot, makeDM=False, nmodes_dm=None,
+               makeEph=False, nmodes_eph=None, ephFreqs=None,
+               makeClk=False, clkDesign=False,
+               makeBand=False, nmodes_band=None, bands=None,
+               phaseshift=False):
 
-        self.Fred, self.ranphase = utils.createFourierDesignmatrix_red(self.toas, nmodes=nmodes,
+        self.Fred, self.ranphase = utils.createFourierDesignmatrix_red(self.toas, nmodes=nmodes_red,
                                                                        pshift=phaseshift, Tspan=Ttot)
 
+        self.Ftot = self.Fred
         if makeDM:
-            self.Fdm = utils.createFourierDesignmatrix_dm(self.toas, nmodes, self.obs_freqs, Tspan=Ttot)
-            self.Ftot = np.append(self.Fred, self.Fdm, axis=1)
+            if nmodes_dm is None:
+                nmodes_tmp = nmodes_red
+            else:
+                nmodes_tmp = nmodes_dm
+            self.Fdm = utils.createFourierDesignmatrix_dm(self.toas, nmodes_tmp, self.obs_freqs, Tspan=Ttot)
+            self.Ftot = np.append(self.Ftot, self.Fdm, axis=1)
         if makeEph:
+            if nmodes_eph is None:
+                nmodes_tmp = nmodes_red
+            else:
+                nmodes_tmp = nmodes_eph
             self.Fephx, self.Fephy, self.Fephz = \
-              utils.createFourierDesignmatrix_eph(self.toas, nmodes, self.psr_locs, Tspan=Ttot)
+              utils.createFourierDesignmatrix_eph(self.toas, nmodes_tmp, self.psr_locs,
+                                                  Tspan=Ttot, input_freqs=ephFreqs)
             self.Ftot = np.append(self.Ftot, self.Fephx, axis=1)
             self.Ftot = np.append(self.Ftot, self.Fephy, axis=1)
             self.Ftot = np.append(self.Ftot, self.Fephz, axis=1)
-        if not makeDM and not makeEph:
-            self.Ftot = self.Fred
-
+        if makeClk and clkDesign:
+            self.Fclk, _ = utils.createFourierDesignmatrix_red(self.toas, nmodes=nmodes_red,
+                                                               pshift=False, Tspan=Ttot)
+            self.Ftot = np.append(self.Ftot, self.Fclk, axis=1)
+        if makeBand:
+            if nmodes_band is None:
+                nmodes_tmp = nmodes_red
+            else:
+                nmodes_tmp = nmodes_band
+            ##
+            if bands is None:
+                bands = np.array([0.0, 1.0, 2.0, 3.0])
+            elif bands is not None:
+                bands = np.array([float(item) for item in bands.split(',')])
+            
+            Fband_tmp, _ = utils.createFourierDesignmatrix_red(self.toas, nmodes=nmodes_tmp,
+                                                                   pshift=False, Tspan=Ttot)
+            for ii in range(len(bands)-1):
+                Fband_dummy = Fband_tmp.copy()
+                Fband_dummy[np.logical_and(self.obs_freqs > 1e9*bands[ii],
+                                           self.obs_freqs <= 1e9*bands[ii+1]),:] = 0.0
+                self.Ftot = np.append(self.Ftot, Fband_dummy, axis=1)
+        
         self.Te = np.append(self.Gc, self.Ftot, axis=1)
 
     def two_comp_noise(self, mlerrors):
@@ -354,7 +433,6 @@ class PsrObj(object):
             self.Ftot_prime = np.dot(proj, self.Ftot)
         else:
             self.Ftot_prime = np.dot(proj, self.Fred)
-
 
 
 ######################
@@ -378,6 +456,7 @@ class PsrObjFromH5(object):
     Fephx = None
     Fephy = None
     Fephz = None
+    Fclk = None
     Ftot = None
     ranphase = None
     diag_white = None
@@ -423,6 +502,7 @@ class PsrObjFromH5(object):
         self.Fephx = None
         self.Fephy = None
         self.Fephz = None
+        self.Fclk = None
         self.Ftot = None
         self.ranphase = None
         self.diag_white = None
@@ -601,8 +681,8 @@ class PsrObjFromH5(object):
                 tmp_errs = self.toaerrs.copy()
 
                 for sysname in systems:
-                    tmp_errs[systems[sysname]] *= self.efacs[sysname] 
-
+                    tmp_errs[systems[sysname]] *= self.efacs[sysname]
+                        
                 t2equad_bit = np.ones(len(tmp_errs))
                 for sysname in systems:
                     t2equad_bit[systems[sysname]] *= self.equads[sysname]
@@ -642,7 +722,10 @@ class PsrObjFromH5(object):
         self.Ftot = np.append(self.Fred, self.Fdm, axis=1)
 
     def makeTe(self, nmodes_red, Ttot, makeDM=False, nmodes_dm=None,
-               makeEph=False, nmodes_eph=None, ephFreqs=None, phaseshift=False):
+               makeEph=False, nmodes_eph=None, ephFreqs=None,
+               makeClk=False, clkDesign=False,
+               makeBand=False, bands=None,
+               phaseshift=False):
 
         self.Fred, self.ranphase = utils.createFourierDesignmatrix_red(self.toas, nmodes=nmodes_red,
                                                                        pshift=phaseshift, Tspan=Ttot)
@@ -666,6 +749,28 @@ class PsrObjFromH5(object):
             self.Ftot = np.append(self.Ftot, self.Fephx, axis=1)
             self.Ftot = np.append(self.Ftot, self.Fephy, axis=1)
             self.Ftot = np.append(self.Ftot, self.Fephz, axis=1)
+        if makeClk and clkDesign:
+            self.Fclk, _ = utils.createFourierDesignmatrix_red(self.toas, nmodes=nmodes_red,
+                                                               pshift=False, Tspan=Ttot)
+            self.Ftot = np.append(self.Ftot, self.Fclk, axis=1)
+        if makeBand:
+            if nmodes_band is None:
+                nmodes_tmp = nmodes_red
+            else:
+                nmodes_tmp = nmodes_band
+            ##
+            if bands is None:
+                bands = np.array([0.0, 1.0, 2.0, 3.0])
+            elif bands is not None:
+                bands = np.array([float(item) for item in bands.split(',')])
+            
+            Fband_tmp = utils.createFourierDesignmatrix_red(self.toas, nmodes=nmodes_tmp,
+                                                            pshift=False, Tspan=Ttot)
+            for ii in range(len(bands)-1):
+                Fband_dummy = Fband_tmp.copy()
+                Fband_dummy[np.logical(self.obs_freqs > 1e9*bands[ii],
+                                       self.obs_freqs <= 1e9*bands[ii+1]),:] = 0.0
+                self.Ftot = np.append(self.Ftot, Fband_dummy, axis=1)
         
         self.Te = np.append(self.Gc, self.Ftot, axis=1)
 
