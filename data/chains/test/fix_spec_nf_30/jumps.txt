@@ -1,4 +1,0 @@
-drawFromRedNoisePrior 0.083
-drawFromGWBPrior 0.17
-covarianceJumpProposalSCAM  0.5
-covarianceJumpProposalAM 0.25
