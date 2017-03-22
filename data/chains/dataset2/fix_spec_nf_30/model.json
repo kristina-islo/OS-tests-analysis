@@ -1,0 +1,711 @@
+{
+    "ephemModel": false,
+    "likfunc": "mark9",
+    "incRedExt": false,
+    "pulsarnames": [
+        "J0613-0200",
+        "J0751+1807",
+        "J1012+5307",
+        "J1640+2224",
+        "J1643-1224",
+        "J1713+0747",
+        "J1744-1134",
+        "J1857+0943",
+        "J1909-3744",
+        "J2145-0750"
+    ],
+    "file version": 2014.02,
+    "author": "PAL-makeModel",
+    "incDMX": false,
+    "Tmax": 0.0,
+    "orderFrequencyLines": false,
+    "redExtNf": 10,
+    "incEphemError": false,
+    "signals": [
+        {
+            "flagvalue": "J0613-0200",
+            "pwidth": [
+                0.1
+            ],
+            "pstart": [
+                1.0
+            ],
+            "corr": "single",
+            "flagname": "efacequad",
+            "pmin": [
+                0.001
+            ],
+            "prior": [
+                "uniform"
+            ],
+            "stype": "efac",
+            "pulsarind": 0,
+            "pmax": [
+                10.0
+            ],
+            "bvary": [
+                false
+            ]
+        },
+        {
+            "flagvalue": "J0613-0200",
+            "pwidth": [
+                0.1,
+                0.1,
+                5e-11
+            ],
+            "pstart": [
+                -19.0,
+                2.01,
+                1e-10
+            ],
+            "corr": "single",
+            "flagname": "pulsarname",
+            "pmin": [
+                -20.0,
+                0.02,
+                1e-11
+            ],
+            "prior": [
+                "log",
+                "uniform",
+                "log"
+            ],
+            "stype": "powerlaw",
+            "pulsarind": 0,
+            "pmax": [
+                -11.0,
+                6.98,
+                3e-09
+            ],
+            "bvary": [
+                true,
+                true,
+                false
+            ]
+        },
+        {
+            "flagvalue": "J0751+1807",
+            "pwidth": [
+                0.1
+            ],
+            "pstart": [
+                1.0
+            ],
+            "corr": "single",
+            "flagname": "efacequad",
+            "pmin": [
+                0.001
+            ],
+            "prior": [
+                "uniform"
+            ],
+            "stype": "efac",
+            "pulsarind": 1,
+            "pmax": [
+                10.0
+            ],
+            "bvary": [
+                false
+            ]
+        },
+        {
+            "flagvalue": "J0751+1807",
+            "pwidth": [
+                0.1,
+                0.1,
+                5e-11
+            ],
+            "pstart": [
+                -19.0,
+                2.01,
+                1e-10
+            ],
+            "corr": "single",
+            "flagname": "pulsarname",
+            "pmin": [
+                -20.0,
+                0.02,
+                1e-11
+            ],
+            "prior": [
+                "log",
+                "uniform",
+                "log"
+            ],
+            "stype": "powerlaw",
+            "pulsarind": 1,
+            "pmax": [
+                -11.0,
+                6.98,
+                3e-09
+            ],
+            "bvary": [
+                true,
+                true,
+                false
+            ]
+        },
+        {
+            "flagvalue": "J1012+5307",
+            "pwidth": [
+                0.1
+            ],
+            "pstart": [
+                1.0
+            ],
+            "corr": "single",
+            "flagname": "efacequad",
+            "pmin": [
+                0.001
+            ],
+            "prior": [
+                "uniform"
+            ],
+            "stype": "efac",
+            "pulsarind": 2,
+            "pmax": [
+                10.0
+            ],
+            "bvary": [
+                false
+            ]
+        },
+        {
+            "flagvalue": "J1012+5307",
+            "pwidth": [
+                0.1,
+                0.1,
+                5e-11
+            ],
+            "pstart": [
+                -19.0,
+                2.01,
+                1e-10
+            ],
+            "corr": "single",
+            "flagname": "pulsarname",
+            "pmin": [
+                -20.0,
+                0.02,
+                1e-11
+            ],
+            "prior": [
+                "log",
+                "uniform",
+                "log"
+            ],
+            "stype": "powerlaw",
+            "pulsarind": 2,
+            "pmax": [
+                -11.0,
+                6.98,
+                3e-09
+            ],
+            "bvary": [
+                true,
+                true,
+                false
+            ]
+        },
+        {
+            "flagvalue": "J1640+2224",
+            "pwidth": [
+                0.1
+            ],
+            "pstart": [
+                1.0
+            ],
+            "corr": "single",
+            "flagname": "efacequad",
+            "pmin": [
+                0.001
+            ],
+            "prior": [
+                "uniform"
+            ],
+            "stype": "efac",
+            "pulsarind": 3,
+            "pmax": [
+                10.0
+            ],
+            "bvary": [
+                false
+            ]
+        },
+        {
+            "flagvalue": "J1640+2224",
+            "pwidth": [
+                0.1,
+                0.1,
+                5e-11
+            ],
+            "pstart": [
+                -19.0,
+                2.01,
+                1e-10
+            ],
+            "corr": "single",
+            "flagname": "pulsarname",
+            "pmin": [
+                -20.0,
+                0.02,
+                1e-11
+            ],
+            "prior": [
+                "log",
+                "uniform",
+                "log"
+            ],
+            "stype": "powerlaw",
+            "pulsarind": 3,
+            "pmax": [
+                -11.0,
+                6.98,
+                3e-09
+            ],
+            "bvary": [
+                true,
+                true,
+                false
+            ]
+        },
+        {
+            "flagvalue": "J1643-1224",
+            "pwidth": [
+                0.1
+            ],
+            "pstart": [
+                1.0
+            ],
+            "corr": "single",
+            "flagname": "efacequad",
+            "pmin": [
+                0.001
+            ],
+            "prior": [
+                "uniform"
+            ],
+            "stype": "efac",
+            "pulsarind": 4,
+            "pmax": [
+                10.0
+            ],
+            "bvary": [
+                false
+            ]
+        },
+        {
+            "flagvalue": "J1643-1224",
+            "pwidth": [
+                0.1,
+                0.1,
+                5e-11
+            ],
+            "pstart": [
+                -19.0,
+                2.01,
+                1e-10
+            ],
+            "corr": "single",
+            "flagname": "pulsarname",
+            "pmin": [
+                -20.0,
+                0.02,
+                1e-11
+            ],
+            "prior": [
+                "log",
+                "uniform",
+                "log"
+            ],
+            "stype": "powerlaw",
+            "pulsarind": 4,
+            "pmax": [
+                -11.0,
+                6.98,
+                3e-09
+            ],
+            "bvary": [
+                true,
+                true,
+                false
+            ]
+        },
+        {
+            "flagvalue": "J1713+0747",
+            "pwidth": [
+                0.1
+            ],
+            "pstart": [
+                1.0
+            ],
+            "corr": "single",
+            "flagname": "efacequad",
+            "pmin": [
+                0.001
+            ],
+            "prior": [
+                "uniform"
+            ],
+            "stype": "efac",
+            "pulsarind": 5,
+            "pmax": [
+                10.0
+            ],
+            "bvary": [
+                false
+            ]
+        },
+        {
+            "flagvalue": "J1713+0747",
+            "pwidth": [
+                0.1,
+                0.1,
+                5e-11
+            ],
+            "pstart": [
+                -19.0,
+                2.01,
+                1e-10
+            ],
+            "corr": "single",
+            "flagname": "pulsarname",
+            "pmin": [
+                -20.0,
+                0.02,
+                1e-11
+            ],
+            "prior": [
+                "log",
+                "uniform",
+                "log"
+            ],
+            "stype": "powerlaw",
+            "pulsarind": 5,
+            "pmax": [
+                -11.0,
+                6.98,
+                3e-09
+            ],
+            "bvary": [
+                true,
+                true,
+                false
+            ]
+        },
+        {
+            "flagvalue": "J1744-1134",
+            "pwidth": [
+                0.1
+            ],
+            "pstart": [
+                1.0
+            ],
+            "corr": "single",
+            "flagname": "efacequad",
+            "pmin": [
+                0.001
+            ],
+            "prior": [
+                "uniform"
+            ],
+            "stype": "efac",
+            "pulsarind": 6,
+            "pmax": [
+                10.0
+            ],
+            "bvary": [
+                false
+            ]
+        },
+        {
+            "flagvalue": "J1744-1134",
+            "pwidth": [
+                0.1,
+                0.1,
+                5e-11
+            ],
+            "pstart": [
+                -19.0,
+                2.01,
+                1e-10
+            ],
+            "corr": "single",
+            "flagname": "pulsarname",
+            "pmin": [
+                -20.0,
+                0.02,
+                1e-11
+            ],
+            "prior": [
+                "log",
+                "uniform",
+                "log"
+            ],
+            "stype": "powerlaw",
+            "pulsarind": 6,
+            "pmax": [
+                -11.0,
+                6.98,
+                3e-09
+            ],
+            "bvary": [
+                true,
+                true,
+                false
+            ]
+        },
+        {
+            "flagvalue": "J1857+0943",
+            "pwidth": [
+                0.1
+            ],
+            "pstart": [
+                1.0
+            ],
+            "corr": "single",
+            "flagname": "efacequad",
+            "pmin": [
+                0.001
+            ],
+            "prior": [
+                "uniform"
+            ],
+            "stype": "efac",
+            "pulsarind": 7,
+            "pmax": [
+                10.0
+            ],
+            "bvary": [
+                false
+            ]
+        },
+        {
+            "flagvalue": "J1857+0943",
+            "pwidth": [
+                0.1,
+                0.1,
+                5e-11
+            ],
+            "pstart": [
+                -19.0,
+                2.01,
+                1e-10
+            ],
+            "corr": "single",
+            "flagname": "pulsarname",
+            "pmin": [
+                -20.0,
+                0.02,
+                1e-11
+            ],
+            "prior": [
+                "log",
+                "uniform",
+                "log"
+            ],
+            "stype": "powerlaw",
+            "pulsarind": 7,
+            "pmax": [
+                -11.0,
+                6.98,
+                3e-09
+            ],
+            "bvary": [
+                true,
+                true,
+                false
+            ]
+        },
+        {
+            "flagvalue": "J1909-3744",
+            "pwidth": [
+                0.1
+            ],
+            "pstart": [
+                1.0
+            ],
+            "corr": "single",
+            "flagname": "efacequad",
+            "pmin": [
+                0.001
+            ],
+            "prior": [
+                "uniform"
+            ],
+            "stype": "efac",
+            "pulsarind": 8,
+            "pmax": [
+                10.0
+            ],
+            "bvary": [
+                false
+            ]
+        },
+        {
+            "flagvalue": "J1909-3744",
+            "pwidth": [
+                0.1,
+                0.1,
+                5e-11
+            ],
+            "pstart": [
+                -19.0,
+                2.01,
+                1e-10
+            ],
+            "corr": "single",
+            "flagname": "pulsarname",
+            "pmin": [
+                -20.0,
+                0.02,
+                1e-11
+            ],
+            "prior": [
+                "log",
+                "uniform",
+                "log"
+            ],
+            "stype": "powerlaw",
+            "pulsarind": 8,
+            "pmax": [
+                -11.0,
+                6.98,
+                3e-09
+            ],
+            "bvary": [
+                true,
+                true,
+                false
+            ]
+        },
+        {
+            "flagvalue": "J2145-0750",
+            "pwidth": [
+                0.1
+            ],
+            "pstart": [
+                1.0
+            ],
+            "corr": "single",
+            "flagname": "efacequad",
+            "pmin": [
+                0.001
+            ],
+            "prior": [
+                "uniform"
+            ],
+            "stype": "efac",
+            "pulsarind": 9,
+            "pmax": [
+                10.0
+            ],
+            "bvary": [
+                false
+            ]
+        },
+        {
+            "flagvalue": "J2145-0750",
+            "pwidth": [
+                0.1,
+                0.1,
+                5e-11
+            ],
+            "pstart": [
+                -19.0,
+                2.01,
+                1e-10
+            ],
+            "corr": "single",
+            "flagname": "pulsarname",
+            "pmin": [
+                -20.0,
+                0.02,
+                1e-11
+            ],
+            "prior": [
+                "log",
+                "uniform",
+                "log"
+            ],
+            "stype": "powerlaw",
+            "pulsarind": 9,
+            "pmax": [
+                -11.0,
+                6.98,
+                3e-09
+            ],
+            "bvary": [
+                true,
+                true,
+                false
+            ]
+        },
+        {
+            "pmin": [
+                -18.0,
+                1.02,
+                1e-11
+            ],
+            "ngwfreqs": 30,
+            "pwidth": [
+                0.1,
+                0.1,
+                5e-11
+            ],
+            "pmax": [
+                -11.397940008672037,
+                6.98,
+                3e-09
+            ],
+            "corr": "gr",
+            "prior": [
+                "log",
+                "uniform",
+                "log"
+            ],
+            "pulsarind": -1,
+            "pstart": [
+                -15.0,
+                4.33,
+                1e-10
+            ],
+            "stype": "powerlaw",
+            "bvary": [
+                true,
+                false,
+                false
+            ]
+        }
+    ],
+    "numScatFreqs": 0,
+    "numpulsars": 10,
+    "evalCompressionComplement": false,
+    "numNoiseFreqs": [
+        30,
+        30,
+        30,
+        30,
+        30,
+        30,
+        30,
+        30,
+        30,
+        30
+    ],
+    "numDMFreqs": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+    ],
+    "logfrequencies": false,
+    "compression": "None"
+}
