@@ -4,6 +4,8 @@ import h5py as h5
 
 from PAL2 import PALmodels, PALutils, pputils as pp
 
+import makesims
+
 
 def run_noise_analysis(dataset, niter=1000000):
 
@@ -25,6 +27,7 @@ def run_noise_analysis(dataset, niter=1000000):
     psrs = list(pfile.keys())
 
     for psr in psrs:
+        print '   Running on ' + psr
         os.system('PAL2_run.py --h5File {0} --pulsar {1} \
                   --outDir chains/{2}/noise/{1}/ --niter {3} \
                   --mark9 --incRed --nf 30'.format(h5filename, psr, dataset, niter))
@@ -145,3 +148,28 @@ def compute_optstat_marg(dataset, psrlist, nf, nreal=1000,
 
     return (opts, sigs, opts/sigs)
 
+
+if __name__ == '__main__':
+    
+    import argparse
+    
+    parser = argparse.ArgumentParser(description='generates simulated data and computes the optimal statistic for each simulation')
+
+    parser.add_argument('--Agw', default=5e-15, help='GW amplitude (DEFAULT: 5e-15)')
+    parser.add_argument('--datasetname', default='dataset', help='name for this data set')
+    
+    args = parser.parse_args()
+    
+    Agwb = float(args.Agw)
+    dataset = args.datasetname
+    
+    makesims.create_dataset(dataset, Agwb)
+    
+    run_noise_analysis(dataset)
+    
+    psrlist = list(np.loadtxt('../data/psrList.txt', dtype='S42'))
+    h5file = '../data/simulated_data/' + dataset + '/sim.hdf5'
+    opts, sigs, snr = compute_optstat_marg(dataset, psrlist, nf=30, 
+                                           noVaryNoise=True, incJitterEquad=False, 
+                                           incEquad=False)
+    
