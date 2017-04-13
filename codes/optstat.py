@@ -20,6 +20,14 @@ def run_noise_analysis(dataset, niter=1000000):
               --outDir {1}/fix_spec_nf_30/ --niter {2} --fixWhite \
               --noVaryNoise --mark9 --incRed --incGWB --Tspan 0 --noCorrelations --nf 30 \
               --fixSi 4.33'.format(h5filename, chaindir, niter))
+    
+    # find sample with largest posterior value to be used for initialising os 
+    print 'Retreiving maximum likelihood sample from ' + chaindir  
+    chain = np.loadtxt(chaindir + '/fix_spec_nf_30/chain_1.txt')
+    burn = int(0.25*chain.shape[0])
+    index = np.argmax(chain[burn:,-3])
+    maxpost_sample = chain[index, :-4]
+    np.save(chaindir + '/init_RN_params.npy', maxpost_sample)
 
     # run the individual noise analyses for each pulsar
     print 'Running the individual white noise analyses for each pulsar...'
