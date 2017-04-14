@@ -26,7 +26,7 @@ def run_noise_analysis(dataset, niter=1000000):
     chain = np.loadtxt(chaindir + '/fix_spec_nf_30/chain_1.txt')
     burn = int(0.25*chain.shape[0])
     index = np.argmax(chain[burn:,-3])
-    maxpost_sample = chain[index, :-4]
+    maxpost_sample = chain[index,:]
     np.save(chaindir + '/init_RN_params.npy', maxpost_sample)
 
     # run the individual noise analyses for each pulsar
@@ -57,7 +57,7 @@ def run_noise_analysis(dataset, niter=1000000):
 
 # initialize the optimal statistic using the noise values from file
 # from Justin Ellis
-def init_os(h5file, psrlist, nf, noisedir=None, noVaryNoise=False,
+def init_os(dataset, h5file, psrlist, nf, noisedir=None, noVaryNoise=False,
             incJitterEquad=True, incEquad=True, outputfile=None):
 
     model = PALmodels.PTAmodels(h5file, pulsars=psrlist)
@@ -93,6 +93,14 @@ def init_os(h5file, psrlist, nf, noisedir=None, noVaryNoise=False,
     
     # start parameters off at initial values (i.e the fixed values red in above)
     p0 = model.initParameters(fixpstart=True)
+    print 'p0 = ', p0
+    print len(p0)
+    
+    # load in RN param values from maximum likelihood chain
+    chaindir = '../data/chains/' + dataset
+    p0 = np.load(chaindir + '/init_RN_params.npy')
+    print 'p0_chain = ', p0
+    print len(p0)
     
     # essentially turn off GWB component (again we will do something different when drawing from full PTA posterior)
     p0[-2] = -19
@@ -124,7 +132,7 @@ def compute_optstat_marg(dataset, psrlist, nf, nreal=1000,
     noisedir = '../data/noisefiles/' + dataset + '/'
     h5file = '../data/simulated_data/' + dataset + '/sim.hdf5'
 
-    model = init_os(h5file, psrlist, int(nf), noisedir,
+    model = init_os(dataset, h5file, psrlist, int(nf), noisedir,
                     noVaryNoise=noVaryNoise, incJitterEquad=incJitterEquad, incEquad=incEquad,
                     outputfile=outputdir+'/init_os.dat')
 
