@@ -7,6 +7,19 @@ from PAL2 import PALmodels, PALutils, pputils as pp
 import makesims
 
 
+def get_ml_vals(cp):
+
+    ind = np.arange(0, cp.ndim)
+    ind = np.atleast_1d(ind)
+
+    x = OrderedDict()
+
+    for i in ind:
+        x[cp.pars[i]] = bu.getMax(cp.chain[:,i])
+
+    return x
+
+
 def run_noise_analysis(dataset, niter=1000000):
 
     h5filename = '../data/simulated_data/' + dataset + '/sim.hdf5'
@@ -22,12 +35,12 @@ def run_noise_analysis(dataset, niter=1000000):
               --fixSi 4.33'.format(h5filename, chaindir, niter))
     
     # find sample with largest posterior value to be used for initialising os 
-    print 'Retreiving maximum likelihood sample from ' + chaindir  
-    chain = np.loadtxt(chaindir + '/fix_spec_nf_30/chain_1.txt')
-    burn = int(0.25*chain.shape[0])
-    index = np.argmax(chain[burn:,-3])
-    maxpost_sample = chain[index,:]
-    np.save(chaindir + '/init_RN_params.npy', maxpost_sample)
+#    print 'Retreiving maximum likelihood sample from ' + chaindir
+#    chain = np.loadtxt(chaindir + '/fix_spec_nf_30/chain_1.txt')
+#    burn = int(0.25*chain.shape[0])
+#    index = np.argmax(chain[burn:,-3])
+#    maxpost_sample = chain[index,:]
+#    np.save(chaindir + '/init_RN_params.npy', maxpost_sample)
 
     # run the individual noise analyses for each pulsar
     print 'Running the individual white noise analyses for each pulsar...'
@@ -44,13 +57,24 @@ def run_noise_analysis(dataset, niter=1000000):
     noisedir = '../data/noisefiles/' + dataset
     os.system('mkdir -p {0}'.format(noisedir))
     print 'Making the noise files for each pulsar in directory ' + noisedir
-    for psr in psrs:
-        cp = pp.ChainPP('chains/{0}/noise/{1}/'.format(dataset, psr))
-        ml = cp.get_ml_values(mtype='marg')
+    for n,psr in enumerate(psrs):
+#        cp = pp.ChainPP('chains/{0}/noise/{1}/'.format(dataset, psr))
+#        ml = cp.get_ml_values(mtype='marg')
+#        noisefile = noisedir + '/{0}_noise.txt'.format(psr)
+#        with open(noisefile, 'w') as f:
+#            for key, val in ml.items():
+#                f.write('%s %g\n'%(key, val))
+
+        pars = list(np.loadtxt('chains/{0}/noise/{1}/pars.txt'.format(dataset, psr), dtype='S42'))
+        chain = np.loadtxt('chains/{0}/noise/{1}/chain_1.txt'.format(dataset, psr))
+        burn = int(0.25*chain.shape[0])
+        index = np.argmax(chain[burn:,-3])
+        maxpost_sample = chain[index,:]
+        
         noisefile = noisedir + '/{0}_noise.txt'.format(psr)
         with open(noisefile, 'w') as f:
-            for key, val in ml.items():
-                f.write('%s %g\n'%(key, val))
+            for p,val in zip(pars,maxpost_sample):
+                f.write('%s %g\n'%(p, val))
 
     print 'Finished!'
 
