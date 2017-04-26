@@ -1,6 +1,8 @@
 import numpy as np
 import os,sys,glob,math
 import h5py as h5
+import scipy.interpolate as interp
+import scipy.ndimage.filters as filter
 
 from PAL2 import PALmodels, PALutils, pputils as pp
 
@@ -18,6 +20,61 @@ def get_ml_vals(cp):
         x[cp.pars[i]] = bu.getMax(cp.chain[:,i])
 
     return x
+
+
+
+def getMax2d(samples1, samples2, weights=None, smooth=True, bins=[40, 40],
+            x_range=None, y_range=None, logx=False, logy=False, logz=False):
+    
+    if x_range is None:
+        xmin = np.min(samples1)
+        xmax = np.max(samples1)
+    else:
+        xmin = x_range[0]
+        xmax = x_range[1]
+
+    if y_range is None:
+        ymin = np.min(samples2)
+        ymax = np.max(samples2)
+    else:
+        ymin = y_range[0]
+        ymax = y_range[1]
+
+    if logx:
+        bins[0] = np.logspace(np.log10(xmin), np.log10(xmax), bins[0])
+    
+    if logy:
+        bins[1] = np.logspace(np.log10(ymin), np.log10(ymax), bins[1])
+
+    hist2d,xedges,yedges = np.histogram2d(samples1, samples2, weights=weights, \
+            bins=bins,range=[[xmin,xmax],[ymin,ymax]])
+    extent = [xedges[0], xedges[-1], yedges[0], yedges[-1] ]
+
+    if logz:
+        for ii in range(hist2d.shape[0]):
+            for jj in range(hist2d.shape[1]):
+                if hist2d[ii,jj] <= 0:
+                    hist2d[ii,jj] = 1
+
+    
+    xedges = np.delete(xedges, -1) + 0.5*(xedges[1] - xedges[0])
+    yedges = np.delete(yedges, -1) + 0.5*(yedges[1] - yedges[0])
+    
+    # gaussian smoothing
+    if smooth:
+        hist2d = filter.gaussian_filter(hist2d, sigma=0.75)
+
+    # interpolation
+    f = interp.interp2d(xedges, yedges, hist2d, kind='cubic')
+    xedges = np.linspace(xedges.min(), xedges.max(), 10000)
+    yedges = np.linspace(yedges.min(), yedges.max(), 10000)
+    hist2d = f(xedges, yedges)
+
+    # return xedges[np.argmax(hist2d)]
+    ind = np.unravel_index(np.argmax(hist2d), hist2d.shape)
+    return xedges[ind[0]], yedges[ind[1]]
+
+
 
 
 def run_noise_analysis(dataset, niter=1000000):
@@ -57,24 +114,48 @@ def run_noise_analysis(dataset, niter=1000000):
     noisedir = '../data/noisefiles/' + dataset
     os.system('mkdir -p {0}'.format(noisedir))
     print 'Making the noise files for each pulsar in directory ' + noisedir
+    
     for n,psr in enumerate(psrs):
-#        cp = pp.ChainPP('chains/{0}/noise/{1}/'.format(dataset, psr))
-#        ml = cp.get_ml_values(mtype='marg')
-#        noisefile = noisedir + '/{0}_noise.txt'.format(psr)
-#        with open(noisefile, 'w') as f:
-#            for key, val in ml.items():
-#                f.write('%s %g\n'%(key, val))
-
-        pars = list(np.loadtxt('chains/{0}/noise/{1}/pars.txt'.format(dataset, psr), dtype='S42'))
-        chain = np.loadtxt('chains/{0}/noise/{1}/chain_1.txt'.format(dataset, psr))
-        burn = int(0.25*chain.shape[0])
-        index = np.argmax(chain[burn:,-3])
-        maxpost_sample = chain[index,:]
         
+        
+        if writenoise == '1dmax':
+        # create chain object and find 1d maxLL values
+        cp = pp.ChainPP('chains/{0}/noise/{1}/'.format(dataset, psr))
+        ml = cp.get_ml_values(mtype='marg')
         noisefile = noisedir + '/{0}_noise.txt'.format(psr)
         with open(noisefile, 'w') as f:
-            for p,val in zip(pars,maxpost_sample):
-                f.write('%s %g\n'%(p, val))
+            for key, val in ml.items():
+                f.write('%s %g\n'%(key, val))
+
+
+        if writenoise == 'maxsample':
+            # load chain and parameters names
+            pars = list(np.loadtxt('chains/{0}/noise/{1}/pars.txt'.format(dataset, psr), dtype='S42'))
+            chain = np.loadtxt('chains/{0}/noise/{1}/chain_1.txt'.format(dataset, psr))
+            burn = int(0.25*chain.shape[0])
+            # find max sample
+            index = np.argmax(chain[burn:,-3])
+            maxpost_sample = chain[index,:]
+            # write
+            noisefile = noisedir + '/{0}_noise.txt'.format(psr)
+            with open(noisefile, 'w') as f:
+                for p,val in zip(pars,maxpost_sample):
+                    f.write('%s %g\n'%(p, val))
+
+        if writenoise == '2dmax':
+            
+            pars = list(np.loadtxt('chains/{0}/noise/{1}/pars.txt'.format(dataset, psr), dtype='S42'))
+            chain = np.loadtxt('chains/{0}/noise/{1}/chain_1.txt'.format(dataset, psr))
+            burn = int(0.25*chain.shape[0])
+            # 2-d historam 
+            RN_amplitude = chain[:,np.argwhere(pars == 'RN-Amplitude_{0}'.format(psr))[0][0]]
+            RN_spectral_index = chain[:,np.argwhere(pars == 'RN-spectral-index_{0}'.format(psr))[0][0]]
+            ml = getMax2d(RN_amplitude, RN_spectral_index)
+            # write 
+            noisefile = noisedir + '/{0}_noise.txt'.format(psr)
+            with open(noisefile, 'w') as f:
+                for key, val in ml.items():
+                    f.write('%s %g\n'%(key, val))
 
     print 'Finished!'
 
@@ -117,14 +198,6 @@ def init_os(dataset, h5file, psrlist, nf, noisedir=None, noVaryNoise=False,
     
     # start parameters off at initial values (i.e the fixed values red in above)
     p0 = model.initParameters(fixpstart=True)
-    print 'p0 = ', p0
-    print len(p0)
-    
-    # load in RN param values from maximum likelihood chain
-    chaindir = '../data/chains/' + dataset
-    p0 = np.load(chaindir + '/init_RN_params.npy')
-    print 'p0_chain = ', p0
-    print len(p0)
     
     # essentially turn off GWB component (again we will do something different when drawing from full PTA posterior)
     p0[-2] = -19
@@ -197,11 +270,14 @@ if __name__ == '__main__':
 
     parser.add_argument('--Agw', default=5e-15, help='GW amplitude (DEFAULT: 5e-15)')
     parser.add_argument('--datasetname', default='dataset', help='name for this data set')
+    parser.add_argument('--writenoise', default='1dmax', help='how to determine individual pulsar noise values \
+                        (1-d maximization / 2-d maximization / maximum likelihood sample from common red process)')
     
     args = parser.parse_args()
     
     Agwb = float(args.Agw)
     dataset = args.datasetname
+    writenoise = args.writenoise
     
     makesims.create_dataset(dataset, Agwb)
     
