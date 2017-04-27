@@ -77,7 +77,7 @@ def getMax2d(samples1, samples2, weights=None, smooth=True, bins=[40, 40],
 
 
 
-def run_noise_analysis(dataset, niter=1000000):
+def run_noise_analysis(dataset, writenoise, niter=1000000):
 
     h5filename = '../data/simulated_data/' + dataset + '/sim.hdf5'
 
@@ -281,7 +281,7 @@ if __name__ == '__main__':
     
     makesims.create_dataset(dataset, Agwb)
     
-    run_noise_analysis(dataset)
+    run_noise_analysis(dataset, writenoise)
     
     psrlist = list(np.loadtxt('../data/psrList.txt', dtype='S42'))
     h5file = '../data/simulated_data/' + dataset + '/sim.hdf5'
