@@ -119,13 +119,13 @@ def run_noise_analysis(dataset, niter=1000000):
         
         
         if writenoise == '1dmax':
-        # create chain object and find 1d maxLL values
-        cp = pp.ChainPP('chains/{0}/noise/{1}/'.format(dataset, psr))
-        ml = cp.get_ml_values(mtype='marg')
-        noisefile = noisedir + '/{0}_noise.txt'.format(psr)
-        with open(noisefile, 'w') as f:
-            for key, val in ml.items():
-                f.write('%s %g\n'%(key, val))
+            # create chain object and find 1d maxLL values
+            cp = pp.ChainPP('chains/{0}/noise/{1}/'.format(dataset, psr))
+            ml = cp.get_ml_values(mtype='marg')
+            noisefile = noisedir + '/{0}_noise.txt'.format(psr)
+            with open(noisefile, 'w') as f:
+                for key, val in ml.items():
+                    f.write('%s %g\n'%(key, val))
 
 
         if writenoise == 'maxsample':
