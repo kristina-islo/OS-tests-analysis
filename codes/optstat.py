@@ -143,20 +143,36 @@ def run_noise_analysis(dataset, writenoise, niter=1000000):
                     f.write('%s %g\n'%(p, val))
 
         if writenoise == '2dmax':
+
+            # create chain object and find 1d maxLL values
+            cp = pp.ChainPP('chains/{0}/noise/{1}/'.format(dataset, psr))
+            ml = cp.get_ml_values(mtype='marg')
+            noisefile = noisedir + '/{0}_noise.txt'.format(psr)
             
+            # load chain and find 2d maxLL values
             pars = list(np.loadtxt('chains/{0}/noise/{1}/pars.txt'.format(dataset, psr), dtype='S42'))
             chain = np.loadtxt('chains/{0}/noise/{1}/chain_1.txt'.format(dataset, psr))
             burn = int(0.25*chain.shape[0])
             # 2-d historam 
-            RN_amplitude = chain[:,np.argwhere(pars == 'RN-Amplitude_{0}'.format(psr))[0][0]]
-            RN_spectral_index = chain[:,np.argwhere(pars == 'RN-spectral-index_{0}'.format(psr))[0][0]]
-            ml = getMax2d(RN_amplitude, RN_spectral_index)
-            # write 
-            noisefile = noisedir + '/{0}_noise.txt'.format(psr)
-            with open(noisefile, 'w') as f:
-                for key, val in ml.items():
-                    f.write('%s %g\n'%(key, val))
+            RN_amplitude_chain = chain[:,np.argwhere(pars == 'RN-Amplitude_{0}')[0][0]]
+            RN_spectral_index_chain = chain[:,np.argwhere(pars == 'RN-spectral-index')[0][0]]
+            RN_Amplitude, RN_spectral_index = getMax2d(RN_amplitude_chain, RN_spectral_index_chain)
 
+            with open(noisefile, 'w') as f:
+
+                for key, val in ml.items():
+
+                    if key == 'RN-Amplitude':
+                        val = RN_Amplitude
+                        f.write('%s %g\n'%(key, val))
+
+                    elif key == 'RN-spectral-index':
+                        val = RN_spectral_index
+                        f.write('%s %g\n'%(key, val))
+
+                    else:
+                        f.write('%s %g\n'%(key, val))
+            
     print 'Finished!'
 
 
