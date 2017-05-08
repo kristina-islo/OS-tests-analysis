@@ -22,7 +22,6 @@ def get_ml_vals(cp):
     return x
 
 
-
 def getMax2d(samples1, samples2, weights=None, smooth=True, bins=[40, 40],
             x_range=None, y_range=None, logx=False, logy=False, logz=False):
     
@@ -73,8 +72,6 @@ def getMax2d(samples1, samples2, weights=None, smooth=True, bins=[40, 40],
     # return xedges[np.argmax(hist2d)]
     ind = np.unravel_index(np.argmax(hist2d), hist2d.shape)
     return xedges[ind[0]], yedges[ind[1]]
-
-
 
 
 def run_noise_analysis(dataset, writenoise, niter=1000000):
@@ -176,6 +173,90 @@ def run_noise_analysis(dataset, writenoise, niter=1000000):
     print 'Finished!'
 
 
+def compute_orf(ptheta, pphi):
+    
+    npsr = len(ptheta)
+    pos = [ np.array([np.cos(phi)*np.sin(theta),
+                      np.sin(phi)*np.sin(theta),
+                      np.cos(theta)]) for phi, theta in zip(pphi, ptheta) ]
+        
+    x = []
+    for i in range(npsr):
+        for j in range(i+1,npsr):
+            x.append(np.dot(pos[i], pos[j]))
+    x = np.array(x)
+
+    orf = HD(x)
+    
+    return orf
+
+
+def compute_monopole(psr):
+    
+    npsr = len(psr)
+    npairs = int(npsr*(npsr-1)/2)
+    ORF = np.ones(npairs)
+    
+    return ORF
+
+
+def compute_dipole(psr):
+    
+    npsr = len(psr)
+    npairs = int(npsr*(npsr-1)/2)
+    ORF = np.zeros(npairs)
+    
+    phati = np.zeros(3)
+    phatj = np.zeros(3)
+    
+    # begin loop over all pulsar pairs and calculate ORF
+    k = 0
+    for i in range(npsr):
+        phati[0] = np.cos(psr[i].phi) * np.sin(psr[i].theta)
+        phati[1] = np.sin(psr[i].phi) * np.sin(psr[i].theta)
+        phati[2] = np.cos(psr[i].theta)
+        
+        for j in range(i+1,npsr):
+            phatj[0] = np.cos(psr[j].phi) * np.sin(psr[j].theta)
+            phatj[1] = np.sin(psr[j].phi) * np.sin(psr[j].theta)
+            phatj[2] = np.cos(psr[j].theta)
+            
+            costhetaij = np.sum(phati*phatj)
+            
+            ORF[k] = costhetaij
+            k += 1
+    
+    return ORF
+
+
+# returns the Hellings and Downs coefficient for two DIFFERENT pulsars
+#    x :   cosine of the angle between the pulsars
+def HD(x):
+    return 1.5*(1./3. + (1.-x)/2.*(np.log((1.-x)/2.)-1./6.))
+
+
+def compute_os(orf, rho, sig):
+    
+    opt = np.sum(np.array(rho) * orf / np.array(sig) ** 2) / np.sum(orf ** 2 / np.array(sig) ** 2)
+    sig = 1 / np.sqrt(np.sum(orf ** 2 / np.array(sig) ** 2))
+    
+    return opt, sig
+
+
+# reads in sky scramble positions from files provided by Steve Taylor
+def read_in_skyscrambles(directory, nscrambles):
+    
+    orfs = []
+    
+    for n in range(nscrambles):
+        data = np.loadtxt(directory + 'PositionSet_{0:d}.dat'.format(n),
+                          skiprows=1, usecols=(1,2))
+                          
+        orfs.append(compute_orf(data[:,1], data[:,0]))
+    
+    return orfs
+
+
 # initialize the optimal statistic using the noise values from file
 # from Justin Ellis
 def init_os(dataset, h5file, psrlist, nf, noisedir=None, noVaryNoise=False,
@@ -234,7 +315,9 @@ def init_os(dataset, h5file, psrlist, nf, noisedir=None, noVaryNoise=False,
 # compute the optimal statistic, marginalizing over the noise parameters
 # noise parameters are drawn from chainfile
 def compute_optstat_marg(dataset, psrlist, nf, nreal=1000,
-                         noVaryNoise=False, incJitterEquad=True, incEquad=True):
+                         noVaryNoise=False, incJitterEquad=True, incEquad=True,
+                         computeMonopole=False, computeDipole=False,
+                         computeSkyScrambles=False, skyScrambleDir='.', nscrambles=100):
     
     outputdir = '../data/optstat/' + dataset
     if not os.path.exists(outputdir):
@@ -260,12 +343,31 @@ def compute_optstat_marg(dataset, psrlist, nf, nreal=1000,
     
     opts, sigs = np.zeros(nreal), np.zeros(nreal)
     pars = np.zeros((nreal, chain.shape[1]))
-    
+
+    if computeMonopole:
+        xi1 = compute_monopole(model.psr)
+        opts1, sigs1 = np.zeros(nreal), np.zeros(nreal)
+    if computeDipole:
+        xi2 = compute_dipole(model.psr)
+        opts2, sigs2 = np.zeros(nreal), np.zeros(nreal)
+
+    if computeSkyScrambles:
+        xi_ss = read_in_skyscrambles(skyScrambleDir, nscrambles)
+        opt_ss = [ np.zeros(nreal) for i in range(nscrambles) ]
+        sig_ss = [ np.zeros(nreal) for i in range(nscrambles) ]
+
     for ii in range(nreal):
         preal = chain[np.random.randint(0, chain.shape[0]), :]
         preal = np.concatenate((preal, np.array([4.33])))
         pars[ii,:] = preal[:-1]
-        _, _, _, opts[ii], sigs[ii] = model.opt_stat_mark9(preal, fixWhite=True)
+        xi, rho, sig, opts[ii], sigs[ii] = model.opt_stat_mark9(preal, fixWhite=True)
+        if computeMonopole:
+            opts1[ii], sigs1[ii] = compute_os(xi1, rho, sig)
+        if computeDipole:
+            opts2[ii], sigs2[ii] = compute_os(xi2, rho, sig)
+        if computeSkyScrambles:
+            for j in range(nscrambles):
+                opt_ss[j][ii], sig_ss[j][ii] = compute_os(xi_ss[j], rho, sig)
     
     # write output to a file (optimal statistic, sigma, and SNR for each noise realization)
     outputfile = outputdir + '/marg_os.dat'
@@ -274,6 +376,27 @@ def compute_optstat_marg(dataset, psrlist, nf, nreal=1000,
     for i in range(nreal):
         f.write('{0:>13.6e}  {1:>13.6e}  {2:>13.6e}\n'.format(opts[i], sigs[i], opts[i]/sigs[i]))
     f.close()
+
+    if computeMonopole:
+        f1 = open(outputdir + '/marg_os_monopole.dat', 'w')
+        for i in range(nreal):
+            f1.write('{0:>13.6e}  {1:>13.6e}  {2:>13.6e}\n'.format(opts1[i], sigs1[i], opts1[i]/sigs1[i]))
+        f1.close()
+
+    if computeDipole:
+        f2 = open(outputdir + '/marg_os_dipole.dat', 'w')
+        for i in range(nreal):
+            f2.write('{0:>13.6e}  {1:>13.6e}  {2:>13.6e}\n'.format(opts2[i], sigs2[i], opts2[i]/sigs2[i]))
+        f2.close()
+
+    if computeSkyScrambles:
+        for n in range(nscrambles):
+            f = open(outputdir + '/marg_os_skyscramble{0}.dat'.format(n), 'w')
+            for i in range(nreal):
+                f.write('{0:>13.6e}  {1:>13.6e}  {2:>13.6e}\n'.format(opt_ss[n][i],
+                                                                      sig_ss[n][i],
+                                                                      opt_ss[n][i]/sig_ss[n][i]))
+            f.close()
 
     return (opts, sigs, opts/sigs)
 
@@ -284,10 +407,26 @@ if __name__ == '__main__':
     
     parser = argparse.ArgumentParser(description='generates simulated data and computes the optimal statistic for each simulation')
 
-    parser.add_argument('--Agw', default=5e-15, help='GW amplitude (DEFAULT: 5e-15)')
-    parser.add_argument('--datasetname', default='dataset', help='name for this data set')
-    parser.add_argument('--writenoise', default='1dmax', help='how to determine individual pulsar noise values \
-                        (1-d maximization / 2-d maximization / maximum likelihood sample from common red process)')
+    parser.add_argument('--Agw', default=5e-15,
+                        help='GW amplitude (DEFAULT: 5e-15)')
+    parser.add_argument('--datasetname', default='dataset',
+                        help='name for this data set')
+    parser.add_argument('--skipdatacreate', action='store_true')
+    parser.add_argument('--skipnoiseanalysis', action='store_true')
+    parser.add_argument('--writenoise', default='2dmax',
+                        help='how to determine individual pulsar noise values \
+                        (1-d maximization / 2-d maximization / maximum likelihood sample from common red process, \
+                        DEFAULT: 2dmax)')
+    parser.add_argument('--computeMonopole', action='store_true',
+                        help='also compute optimal statistic for monopole spatial correlations (DEFAULT: false)')
+    parser.add_argument('--computeDipole', action='store_true',
+                        help='also compute optimal statistic for dipole spatial correlations (DEFAULT: false)')
+    parser.add_argument('--computeSkyScrambles', action='store_true',
+                        help='also compute optimal statistic for sky scrambles (DEFAULT: false)')
+    parser.add_argument('--skyScrambleDir', default='../data/PosSetSim2/',
+                        help='directory containing sky scramble positions')
+    parser.add_argument('--nscrambles', default=210,
+                        help='number of sky scrambles to run (DEFAULT: 210)')
     
     args = parser.parse_args()
     
@@ -295,13 +434,19 @@ if __name__ == '__main__':
     dataset = args.datasetname
     writenoise = args.writenoise
     
-    makesims.create_dataset(dataset, Agwb)
+    if not args.skipdatacreate:
+        makesims.create_dataset(dataset, Agwb)
     
-    run_noise_analysis(dataset, writenoise)
+    if not args.skipnoiseanalysis:
+        run_noise_analysis(dataset, writenoise)
     
     psrlist = list(np.loadtxt('../data/psrList.txt', dtype='S42'))
     h5file = '../data/simulated_data/' + dataset + '/sim.hdf5'
     opts, sigs, snr = compute_optstat_marg(dataset, psrlist, nf=30, 
                                            noVaryNoise=True, incJitterEquad=False, 
-                                           incEquad=False)
-    
+                                           incEquad=False,
+                                           computeMonopole=args.computeMonopole,
+                                           computeDipole=args.computeDipole,
+                                           computeSkyScrambles=args.computeSkyScrambles,
+                                           skyScrambleDir=args.skyScrambleDir,
+                                           nscrambles=int(args.nscrambles))
