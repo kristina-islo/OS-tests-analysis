@@ -127,7 +127,7 @@ def run_noise_analysis(dataset, writenoise, niter=1000000):
         if writenoise == 'maxsample':
             # load chain and parameters names
             pars = list(np.loadtxt('chains/{0}/noise/{1}/pars.txt'.format(dataset, psr), dtype='S42'))
-            chain = np.loadtxt('chains/{0}/noise/{1}/chain_1.txt'.format(dataset, psr))
+            chain = np.loadtxt('../data/chains/{0}/fix_spec_nf_30/chain_1.txt'.format(dataset))
             burn = int(0.25*chain.shape[0])
             # find max sample
             index = np.argmax(chain[burn:,-3])
