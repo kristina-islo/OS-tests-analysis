@@ -1,12 +1,22 @@
 \documentclass[twocolumn,aps,prd,superscriptaddress]{revtex4-1}  
 \usepackage{amsmath,graphicx}
 
+\DeclareMathOperator{\Tr}{Tr}
+
+\usepackage[usenames]{color}
+\newcommand{\sv}[1]{\textcolor{blue}{\it{\textbf{sv: #1}}} }
+\newcommand{\ki}[1]{\textcolor{green}{\it{\textbf{ki: #1}}} }
+
+\newcommand{\Agw}{\ensuremath{A_\mathrm{gw}}}
+
+
 \begin{document}
 
-\title{Here is our title}
+\title{Assessing spatial correlations in pulsar timing arrays with the noise-marginalized optimal statistic}
 
-\author{Justin A.\ Ellis}
-\affiliation{Jet Propulsion Laboratory, California Institute of Technology, 4800 Oak Grove Drive, Pasadena, California 91106, USA}
+
+\author{Sarah J.\ Vigeland}
+\affiliation{Center for Gravitation, Cosmology and Astrophysics, University of Wisconsin--Milwaukee, PO Box 413, Milwaukee WI, 53201, USA}
 
 \author{Kristina P.\ Islo}
 \affiliation{Center for Gravitation, Cosmology and Astrophysics, University of Wisconsin--Milwaukee, PO Box 413, Milwaukee WI, 53201, USA}
@@ -14,8 +24,8 @@
 \author{Stephen R.\ Taylor}
 \affiliation{Jet Propulsion Laboratory, California Institute of Technology, 4800 Oak Grove Drive, Pasadena, California 91106, USA}
 
-\author{Sarah J.\ Vigeland}
-\affiliation{Center for Gravitation, Cosmology and Astrophysics, University of Wisconsin--Milwaukee, PO Box 413, Milwaukee WI, 53201, USA}
+\author{Justin A.\ Ellis}
+\affiliation{Jet Propulsion Laboratory, California Institute of Technology, 4800 Oak Grove Drive, Pasadena, California 91106, USA}
 
 \date{\today}  
 
@@ -28,14 +38,191 @@ Here is our abstract.
 
 \section{Introduction}
 
+Pulsar timing arrays (PTAs) \sv{blah blah blah}
 
-\section{Posterior Averaging}
+The optimal statistic is a frequentist estimator for the stochastic background amplitude. 
+It was derived by \citet{abc+2009} \sv{blah blah blah... try not to plagiarize myself}
+
+The optimal statistic is an important complement to Bayesian detection techniques. 
+It provides an independent way to assess the significance of the stochastic background, 
+and it is significantly faster to compute. It is also easy to test different spatial correlations 
+by altering the overlap reduction function $\Gamma$ in the cross-correlations. 
+In contrast, doing a full Bayesian analysis with spatial correlations is a very computationally 
+intensive procedure.
+
+However, previous work has found that the optimal statistic gives biased results \sv{expand...} 
+In order to compute the optimal statistic, the timing model parameters are fixed 
+at the maximum-likelihood values, but this leads to biases in the 
+optimal statistic value and uncertainty due to covariances between the 
+individual red noise parameters and the GW amplitude. 
+
+In this paper, we present a technique for improving the accuracy of the optimal statistic 
+by marginalizing the optimal statistic over the individual red noise parameters 
+using the posterior distributions from a full Bayesian analysis. 
+We demonstrate that this hybrid approach produces a value and uncertainty 
+of the optimal statistic that is in better agreement to the $\Agw$ 
+produced from a full Bayesian analysis.
+
+This paper is organized as follows. In Sec.~\ref{sec:marg_os} 
+we lay out the procedure for computing the noise-marginalized optimal statistic 
+and compare to the fixed-noise optimal statistic. 
+In Sec.~\ref{sec:spatial} determine how well 
+the noise-marginalized optimal statistic can differentiate between different spatial correlations 
+using simulated PTA data. 
+In Sec.~\ref{sec:skyscrambles} we determine how well the noise-marginalized optimal statistic 
+can assess the significance of a GW detection by performing sky scrambles \citep{cs2016}. 
+and compare to the Bayesian analysis done by \citet{tlb+2017}. 
+We conclude in Sec.~\ref{sec:conclusion}.
+
+
+\section{Noise-marginalized optimal statistic}
+\label{sec:marg_os}
+
+As introduced by \citet{abc+2009}, 
+the optimal statistic is derived by analytically maximizing 
+the PTA likelihood function in the weak-signal regime. 
+The likelihood function is given by
+\begin{equation}
+	p({\bf{r}}|\phi) = \frac{\exp[-\frac{1}{2} {\bf{r}}^T \Sigma^{-1}(\phi) {\bf{r}} ]}{\sqrt{\mathrm{det}[2\pi \Sigma(\phi)]}} \,,
+\end{equation}
+where $\bf{r}$ is an array of the timing residuals 
+from the $M$ pulsars in the PTA,
+\begin{equation}
+	\bf{r} = \left[ \begin{array}{c} {\bf{r}}_1 \\ {\bf{r}}_2 \\ \vdots \\ {\bf{r}}_M \end{array} \right] \,,
+\end{equation}
+$\phi$ is the set of pulsar noise parameters, 
+and $\Sigma$ is the covariance matrix of the residuals. 
+We can write $\Sigma$ in terms of 
+autocovariance and cross-covariance matrices ${\bf{P}}_I$ and ${\bf{S}}_{IJ}$, respectively, as
+\begin{equation}
+	\Sigma = \left[ \begin{array}{cccc} {\bf{P}}_1 & {\bf{S}}_{12} & \hdots & {\bf{S}}_{1M}  \\
+							{\bf{S}}_{21} & {\bf{P}}_2 & \hdots & {\bf{S}}_{2M} \\
+							\vdots & \vdots & \ddots & \vdots \\
+							{\bf{S}}_{M1} & {\bf{S}}_{M2} & \hdots & {\bf{P}}_M \end{array} \right] \,,
+\end{equation}
+where
+\begin{eqnarray}
+	{\bf{P}} &=& \left\langle {\bf{r}}_I {\bf{r}}_I^T \right\rangle \,, \\
+	{\bf{S}}_{IJ} &=& \left. \left\langle {\bf{r}}_I {\bf{r}}_J^T \right\rangle \right|_{I \neq J} \,.
+\end{eqnarray}
+\sv{something about the overlap reduction function...}
+
+Analytically maximizing this likelihood gives the optimal statistic,
+\begin{equation}
+	\hat{A}^2 = \frac{\sum_{IJ} {\bf{r}}_I^T {\bf{P}}_I^{-1} \tilde{{\bf{S}}}_{IJ} {\bf{P}}_J^{-1} {\bf{r}}_J}{\sum_{IJ} \Tr \left( {\bf{P}}_I^{-1} \tilde{{\bf{S}}}_{IJ} {\bf{P}}_J^{-1} \tilde{{\bf{S}}}_{JI} \right) } \,,
+\end{equation}
+where $\tilde{{\bf{S}}}_{IJ}$ is the amplitude-independent cross-correlation matrix,
+\begin{equation}
+	\Agw^2 \tilde{{\bf{S}}}_{IJ} = {\bf{S}}_{IJ} \,.
+\end{equation}
+The normalization of $\hat{A}^2$ has been chosen so that 
+$\langle \hat{A}^2 \rangle = \Agw^2$. 
+For a weak GW signal, the standard deviation is 
+\begin{equation}
+	\sigma_0 = \left[ \sum_{IJ} \Tr \left( {\bf{P}}_I^{-1} \tilde{{\bf{S}}}_{IJ} {\bf{P}}_J^{-1} \tilde{{\bf{S}}}_{JI} \right) \right]^{-1/2} \,,
+\end{equation}
+and the signal-to-noise ratio (SNR) is
+\begin{equation}
+	\hat{\rho} = \frac{\hat{A}^2}{\sigma_0} = \frac{\sum_{IJ} {\bf{r}}_I^T {\bf{P}}_I^{-1} \tilde{{\bf{S}}}_{IJ} {\bf{P}}_J^{-1} {\bf{r}}_J}{\left[ \sum_{IJ} \Tr \left( {\bf{P}}_I^{-1} \tilde{{\bf{S}}}_{IJ} {\bf{P}}_J^{-1} \tilde{{\bf{S}}}_{JI} \right) \right]^{1/2}} \,.
+\end{equation}
+The expectation value of the SNR, averaged over all realizations of the stochastic background, is
+\begin{equation}
+	\left\langle \rho \right\rangle = \Agw^2 \left[ \sum_{IJ} \Tr\left( {\bf{P}}_I^{-1} \tilde{{\bf{S}}}_{IJ} {\bf{P}}_J^{-1} \tilde{{\bf{S}}}_{JI} \right) \right]^{1/2} \,.
+\end{equation}
+
+When constructing the optimal statistic, we typically fix the red noise parameters $\phi$ to the values that 
+maximize the likelihood, which we determine from a Bayesian common red noise analysis 
+\sv{check this part}. However, 
+doing this biases the optimal statistic and SNR \sv{blah blah blah} 
+In this paper we introduce a procedure to correct this bias by 
+marginalizing over the red noise parameters using 
+posterior distributions from a Bayesian analysis.
+
+In order to compare the noise-marginalized optimal statistic to the 
+fixed-noise optimal statistic, we simulated a stochastic background 
+in a PTA with \sv{fill in simulation details...} 
+The optimal statistic was computed using the \sv{fill in...} in PAL2 \sv{add citation}. 
+To compute the fixed-noise optimal statistic, the red noise parameters are 
+fixed to the maximum likelihood values found using \sv{Kristina fill in here...}
+
+Figure~\ref{fig:os_dataset_sample} shows the fixed-noise and noise-marginalized 
+optimal statistic for a single realization of the stochastic background, 
+and Fig.~\ref{fig:os_datasetstats} compares the fixed-noise values of $\hat{A}^2$ 
+to the mean $\hat{A}^2$ for each realization of the stochastic background. 
+The fixed-noise analysis tends to underestimate the strength of the stochastic background, 
+whereas the noise-marginalized analysis is better able to recover the injected value. 
+The mean value of the optimal statistic from the fixed-noise analysis, 
+averaged over realizations of the stochastic background, is $\hat{A}^2 = 7.9 \times 10^{-30}$, 
+while the mean value from the noise-marginalized analysis is $\hat{A}^2 = 2.2 \times 10^{-29}$.
+
+\begin{figure}[ht]
+	\includegraphics[width=\columnwidth]{plots/os_dataset50.pdf}
+	\caption{Optimal statistic and SNR for a simulated dataset 
+			containing an injected GW background with $\Agw = 5\times10^{-15}$. 
+			We compare the values found using a fixed-noise analysis (blue, dashed line) to the 
+			mean optimal statistic and mean SNR found by marginalizing over 
+			the individual pulsars' red noise parameters (orange, solid line). 
+			The dotted vertical line indicates the injected value, $\hat{A}^2 = 2.5 \times 10^{-29}$. 
+			For this particular realization of the stochastic background, the fixed-noise analysis 
+			gives $\hat{A}^2 = 1.9 \times 10^{-30}$ with $\mathrm{SNR} = 0.60$, 
+			while the noise-marginalized analysis gives $\hat{A}^2 = 1.9\times10^{-29}$ with $\mathrm{SNR} = 1.1$.}
+	\label{fig:os_dataset_sample}
+\end{figure}
+\begin{figure}[ht]
+	\includegraphics[width=\columnwidth]{plots/os_datasetstats_5e-15.pdf}
+	\caption{Optimal statistic and SNR for \sv{insert number} simulated datasets 
+			containing an injected GW background with $\Agw = 5\times10^{-15}$. 
+			We compare the values found using a fixed-noise analysis (blue) to the 
+			mean optimal statistic and mean SNR found by marginalizing over 
+			the individual pulsars' red noise parameters. The dashed vertical line 
+			indicates the injected value, $\hat{A}^2 = 2.5 \times 10^{-29}$. 
+			The value of $\hat{A}^2$ from the fixed-noise analysis, 
+			averaged over realizations of the stochastic background, is $\hat{A}^2 = 7.9 \times 10^{-30}$, 
+			while the noise-marginalized analysis gives a mean value of $\hat{A}^2 = 2.2 \times 10^{-29}$.}
+	\label{fig:os_datasetstats}
+\end{figure}
+
+\sv{say something about uncertainty, spread in marg os, etc}
+
+
+\section{Compare Significance with Monopole and Dipole}
+\label{sec:spatial}
+
+The optimal statistic 
+
+\citep{thk+2016}
 
 
 \section{Compare Significance with Sky Scrambles/Phase Shifts}
+\label{sec:skyscrambles}
+
+Another way to test the spatial correlations is through sky scrambles \sv{blah blah blah...} 
+\citet{cs2016} \citet{tlb+2017}
+
+The optimal statistic provides a much faster way to perform sky scrambles compared to 
+a Bayesian analysis since it only requires altering the overlap reduction function. 
+We performed sky scrambles by \sv{explain here...} 
+The scrambled sky positions were generated \sv{Steve, explain here...}
+
+Figure~\ref{fig:skyscrambles_dataset_sample} compares the noise-marginalized optimal statistic 
+for a particular data set to the 
+distribution of noise-marginalized optimal statistics obtained using sky scrambles.
+\sv{sky scrambles for all of our simulated data sets}
+
+\begin{figure}[ht]
+	\includegraphics[width=\columnwidth]{plots/skyscrambles_dataset50.pdf}
+	\caption{Comparison between the optimal statistic with and without sky scrambles 
+			for a simulated dataset containing an injected GW background with $\Agw = 5\times10^{-15}$. 
+			The true analysis found an $\mathrm{SNR} = 1.1$, while only 24 of the 210 sky scramble analyses 
+			found $\mathrm{SNR} \geq 1.1$ ($p=0.11$).}
+	\label{fig:skyscrambles_dataset_sample}
+\end{figure}
+
+\sv{comparison to Steve's}
 
 
 \section{Conclusion}
+\label{sec:conclusion}
 
 
 \acknowledgments
@@ -46,5 +233,9 @@ SRT was supported by appointment to the NASA Postdoctoral Program
 at the Jet Propulsion Laboratory, which is administered by Oak Ridge Associated Universities 
 and the Universities Space Research Association through a contract with NASA. 
 KPI and SJV are supported by NSF Physics Frontier Center Grant 1430284.
+
+
+\bibliographystyle{apsrev}
+\bibliography{master}
 
 \end{document}
