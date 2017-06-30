@@ -38,7 +38,7 @@ Here is our abstract.
 
 \section{Introduction}
 
-Pulsar timing arrays (PTAs) \sv{blah blah blah}
+Pulsar timing arrays (PTAs) can be used to detect low-frequency gravitational waves (GWs) \sv{blah blah blah}
 
 The optimal statistic is a frequentist estimator for the stochastic background amplitude. 
 It was derived by \citet{abc+2009} \sv{blah blah blah... try not to plagiarize myself}
@@ -59,15 +59,15 @@ individual red noise parameters and the GW amplitude.
 In this paper, we present a technique for improving the accuracy of the optimal statistic 
 by marginalizing the optimal statistic over the individual red noise parameters 
 using the posterior distributions from a full Bayesian analysis. 
-We demonstrate that this hybrid approach produces a value and uncertainty 
-of the optimal statistic that is in better agreement to the $\Agw$ 
-produced from a full Bayesian analysis.
+This hybrid approach produces a more accurate 
+estimate of \Agw\ and its uncertainty.
 
 This paper is organized as follows. In Sec.~\ref{sec:marg_os} 
 we lay out the procedure for computing the noise-marginalized optimal statistic 
 and compare to the fixed-noise optimal statistic. 
 In Sec.~\ref{sec:spatial} determine how well 
-the noise-marginalized optimal statistic can differentiate between different spatial correlations 
+the noise-marginalized optimal statistic can 
+differentiate between different spatial correlations 
 using simulated PTA data. 
 In Sec.~\ref{sec:skyscrambles} we determine how well the noise-marginalized optimal statistic 
 can assess the significance of a GW detection by performing sky scrambles \citep{cs2016}. 
@@ -139,11 +139,22 @@ marginalizing over the red noise parameters using
 posterior distributions from a Bayesian analysis.
 
 In order to compare the noise-marginalized optimal statistic to the 
-fixed-noise optimal statistic, we simulated a stochastic background 
-in a PTA with \sv{fill in simulation details...} 
+fixed-noise optimal statistic, we injected a GW stochastic background with 
+$\Agw = 5 \times 10^{-15}$ into simulated PTA data. 
+We constructed simulated data sets using the same procedure as in \citet{tlb+2017}, 
+which consisted of 10 MSPs with \sv{Steve fill in here...}
+
 The optimal statistic was computed using the \sv{fill in...} in PAL2 \sv{add citation}. 
-To compute the fixed-noise optimal statistic, the red noise parameters are 
-fixed to the maximum likelihood values found using \sv{Kristina fill in here...}
+We incorporate the individual pulsar noise parameters as follows. 
+We perform individual Bayesian noise analyses on all of the pulsars, and 
+fix the white noise to the maximum likelihood value. 
+To compute the fixed-noise optimal statistic, 
+the red noise parameters for each pulsar are set to the mode of 
+the joint posterior distribution for $A_\mathrm{red}$,$\gamma_\mathrm{red}$, 
+found by performing a Bayesian common red noise analysis. 
+For the noise-marginalized optimal statistic, we draw from 
+the common red noise posteriors in order to average the optimal statistic over 
+the individual pulsars' red noise.
 
 Figure~\ref{fig:os_dataset_sample} shows the fixed-noise and noise-marginalized 
 optimal statistic for a single realization of the stochastic background, 
@@ -168,6 +179,9 @@ while the mean value from the noise-marginalized analysis is $\hat{A}^2 = 2.2 \t
 			while the noise-marginalized analysis gives $\hat{A}^2 = 1.9\times10^{-29}$ with $\mathrm{SNR} = 1.1$.}
 	\label{fig:os_dataset_sample}
 \end{figure}
+
+\sv{compare to Bayesian analysis for a particular data set}
+
 \begin{figure}[ht]
 	\includegraphics[width=\columnwidth]{plots/os_datasetstats_5e-15.pdf}
 	\caption{Optimal statistic and SNR for \sv{insert number} simulated datasets 
@@ -188,20 +202,33 @@ while the mean value from the noise-marginalized analysis is $\hat{A}^2 = 2.2 \t
 \section{Compare Significance with Monopole and Dipole}
 \label{sec:spatial}
 
-The optimal statistic 
+The optimal statistic is particularly well-suited to compare multiple spatial correlation relations 
+because using a different spatial correlation only requires changing the overlap reduction function 
+in $\tilde{{\bf{S}}}_{IJ}$. 
+\citet{thk+2016} demonstrated how the optimal statistic can be altered to fit for 
+multiple spatial correlations at once in order to mitigate common noise sources such as 
+clock error and ephemeris error. 
+Here we compute the optimal statistic with monopole and dipole spatial correlations 
+for the same simulated data sets as in the previous section in order to determine 
+how well we can distinguish a GW background from a monopole or dipole signal. 
+For a monopole signal, the overlap reduction function becomes simply
+\[ \Gamma(\theta_{IJ}) = 1 \,\]
+while for a dipole signal, the overlap reduction function becomes
+\[ \Gamma(\theta_{IJ}) = \cos\theta_{IJ} \,. \]
 
-\citep{thk+2016}
+Figure~\ref{fig:} shows the mean value of $\hat{A}^2$ and the mean SNR 
+computed assuming monopole, dipole, and Hellings-Downs spatial correlations 
+for \sv{insert number} simulated data sets.
 
 
 \section{Compare Significance with Sky Scrambles/Phase Shifts}
 \label{sec:skyscrambles}
 
-Another way to test the spatial correlations is through sky scrambles \sv{blah blah blah...} 
-\citet{cs2016} \citet{tlb+2017}
+Another way to test the spatial correlations is through ``sky scrambles,'' 
+where the overlap reduction function is altered in order to simulate changing the pulsars' positions \citep{cs2016}. 
+\citet{tlb+2017} showed how sky scrambles affect the Bayes' factor for simulated data sets. 
+Here we perform a similar analysis using frequentist methods.
 
-The optimal statistic provides a much faster way to perform sky scrambles compared to 
-a Bayesian analysis since it only requires altering the overlap reduction function. 
-We performed sky scrambles by \sv{explain here...} 
 The scrambled sky positions were generated \sv{Steve, explain here...}
 
 Figure~\ref{fig:skyscrambles_dataset_sample} compares the noise-marginalized optimal statistic 
