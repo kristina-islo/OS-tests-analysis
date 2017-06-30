@@ -5,7 +5,7 @@
 
 \usepackage[usenames]{color}
 \newcommand{\sv}[1]{\textcolor{blue}{\it{\textbf{sv: #1}}} }
-\newcommand{\ki}[1]{\textcolor{green}{\it{\textbf{ki: #1}}} }
+\newcommand{\ki}[1]{\textcolor{cyan}{\it{\textbf{ki: #1}}} }
 
 \newcommand{\Agw}{\ensuremath{A_\mathrm{gw}}}
 
@@ -30,7 +30,8 @@
 \date{\today}  
 
 \begin{abstract}
-Here is our abstract.
+Supermassive black hole binaries (SMBHBs) are predicted to form a high-redshift cosmological population of low-frequency gravitational wave sources which added together produce a stochastic gravitational wave background (GWB) potentially measurable via pulsar timing. Comparing the actual and predicted times-of-arrival (TOAs) of radio pulses beamed by millisecond pulsars allows us to search for and place limits on the stochastic background. While most estimating of GWB significance is done via Bayesian analysis, here we use a frequentist estimator called the noise-marginalized optimal statistic to assess the signifcance of a GWB present in simulated PTA data. We find \ki{complete}
+
 \end{abstract}
 
 \maketitle
@@ -38,7 +39,11 @@ Here is our abstract.
 
 \section{Introduction}
 
-Pulsar timing arrays (PTAs) can be used to detect low-frequency gravitational waves (GWs) \sv{blah blah blah}
+Pulsar timing arrays (PTAs) are a conglomerate of pulsars with millisecond periods. Monitioring the ultra-regular emission from these pulsars with radio telescopes enables us to probe the dynamics of the spacetime through which the radio pulses travel. This makes PTAs ideal complements to ground- and space-based gravitational wave (GW) detectors. A PTAs sensitivity is constrained by single pulsar observation cadence and total experiment length. For NANOGrav, this means GW frequencies in the range $10^{-9} - 10^{-7}$ Hz. \ki{citations needed} predict that the incoherent superposition of inspiraling SMBHBs form the dominant signal in this low-frequency regime.  
+
+Most measuring of the stochastic background is done through Bayesian data analysis. \ki{baye baye baye stuff} There are many advantages to running full Bayesian analyses on data sets, but they are slow. The bulk of the work consists of inverting non-diagonal matrices to find the strength of Hellings-Downs cross-correlations between pulsar pairs -- the "smoking gun" of a stochastic GWB.    
+
+Determining the significance of various cross-correlations between pulsar pairs is computationally expensive, requiring multi-core computing clusters many days to complete. As PTA data-analysis expands to include more parameters when measuring our predicted signal, e.g. increase in residuals with continued and new pulsar observations, uncertainty in solar system ephemerides, etc., computation time will only increase. Thus methods which hasten the production of results without compromising accuracy are not only preferable, but will be necessary. Here we explore the noise-marginalized optimal statistic as an estimator for GWB signals.
 
 The optimal statistic is a frequentist estimator for the stochastic background amplitude. 
 It was derived by \citet{abc+2009} \sv{blah blah blah... try not to plagiarize myself}
