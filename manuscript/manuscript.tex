@@ -30,7 +30,7 @@
 \date{\today}  
 
 \begin{abstract}
-Supermassive black hole binaries (SMBHBs) are predicted to form a high-redshift cosmological population of low-frequency gravitational wave sources which added together produce a stochastic gravitational wave background (GWB) potentially measurable via pulsar timing. Comparing the actual and predicted times-of-arrival (TOAs) of radio pulses beamed by millisecond pulsars allows us to search for and place limits on the stochastic background. While most estimating of GWB significance is done via Bayesian analysis, here we use a frequentist estimator called the noise-marginalized optimal statistic to assess the signifcance of a GWB present in simulated PTA data. We find \ki{complete}
+Supermassive black hole binaries (SMBHBs) are predicted to form a high-redshift cosmological population of low-frequency gravitational wave sources which added together produce a stochastic gravitational wave background (GWB) potentially measurable via pulsar timing. Comparing the actual and predicted times-of-arrival (TOAs) of radio pulses beamed by millisecond pulsars allows us to search for and place limits on the stochastic background. While most estimating of GWB significance is done via Bayesian analysis, here we use a frequentist estimator called the noise-marginalized optimal statistic to assess the significance of a GWB present in simulated PTA data. We find \ki{complete}
 
 \end{abstract}
 
@@ -39,7 +39,13 @@ Supermassive black hole binaries (SMBHBs) are predicted to form a high-redshift 
 
 \section{Introduction}
 
-Pulsar timing arrays (PTAs) are a conglomerate of pulsars with millisecond periods. Monitioring the ultra-regular emission from these pulsars with radio telescopes enables us to probe the dynamics of the spacetime through which the radio pulses travel. This makes PTAs ideal complements to ground- and space-based gravitational wave (GW) detectors. A PTAs sensitivity is constrained by single pulsar observation cadence and total experiment length. For NANOGrav, this means GW frequencies in the range $10^{-9} - 10^{-7}$ Hz. \ki{citations needed} predict that the incoherent superposition of inspiraling SMBHBs form the dominant signal in this low-frequency regime.  
+Pulsar timing arrays (PTAs) are a conglomerate of pulsars with millisecond periods. 
+Monitoring the ultra-regular periodic emission from these pulsars with radio telescopes 
+enables us to probe the dynamics of the spacetime through which the pulses travel. 
+PTAs are sensitive to gravitational waves (GWs) with frequencies of 
+$10^{-9} - 10^{-7}\;\mathrm{Hz}$ \ki{citations needed}, 
+which makes PTAs ideal complements to ground- and space-based GW detectors \sv{add citations}. 
+\sv{something...} predict that the incoherent superposition of inspiraling SMBHBs form the dominant signal in this low-frequency regime.
 
 Most measuring of the stochastic background is done through Bayesian data analysis. \ki{baye baye baye stuff} There are many advantages to running full Bayesian analyses on data sets, but they are slow. The bulk of the work consists of inverting non-diagonal matrices to find the strength of Hellings-Downs cross-correlations between pulsar pairs -- the "smoking gun" of a stochastic GWB.    
 
@@ -168,8 +174,8 @@ to the mean $\hat{A}^2$ for each realization of the stochastic background.
 The fixed-noise analysis tends to underestimate the strength of the stochastic background, 
 whereas the noise-marginalized analysis is better able to recover the injected value. 
 The mean value of the optimal statistic from the fixed-noise analysis, 
-averaged over realizations of the stochastic background, is $\hat{A}^2 = 7.9 \times 10^{-30}$, 
-while the mean value from the noise-marginalized analysis is $\hat{A}^2 = 2.2 \times 10^{-29}$.
+averaged over realizations of the stochastic background, is $\hat{A}^2 = 8.9 \times 10^{-30}$, 
+while the mean value from the noise-marginalized analysis is $\hat{A}^2 = 2.5 \times 10^{-29}$.
 
 \begin{figure}[ht]
 	\includegraphics[width=\columnwidth]{plots/os_dataset50.pdf}
@@ -189,15 +195,15 @@ while the mean value from the noise-marginalized analysis is $\hat{A}^2 = 2.2 \t
 
 \begin{figure}[ht]
 	\includegraphics[width=\columnwidth]{plots/os_datasetstats_5e-15.pdf}
-	\caption{Optimal statistic and SNR for \sv{insert number} simulated datasets 
+	\caption{Optimal statistic and SNR for 425 simulated datasets 
 			containing an injected GW background with $\Agw = 5\times10^{-15}$. 
 			We compare the values found using a fixed-noise analysis (blue) to the 
 			mean optimal statistic and mean SNR found by marginalizing over 
 			the individual pulsars' red noise parameters. The dashed vertical line 
 			indicates the injected value, $\hat{A}^2 = 2.5 \times 10^{-29}$. 
 			The value of $\hat{A}^2$ from the fixed-noise analysis, 
-			averaged over realizations of the stochastic background, is $\hat{A}^2 = 7.9 \times 10^{-30}$, 
-			while the noise-marginalized analysis gives a mean value of $\hat{A}^2 = 2.2 \times 10^{-29}$.}
+			averaged over realizations of the stochastic background, is $\hat{A}^2 = 8.9 \times 10^{-30}$, 
+			while the noise-marginalized analysis gives a mean value of $\hat{A}^2 = 2.5 \times 10^{-29}$.}
 	\label{fig:os_datasetstats}
 \end{figure}
 
@@ -221,9 +227,19 @@ For a monopole signal, the overlap reduction function becomes simply
 while for a dipole signal, the overlap reduction function becomes
 \[ \Gamma(\theta_{IJ}) = \cos\theta_{IJ} \,. \]
 
-Figure~\ref{fig:} shows the mean value of $\hat{A}^2$ and the mean SNR 
+Figure~\ref{fig:os_ORF} shows the mean value of $\hat{A}^2$ and the mean SNR 
 computed assuming monopole, dipole, and Hellings-Downs spatial correlations 
-for \sv{insert number} simulated data sets.
+for 425 simulated data sets.
+
+\begin{figure}[ht]
+	\includegraphics[width=\columnwidth]{plots/os_datasetstats_5e-15_ORF.pdf}
+	\caption{Noise-marginalized mean optimal statistic and mean SNR for 425 simulated datasets 
+			containing an injected GW background with $\Agw = 5\times10^{-15}$. 
+			We compare the values found using monopole (blue), dipole (orange), and quadrupole (green) 
+			spatial correlations. 
+			The dashed vertical line indicates the injected value, $\hat{A}^2 = 2.5 \times 10^{-29}$.}
+	\label{fig:os_ORF}
+\end{figure}
 
 
 \section{Compare Significance with Sky Scrambles/Phase Shifts}
