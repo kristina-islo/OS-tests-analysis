@@ -140,19 +140,19 @@ def run_noise_analysis(dataset, writenoise, niter=1000000):
 
         if writenoise == '2dmax':
 
-            # create chain object and find 1d maxLL parameter values
-            cp = pp.ChainPP('chains/{0}/noise/{1}/'.format(dataset, psr))
-            ml = cp.get_ml_values(mtype='marg')
+            # # create chain object and find 1d maxLL parameter values
+            # cp = pp.ChainPP('chains/{0}/noise/{1}/'.format(dataset, psr))
+            # ml = cp.get_ml_values(mtype='marg')
             noisefile = noisedir + '/{0}_noise.txt'.format(psr)
             
             # load chain and find 2d maxLL values for RN parameters
-            pars = np.loadtxt('chains/{0}/noise/{1}/pars.txt'.format(dataset, psr), dtype='S42')
-            chain = np.loadtxt('chains/{0}/noise/{1}/chain_1.txt'.format(dataset, psr))
+            pars = np.loadtxt('../data/chains/{0}/fix_spec_nf_30/pars.txt'.format(dataset), dtype='S42')
+            chain = np.loadtxt('../data/chains/{0}/fix_spec_nf_30/chain_1.txt'.format(dataset))
             burn = int(0.25*chain.shape[0])
     
             # 2-d histogram 
-            RN_amplitude_chain = chain[:,np.argwhere(pars == 'RN-Amplitude')[0][0]]
-            RN_spectral_index_chain = chain[:,np.argwhere(pars == 'RN-spectral-index')[0][0]]
+            RN_amplitude_chain = chain[:,np.argwhere(pars == 'RN-Amplitude_{0}'.format(psr))[0][0]]
+            RN_spectral_index_chain = chain[:,np.argwhere(pars == 'RN-spectral-index_{0}'.format(psr))[0][0]]
             RN_Amplitude, RN_spectral_index = getMax2d(RN_amplitude_chain, RN_spectral_index_chain)
 
             with open(noisefile, 'w') as f:
