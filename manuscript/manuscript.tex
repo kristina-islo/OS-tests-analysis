@@ -45,7 +45,7 @@ enables us to probe the dynamics of the spacetime through which the pulses trave
 PTAs are sensitive to gravitational waves (GWs) with frequencies of 
 $10^{-9} - 10^{-7}\;\mathrm{Hz}$ \ki{citations needed}, 
 which makes PTAs ideal complements to ground- and space-based GW detectors \sv{add citations}. 
-\sv{something...} predict that the incoherent superposition of inspiraling SMBHBs form the dominant signal in this low-frequency regime.
+\sv{something...} predict that the incoherent superposition of inspiraling SMBHBs form the dominant signal in this low-frequency regime \sv{add citations}.
 
 Most measuring of the stochastic background is done through Bayesian data analysis. \ki{baye baye baye stuff} There are many advantages to running full Bayesian analyses on data sets, but they are slow. The bulk of the work consists of inverting non-diagonal matrices to find the strength of Hellings-Downs cross-correlations between pulsar pairs -- the "smoking gun" of a stochastic GWB.    
 
@@ -57,7 +57,7 @@ It was derived by \citet{abc+2009} \sv{blah blah blah... try not to plagiarize m
 The optimal statistic is an important complement to Bayesian detection techniques. 
 It provides an independent way to assess the significance of the stochastic background, 
 and it is significantly faster to compute. It is also easy to test different spatial correlations 
-by altering the overlap reduction function $\Gamma$ in the cross-correlations. 
+by altering the overlap reduction function (ORF) $\Gamma$ in the cross-correlations. 
 In contrast, doing a full Bayesian analysis with spatial correlations is a very computationally 
 intensive procedure.
 
@@ -116,7 +116,7 @@ where
 	{\bf{P}} &=& \left\langle {\bf{r}}_I {\bf{r}}_I^T \right\rangle \,, \\
 	{\bf{S}}_{IJ} &=& \left. \left\langle {\bf{r}}_I {\bf{r}}_J^T \right\rangle \right|_{I \neq J} \,.
 \end{eqnarray}
-\sv{something about the overlap reduction function...}
+\sv{something about the ORF...}
 
 Analytically maximizing this likelihood gives the optimal statistic,
 \begin{equation}
@@ -175,8 +175,9 @@ The fixed-noise analysis tends to underestimate the strength of the stochastic b
 whereas the noise-marginalized analysis is better able to recover the injected value. 
 The mean value of the optimal statistic from the fixed-noise analysis, 
 averaged over realizations of the stochastic background, is $\hat{A}^2 = 8.9 \times 10^{-30}$, 
-while the mean value from the noise-marginalized analysis is $\hat{A}^2 = 2.5 \times 10^{-29}$.
-
+while the mean value from the noise-marginalized analysis is $\hat{A}^2 = 2.5 \times 10^{-29}$. 
+The noise-marginalized analysis also gives a higher average mean SNR of 1.7, 
+compared to an average SNR of 1.0 using the fixed-noise analysis.
 \begin{figure}[ht]
 	\includegraphics[width=\columnwidth]{plots/os_dataset50.pdf}
 	\caption{Optimal statistic and SNR for a simulated dataset 
@@ -203,7 +204,9 @@ while the mean value from the noise-marginalized analysis is $\hat{A}^2 = 2.5 \t
 			indicates the injected value, $\hat{A}^2 = 2.5 \times 10^{-29}$. 
 			The value of $\hat{A}^2$ from the fixed-noise analysis, 
 			averaged over realizations of the stochastic background, is $\hat{A}^2 = 8.9 \times 10^{-30}$, 
-			while the noise-marginalized analysis gives a mean value of $\hat{A}^2 = 2.5 \times 10^{-29}$.}
+			while the noise-marginalized analysis gives a mean value of $\hat{A}^2 = 2.5 \times 10^{-29}$. 
+			Furthermore, the fixed-noise analysis gives an average SNR of 1.0, while the 
+			noise-marginalized analysis gives an average mean SNR of 1.7.}
 	\label{fig:os_datasetstats}
 \end{figure}
 
@@ -214,7 +217,7 @@ while the mean value from the noise-marginalized analysis is $\hat{A}^2 = 2.5 \t
 \label{sec:spatial}
 
 The optimal statistic is particularly well-suited to compare multiple spatial correlation relations 
-because using a different spatial correlation only requires changing the overlap reduction function 
+because using a different spatial correlation only requires changing the ORF 
 in $\tilde{{\bf{S}}}_{IJ}$. 
 \citet{thk+2016} demonstrated how the optimal statistic can be altered to fit for 
 multiple spatial correlations at once in order to mitigate common noise sources such as 
@@ -222,15 +225,22 @@ clock error and ephemeris error.
 Here we compute the optimal statistic with monopole and dipole spatial correlations 
 for the same simulated data sets as in the previous section in order to determine 
 how well we can distinguish a GW background from a monopole or dipole signal. 
-For a monopole signal, the overlap reduction function becomes simply
+For a monopole signal, the ORF becomes simply
 \[ \Gamma(\theta_{IJ}) = 1 \,\]
-while for a dipole signal, the overlap reduction function becomes
+while for a dipole signal, the ORF becomes
 \[ \Gamma(\theta_{IJ}) = \cos\theta_{IJ} \,. \]
 
-Figure~\ref{fig:os_ORF} shows the mean value of $\hat{A}^2$ and the mean SNR 
-computed assuming monopole, dipole, and Hellings-Downs spatial correlations 
-for 425 simulated data sets.
-
+Figure~\ref{fig:os_ORF} shows the noise-marginalized mean value of $\hat{A}^2$ and the mean SNR 
+computed assuming monopole, dipole, and quadrupole spatial correlations 
+for 425 simulated data sets. Using a monopole or dipole ORF 
+gives a lower value for the mean optimal statistic and mean SNR compared to the 
+Hellings-Downs ORF. 
+However, there is significant overlap between the distributions for the mean SNR using 
+monopole, dipole, and quadrupole ORFs, indicating that it is not easy to differentiate 
+between those three spatial correlations for an injected GW background of this amplitude. 
+We find a noise-marginalized mean SNR above 1.0 in 68\% of our simulated data sets 
+using the quadrupole ORF, and in 45\% and 24\% of our simulated data sets 
+using the monopole and dipole ORF, respectively.
 \begin{figure}[ht]
 	\includegraphics[width=\columnwidth]{plots/os_datasetstats_5e-15_ORF.pdf}
 	\caption{Noise-marginalized mean optimal statistic and mean SNR for 425 simulated datasets 
@@ -246,7 +256,7 @@ for 425 simulated data sets.
 \label{sec:skyscrambles}
 
 Another way to test the spatial correlations is through ``sky scrambles,'' 
-where the overlap reduction function is altered in order to simulate changing the pulsars' positions \citep{cs2016}. 
+where the ORF is altered in order to simulate changing the pulsars' positions \citep{cs2016}. 
 \citet{tlb+2017} showed how sky scrambles affect the Bayes' factor for simulated data sets. 
 Here we perform a similar analysis using frequentist methods.
 
@@ -274,8 +284,7 @@ distribution of noise-marginalized optimal statistics obtained using sky scrambl
 
 
 \acknowledgments
-We thank
-
+We thank Joe Romano and Xavier Siemens for useful discussions. 
 JAE was supported by NASA through Einstein Fellowship Grant PF4-150120. 
 SRT was supported by appointment to the NASA Postdoctoral Program 
 at the Jet Propulsion Laboratory, which is administered by Oak Ridge Associated Universities 
