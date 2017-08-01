@@ -104,8 +104,8 @@ def run_noise_analysis(dataset, writenoise, niter=1000000):
     for psr in psrs:
         print '   Running on ' + psr
         os.system('PAL2_run.py --h5File {0} --pulsar {1} \
-                  --outDir chains/{2}/noise/{1}/ --niter {3} \
-                  --mark9 --incRed --nf 30'.format(h5filename, psr, dataset, niter))
+                  --outDir {1}/chains/{3}/noise/{2}/ --niter {4} \
+                  --mark9 --incRed --nf 30'.format(h5filename, chaindir, psr, dataset, niter))
 
     # make noise files for each pulsar
     noisedir = '../data/noisefiles/' + dataset
@@ -116,7 +116,7 @@ def run_noise_analysis(dataset, writenoise, niter=1000000):
         
         if writenoise == '1dmax':
             # create chain object and find 1d maxLL values
-            cp = pp.ChainPP('chains/{0}/noise/{1}/'.format(dataset, psr))
+            cp = pp.ChainPP('../data/chains/{0}/noise/{1}/'.format(dataset, psr))
             ml = cp.get_ml_values(mtype='marg')
             noisefile = noisedir + '/{0}_noise.txt'.format(psr)
             with open(noisefile, 'w') as f:
