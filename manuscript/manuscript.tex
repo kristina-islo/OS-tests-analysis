@@ -168,9 +168,32 @@ the common red noise posteriors in order to average the optimal statistic over
 the individual pulsars' red noise.
 
 Figure~\ref{fig:os_dataset_sample} shows the fixed-noise and noise-marginalized 
-optimal statistic for a single realization of the stochastic background, 
-and Fig.~\ref{fig:os_datasetstats} compares the fixed-noise values of $\hat{A}^2$ 
-to the mean $\hat{A}^2$ for each realization of the stochastic background. 
+optimal statistic for a single realization of the stochastic background. 
+We also include the distribution of $\Agw^2$ found using the results of a Bayesian analysis 
+for a common red process. For this particular realization of the stochastic background, 
+the values of $\hat{A}^2$ from the noise-marginalized and Bayesian analyses are in good agreement 
+with each other and the injected GW stochastic background, 
+but the value from the fixed-noise analysis is significantly lower. 
+The noise-marginalized analysis also gives a larger mean SNR compared to the fixed-noise analysis.
+\begin{figure}[ht]
+	\includegraphics[width=\columnwidth]{plots/os_dataset50.pdf}
+	\caption{Optimal statistic and SNR for a simulated dataset 
+			containing an injected GW background with $\Agw = 5\times10^{-15}$. 
+			We compare the values found using a fixed-noise analysis (dashed blue line) to the 
+			mean optimal statistic and mean SNR found by marginalizing over 
+			the individual pulsars' red noise parameters (solid orange line). 
+			We also include the distribution of $\Agw^2$ found using the results of a Bayesian analysis 
+			for a common red process (solid green line). 
+			The dotted vertical line indicates the injected value, $\hat{A}^2 = 2.5 \times 10^{-29}$. 
+			For this particular realization of the stochastic background, the fixed-noise analysis 
+			gives $\hat{A}^2 = 1.9 \times 10^{-30}$ with $\mathrm{SNR} = 0.60$, 
+			while the noise-marginalized analysis gives $\hat{A}^2 = 1.9\times10^{-29}$ with $\mathrm{SNR} = 1.1$. 
+			For comparison, the Bayesian analysis gives a mean value of $\Agw^2 = 4.5\times10^{-29}$.}
+	\label{fig:os_dataset_sample}
+\end{figure}
+
+Figure~\ref{fig:os_datasetstats} compares the fixed-noise values of $\hat{A}^2$ 
+to the mean $\hat{A}^2$ for 425 different realizations of the stochastic background. 
 The fixed-noise analysis tends to underestimate the strength of the stochastic background, 
 whereas the noise-marginalized analysis is better able to recover the injected value. 
 The mean value of the optimal statistic from the fixed-noise analysis, 
@@ -178,22 +201,6 @@ averaged over realizations of the stochastic background, is $\hat{A}^2 = 8.9 \ti
 while the mean value from the noise-marginalized analysis is $\hat{A}^2 = 2.5 \times 10^{-29}$. 
 The noise-marginalized analysis also gives a higher average mean SNR of 1.7, 
 compared to an average SNR of 1.0 using the fixed-noise analysis.
-\begin{figure}[ht]
-	\includegraphics[width=\columnwidth]{plots/os_dataset50.pdf}
-	\caption{Optimal statistic and SNR for a simulated dataset 
-			containing an injected GW background with $\Agw = 5\times10^{-15}$. 
-			We compare the values found using a fixed-noise analysis (blue, dashed line) to the 
-			mean optimal statistic and mean SNR found by marginalizing over 
-			the individual pulsars' red noise parameters (orange, solid line). 
-			The dotted vertical line indicates the injected value, $\hat{A}^2 = 2.5 \times 10^{-29}$. 
-			For this particular realization of the stochastic background, the fixed-noise analysis 
-			gives $\hat{A}^2 = 1.9 \times 10^{-30}$ with $\mathrm{SNR} = 0.60$, 
-			while the noise-marginalized analysis gives $\hat{A}^2 = 1.9\times10^{-29}$ with $\mathrm{SNR} = 1.1$.}
-	\label{fig:os_dataset_sample}
-\end{figure}
-
-\sv{compare to Bayesian analysis for a particular data set}
-
 \begin{figure}[ht]
 	\includegraphics[width=\columnwidth]{plots/os_datasetstats_5e-15.pdf}
 	\caption{Optimal statistic and SNR for 425 simulated datasets 
@@ -209,8 +216,6 @@ compared to an average SNR of 1.0 using the fixed-noise analysis.
 			noise-marginalized analysis gives an average mean SNR of 1.7.}
 	\label{fig:os_datasetstats}
 \end{figure}
-
-\sv{say something about uncertainty, spread in marg os, etc}
 
 
 \section{Compare Significance with Monopole and Dipole}
@@ -255,7 +260,7 @@ using the monopole and dipole ORF, respectively.
 \section{Compare Significance with Sky Scrambles/Phase Shifts}
 \label{sec:skyscrambles}
 
-Another way to test the spatial correlations is through ``sky scrambles,'' 
+Another technique for testing the spatial correlations is through ``sky scrambles,'' 
 where the ORF is altered in order to simulate changing the pulsars' positions \citep{cs2016}. 
 \citet{tlb+2017} showed how sky scrambles affect the Bayes' factor for simulated data sets. 
 Here we perform a similar analysis using frequentist methods.
