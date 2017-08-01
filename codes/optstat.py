@@ -138,11 +138,11 @@ def run_noise_analysis(dataset, writenoise, niter=1000000):
                 for p,val in zip(pars,maxpost_sample):
                     f.write('%s %g\n'%(p, val))
 
-        if writenoise == '2dmax':
+        if writenoise == '2dmax_common':
 
-            # # create chain object and find 1d maxLL parameter values
-            # cp = pp.ChainPP('chains/{0}/noise/{1}/'.format(dataset, psr))
-            # ml = cp.get_ml_values(mtype='marg')
+            # create chain object and find 1d maxLL parameter values
+            cp = pp.ChainPP('chains/{0}/noise/{1}/'.format(dataset, psr))
+            ml = cp.get_ml_values(mtype='marg')
             noisefile = noisedir + '/{0}_noise.txt'.format(psr)
             
             # load chain and find 2d maxLL values for RN parameters
@@ -169,7 +169,37 @@ def run_noise_analysis(dataset, writenoise, niter=1000000):
 
                     else:
                         f.write('%s %g\n'%(key, val))
-            
+
+        if writenoise == '2dmax_indiv':
+            # create chain object and find 1d maxLL parameter values
+            cp = pp.ChainPP('chains/{0}/noise/{1}/'.format(dataset, psr))
+            ml = cp.get_ml_values(mtype='marg')
+            noisefile = noisedir + '/{0}_noise.txt'.format(psr) 
+
+            # load chain and find 2d maxLL values for RN parameters
+            pars = np.loadtxt('chains/{0}/noise/{1}/pars.txt'.format(dataset, psr), dtype='S42')
+            chain = np.loadtxt('chains/{0}/noise/{1}/chain_1.txt'.format(dataset, psr))
+            burn = int(0.25*chain.shape[0])
+
+            RN_amplitude_chain = chain[:,np.argwhere(pars == 'RN-Amplitude')[0][0]]
+            RN_spectral_index_chain = chain[:,np.argwhere(pars == 'RN-spectral-index')[0][0]]
+
+
+             with open(noisefile, 'w') as f:
+
+                for key, val in ml.items():
+
+                    if key == 'RN-Amplitude':
+                        val = RN_Amplitude
+                        f.write('%s %g\n'%(key, val))
+
+                    elif key == 'RN-spectral-index':
+                        val = RN_spectral_index
+                        f.write('%s %g\n'%(key, val))
+
+                    else:
+                        f.write('%s %g\n'%(key, val))
+
     print 'Finished!'
 
 
@@ -415,8 +445,8 @@ if __name__ == '__main__':
     parser.add_argument('--skipnoiseanalysis', action='store_true')
     parser.add_argument('--writenoise', default='2dmax',
                         help='how to determine individual pulsar noise values \
-                        (1-d maximization / 2-d maximization / maximum likelihood sample from common red process, \
-                        DEFAULT: 2dmax)')
+                        (1-d maximization / maximum likelihood sample from common red process / 2-d maximization from common red process / \
+                        2-d maximization from individual noise chains, DEFAULT: 2dmax_common)')
     parser.add_argument('--computeMonopole', action='store_true',
                         help='also compute optimal statistic for monopole spatial correlations (DEFAULT: false)')
     parser.add_argument('--computeDipole', action='store_true',
