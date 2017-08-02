@@ -142,7 +142,19 @@ def run_noise_analysis(dataset, writenoise, niter=1000000):
 
             # create chain object and find 1d maxLL parameter values
             cp = pp.ChainPP('chains/{0}/noise/{1}/'.format(dataset, psr))
-            ml = cp.get_ml_values(mtype='marg')
+            try:
+                ml = cp.get_ml_values(mtype='marg')
+            except:
+                # this sometimes arises for J1909
+
+                # 1d maximization for efac
+                ind = np.where(cp.pars == 'efac')
+                ml = cp.get_ml_values(mtype='marg', ind=ind[0]) 
+
+                # initialise the two RN parameters in ml object
+                ml.update({'RN-Amplitude': None})
+                ml.update({'RN-spectral-index': None})
+
             noisefile = noisedir + '/{0}_noise.txt'.format(psr)
             
             # load chain and find 2d maxLL values for RN parameters
@@ -150,7 +162,6 @@ def run_noise_analysis(dataset, writenoise, niter=1000000):
             chain = np.loadtxt('../data/chains/{0}/fix_spec_nf_30/chain_1.txt'.format(dataset))
             burn = int(0.25*chain.shape[0])
     
-            # 2-d histogram 
             RN_amplitude_chain = chain[:,np.argwhere(pars == 'RN-Amplitude_{0}'.format(psr))[0][0]]
             RN_spectral_index_chain = chain[:,np.argwhere(pars == 'RN-spectral-index_{0}'.format(psr))[0][0]]
             RN_Amplitude, RN_spectral_index = getMax2d(RN_amplitude_chain, RN_spectral_index_chain)
@@ -161,11 +172,11 @@ def run_noise_analysis(dataset, writenoise, niter=1000000):
 
                     if key == 'RN-Amplitude':
                         val = RN_Amplitude
-                        f.write('%s %g\n'%(key, val))
+                        f.write('%s %g\n'%(key, RN_Amplitude))
 
                     elif key == 'RN-spectral-index':
                         val = RN_spectral_index
-                        f.write('%s %g\n'%(key, val))
+                        f.write('%s %g\n'%(key, RN_spectral_index))
 
                     else:
                         f.write('%s %g\n'%(key, val))
@@ -173,7 +184,19 @@ def run_noise_analysis(dataset, writenoise, niter=1000000):
         if writenoise == '2dmax_indiv':
             # create chain object and find 1d maxLL parameter values
             cp = pp.ChainPP('chains/{0}/noise/{1}/'.format(dataset, psr))
-            ml = cp.get_ml_values(mtype='marg')
+            try:
+                ml = cp.get_ml_values(mtype='marg')
+            except:
+                # this sometimes arises for J1909
+
+                # 1d maximization for efac
+                ind = np.where(cp.pars == 'efac')
+                ml = cp.get_ml_values(mtype='marg', ind=ind[0]) 
+
+                # initialise the two RN parameters in ml object
+                ml.update({'RN-Amplitude': None})
+                ml.update({'RN-spectral-index': None})
+
             noisefile = noisedir + '/{0}_noise.txt'.format(psr) 
 
             # load chain and find 2d maxLL values for RN parameters
@@ -181,21 +204,23 @@ def run_noise_analysis(dataset, writenoise, niter=1000000):
             chain = np.loadtxt('chains/{0}/noise/{1}/chain_1.txt'.format(dataset, psr))
             burn = int(0.25*chain.shape[0])
 
+
             RN_amplitude_chain = chain[:,np.argwhere(pars == 'RN-Amplitude')[0][0]]
             RN_spectral_index_chain = chain[:,np.argwhere(pars == 'RN-spectral-index')[0][0]]
+            RN_Amplitude, RN_spectral_index = getMax2d(RN_amplitude_chain, RN_spectral_index_chain)
 
 
-             with open(noisefile, 'w') as f:
+            with open(noisefile, 'w') as f:
 
                 for key, val in ml.items():
 
                     if key == 'RN-Amplitude':
                         val = RN_Amplitude
-                        f.write('%s %g\n'%(key, val))
+                        f.write('%s %g\n'%(key, RN_Amplitude))
 
                     elif key == 'RN-spectral-index':
                         val = RN_spectral_index
-                        f.write('%s %g\n'%(key, val))
+                        f.write('%s %g\n'%(key, RN_spectral_index))
 
                     else:
                         f.write('%s %g\n'%(key, val))
