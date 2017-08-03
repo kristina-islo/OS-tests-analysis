@@ -178,7 +178,7 @@ with each other and the injected GW stochastic background,
 but the value from the fixed-noise analysis is significantly lower. 
 The noise-marginalized analysis also gives a larger mean SNR compared to the fixed-noise analysis.
 \begin{figure}[ht]
-	\includegraphics[width=\columnwidth]{plots/os_dataset50.pdf}
+	\includegraphics[width=0.9\columnwidth]{plots/os_dataset50.pdf}
 	\caption{Optimal statistic and SNR for a simulated dataset 
 			containing an injected GW background with $\Agw = 5\times10^{-15}$. 
 			We compare the values found using a fixed-noise analysis (dashed blue line) to the 
@@ -204,7 +204,7 @@ while the mean value from the noise-marginalized analysis is $\hat{A}^2 = 2.5 \t
 The noise-marginalized analysis also gives a higher average mean SNR of 1.7, 
 compared to an average SNR of 1.0 using the fixed-noise analysis.
 \begin{figure}[ht]
-	\includegraphics[width=\columnwidth]{plots/os_datasetstats_5e-15.pdf}
+	\includegraphics[width=0.9\columnwidth]{plots/os_datasetstats_5e-15.pdf}
 	\caption{Optimal statistic and SNR for 425 simulated datasets 
 			containing an injected GW background with $\Agw = 5\times10^{-15}$. 
 			We compare the values found using a fixed-noise analysis (blue) to the 
@@ -249,7 +249,7 @@ We find a noise-marginalized mean SNR above 1.0 in 68\% of our simulated data se
 using the quadrupole ORF, and in 45\% and 24\% of our simulated data sets 
 using the monopole and dipole ORF, respectively.
 \begin{figure}[ht]
-	\includegraphics[width=\columnwidth]{plots/os_datasetstats_5e-15_ORF.pdf}
+	\includegraphics[width=0.9\columnwidth]{plots/os_datasetstats_5e-15_ORF.pdf}
 	\caption{Noise-marginalized mean optimal statistic and mean SNR for 425 simulated datasets 
 			containing an injected GW background with $\Agw = 5\times10^{-15}$. 
 			We compare the values found using monopole (blue), dipole (orange), and quadrupole (green) 
@@ -270,19 +270,34 @@ Here we perform a similar analysis using frequentist methods.
 The scrambled sky positions were generated \sv{Steve, explain here...}
 
 Figure~\ref{fig:skyscrambles_dataset_sample} compares the noise-marginalized optimal statistic 
-for a particular data set to the 
-distribution of noise-marginalized optimal statistics obtained using sky scrambles.
-\sv{sky scrambles for all of our simulated data sets}
-
+for a particular data set to the distribution of noise-marginalized optimal statistics obtained using sky scrambles. 
+For this data set, the noise-marginalized mean optimal statistic is 
+$1.9\times10^{-29}$ and the mean SNR is 1.1. 
+The distributions of the noise-marginalized optimal statistic and SNR obtained using the scrambled ORFs 
+are both centered around zero, 
+and for 24 out of the 210 sky scrambles, the SNR is above the true value of $1.1$ ($p=0.11$). 
+Figure~\ref{fig:skyscrambles} shows the $p$-values for 210 sky scrambles 
+using 425 realizations of the stochastic background. 
+For 62\% of simulations the $p$-value is $<0.1$, and for 29\% of simulations the $p$-value is $<0.01$.
 \begin{figure}[ht]
-	\includegraphics[width=\columnwidth]{plots/skyscrambles_dataset50.pdf}
+	\includegraphics[width=0.9\columnwidth]{plots/skyscrambles_dataset50.pdf}
 	\caption{Comparison between the optimal statistic with and without sky scrambles 
 			for a simulated dataset containing an injected GW background with $\Agw = 5\times10^{-15}$. 
 			The true analysis found an $\mathrm{SNR} = 1.1$, while only 24 of the 210 sky scramble analyses 
 			found $\mathrm{SNR} \geq 1.1$ ($p=0.11$).}
 	\label{fig:skyscrambles_dataset_sample}
 \end{figure}
+\begin{figure}[ht]
+	\includegraphics[width=0.9\columnwidth]{plots/os_skyscrambles.pdf}
+	\caption{Distribution of $p$-values for 425 different realizations of the stochastic background. 
+			For each realization, the $p$-value is the fraction of sky scrambled ORFs that gives a 
+			noise-marginalized mean SNR greater than the mean SNR using the correct ORF.}
+	\label{fig:skyscrambles}
+\end{figure}
 
+For five realizations of the stochastic background, we also computed the Bayes' factors for the 
+true and sky scrambled ORFs in order to directly compare 
+the frequentist and Bayesian detection techniques.
 \sv{comparison to Steve's}
 
 
