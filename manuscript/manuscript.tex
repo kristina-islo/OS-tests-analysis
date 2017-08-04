@@ -30,7 +30,15 @@
 \date{\today}  
 
 \begin{abstract}
-Supermassive black hole binaries (SMBHBs) are predicted to form a high-redshift cosmological population of low-frequency gravitational wave sources which added together produce a stochastic gravitational wave background (GWB) potentially measurable via pulsar timing. Comparing the actual and predicted times-of-arrival (TOAs) of radio pulses beamed by millisecond pulsars allows us to search for and place limits on the stochastic background. While most estimating of GWB significance is done via Bayesian analysis, here we use a frequentist estimator called the noise-marginalized optimal statistic to assess the significance of a GWB present in simulated PTA data. We find \ki{complete}
+Supermassive black hole binaries (SMBHBs) are predicted to form a 
+high-redshift cosmological population of low-frequency gravitational wave sources 
+which added together produce a stochastic gravitational wave background (GWB) 
+that can be observed by pulsar timing arrays (PTAs). 
+Comparing the actual and predicted times-of-arrival (TOAs) of radio pulses beamed by 
+millisecond pulsars allows us to search for and place limits on the stochastic background. 
+While most estimating of GWB significance is done via Bayesian analysis, 
+here we use a frequentist estimator called the noise-marginalized optimal statistic 
+to assess the significance of a GWB present in simulated PTA data. We find \ki{complete}
 
 \end{abstract}
 
@@ -41,7 +49,7 @@ Supermassive black hole binaries (SMBHBs) are predicted to form a high-redshift 
 
 Low-frequency gravitational waves (GWs) with frequencies of 
 $10^{-9} - 10^{-7} \; \mathrm{Hz}$ can be observed with pulsar timing arrays (PTAs) 
-composed of millisecond pulsars (MSPs) \sv{citation}. 
+composed of millisecond pulsars (MSPs) \cite{hd1983,fb1990}. 
 The dominant astrophysical source in this frequency range is an isotropic stochastic 
 gravitational wave background (GWB) 
 made up of the incoherent superposition of GWs from inspiraling 
@@ -50,18 +58,21 @@ supermassive black hole binaries (SMBHBs)
 By monitoring the ultra-regular periodic emission from these pulsars using radio telescopes, 
 we can probe the dynamics of the spacetime through which the pulses travel. 
 This is done by searching for correlations in the pulsar timing residuals, 
-which measure the difference between the expected and observed pulse times of arrival.
+which measure the difference between the expected and observed pulse times of arrival. 
+Current upper-limits on the stochastic background from PTAs are approaching 
+theoretical predictions for the stochastic GWB \citep{PPTA2013,EPTA2015,NANOGrav9yr}
 
 The primary data analysis technique used by PTAs is Bayesian inference 
 to compare the probabilities of various models for the pulsar timing residuals, 
-including one where the residuals contain evidence of an isotropic GW stochastic background \sv{add citation}. 
+including one where the residuals contain evidence of an isotropic GW stochastic background 
+\citep{vlm+2009,lah+2013}. 
 Bayesian inference is a powerful technique because it allows us to compare arbitrarily complicated models. 
 However, running a full Bayesian analysis is computationally intensive, 
 particularly when searching for evidence of dipole spatial correlations -- 
 ``the smoking gun'' of a stochastic GWB.
 
 The significance of a stochastic GWB can also be assessed using the 
-optimal statistic, a frequentist estimator for the GWB amplitude \sv{add citation}. 
+optimal statistic, a frequentist estimator for the GWB amplitude \citep{abc+2009,demorest+2013,ccs+2015}. 
 It is an important complement to Bayesian detection techniques 
 because it provides an independent detection procedure, 
 and it is significantly faster to compute. 
@@ -101,6 +112,7 @@ We conclude in Sec.~\ref{sec:conclusion}.
 \section{Noise-marginalized optimal statistic}
 \label{sec:marg_os}
 
+\sv{Justin, please bring notation up to date}
 As introduced by \citet{abc+2009}, 
 the optimal statistic is derived by analytically maximizing 
 the PTA likelihood function in the weak-signal regime. 
@@ -195,7 +207,7 @@ We used these three techniques to compute the optimal statistic for simulated da
 We constructed simulated data sets using the same procedure as in \citet{tlb+2017}. 
 The simulated PTAs consisted of 10 MSPs with 
 total observation times and noise properties chosen to be 
-similar to the properties of the EPTA (see Table~\ref{tab:sim})  \sv{add citation}. 
+similar to the properties of the EPTA \cite{caballero+2016} (see Table~\ref{tab:sim}). 
 We also injected a stochastic GWB amplitude with $\Agw = 5\times10^{-15}$.
 \begin{table}[htb]
 	\setlength{\tabcolsep}{5pt}
