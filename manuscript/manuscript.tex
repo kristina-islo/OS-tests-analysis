@@ -42,38 +42,48 @@ Supermassive black hole binaries (SMBHBs) are predicted to form a high-redshift 
 Low-frequency gravitational waves (GWs) with frequencies of 
 $10^{-9} - 10^{-7} \; \mathrm{Hz}$ can be observed with pulsar timing arrays (PTAs) 
 composed of millisecond pulsars (MSPs) \sv{citation}. 
-By monitoring the ultra-regular periodic emission from these pulsars using radio telescopes, 
-we can probe the dynamics of the spacetime through which the pulses travel. 
-The dominant astrophysical source in this frequency range is an isotropic stochastic background 
+The dominant astrophysical source in this frequency range is an isotropic stochastic 
+gravitational wave background (GWB) 
 made up of the incoherent superposition of GWs from inspiraling 
 supermassive black hole binaries (SMBHBs) 
-\citep{1995ApJ...446..543R, 2003ApJ...583..616J, 2003ApJ...590..691W}.
+\citep{1995ApJ...446..543R, 2003ApJ...583..616J, 2003ApJ...590..691W}. 
+By monitoring the ultra-regular periodic emission from these pulsars using radio telescopes, 
+we can probe the dynamics of the spacetime through which the pulses travel. 
+This is done by computing the pulsar timing residuals, 
+which measure the difference between the expected and observed pulse times of arrival.
 
-Most measuring of the stochastic background is done through Bayesian data analysis. \ki{baye baye baye stuff} There are many advantages to running full Bayesian analyses on data sets, but they are slow. The bulk of the work consists of inverting non-diagonal matrices to find the strength of Hellings-Downs cross-correlations between pulsar pairs -- the "smoking gun" of a stochastic GWB.    
+The primary data analysis technique used by PTAs is Bayesian inference 
+to compare the probabilities of various models for the pulsar timing residuals, 
+including one where the residuals contain evidence of an isotropic GW stochastic background. 
+Bayesian inference is a powerful technique because it allows us to compare arbitrarily complicated 
+models; however, they are computationally intensive, 
+particularly when searching for evidence of the spatial correlations characteristic of a 
+stochastic GWB -- ``the smoking gun'' of a stochastic GWB.
 
-Determining the significance of various cross-correlations between pulsar pairs is computationally expensive, requiring multi-core computing clusters many days to complete. As PTA data-analysis expands to include more parameters when measuring our predicted signal, e.g. increase in residuals with continued and new pulsar observations, uncertainty in solar system ephemerides, etc., computation time will only increase. Thus methods which hasten the production of results without compromising accuracy are not only preferable, but will be necessary. Here we explore the noise-marginalized optimal statistic as an estimator for GWB signals.
+The significance of a stochastic GWB can also be assessed using the 
+optimal statistic, a frequentist estimator for the GWB amplitude. 
+It is an important complement to Bayesian detection techniques 
+because it provides an independent detection procedure, 
+and it is significantly faster to compute. 
+In particular, different spatial correlations can be tested with the optimal statistic 
+in less than a second, 
+whereas a Bayesian analysis with spatial correlations requires 
+several weeks to run on a supercomputing cluster.
 
-The optimal statistic is a frequentist estimator for the stochastic background amplitude. 
-It was derived by \citet{abc+2009} \sv{blah blah blah... try not to plagiarize myself}
-
-The optimal statistic is an important complement to Bayesian detection techniques. 
-It provides an independent way to assess the significance of the stochastic background, 
-and it is significantly faster to compute. It is also easy to test different spatial correlations 
-by altering the overlap reduction function (ORF) $\Gamma$ in the cross-correlations. 
-In contrast, doing a full Bayesian analysis with spatial correlations is a very computationally 
-intensive procedure.
-
-However, previous work has found that the optimal statistic gives biased results \sv{expand...} 
-In order to compute the optimal statistic, the timing model parameters are fixed 
-at the maximum-likelihood values, but this leads to biases in the 
-optimal statistic value and uncertainty due to covariances between the 
-individual red noise parameters and the GW amplitude. 
-
+However, previous work has found that the optimal statistic gives biased results 
+for PTAs with significant red noise in the individual pulsars due to the 
+strong covariance between the individual red noise parameters 
+and the GWB amplitude \sv{has this ever been discussed in a paper?}. 
 In this paper, we present a technique for improving the accuracy of the optimal statistic 
 by marginalizing the optimal statistic over the individual red noise parameters 
 using the posterior distributions from a full Bayesian analysis. 
 This hybrid approach produces a more accurate 
-estimate of \Agw\ and its uncertainty.
+estimate of \Agw\ and its uncertainty. 
+This method is more computationally intensive than previous methods 
+for computing the optimal statistic, but still requires only minutes. 
+Furthermore, the same Bayesian analysis drawn upon by the noise marginalization 
+can be used to compute the optimal statistic with any choice of the ORF, 
+allowing additional spatial correlations to be tested very quickly.
 
 This paper is organized as follows. In Sec.~\ref{sec:marg_os} 
 we lay out the procedure for computing the noise-marginalized optimal statistic 
@@ -84,7 +94,7 @@ differentiate between different spatial correlations
 using simulated PTA data. 
 In Sec.~\ref{sec:skyscrambles} we determine how well the noise-marginalized optimal statistic 
 can assess the significance of a GW detection by performing sky scrambles \citep{cs2016}. 
-and compare to the Bayesian analysis done by \citet{tlb+2017}. 
+We also compare our sky scramble results to the Bayesian analysis of sky scrambles done by \citet{tlb+2017}. 
 We conclude in Sec.~\ref{sec:conclusion}.
 
 
@@ -94,7 +104,17 @@ We conclude in Sec.~\ref{sec:conclusion}.
 As introduced by \citet{abc+2009}, 
 the optimal statistic is derived by analytically maximizing 
 the PTA likelihood function in the weak-signal regime. 
-The likelihood function is given by
+We begin by finding the timing residuals for a given pulsar ${\bf{r}}_I$, which can be written as 
+\begin{equation}
+	{\bf{r}}_I = M {\bf{\epsilon}}_I + F {\bf{a}}_I + U {\bf{j}}_I + {\bf{n}}_I \,,\\
+\end{equation}
+where $M$ is the design matrix, 
+$\epsilon_I$ is a vector of the timing model parameter uncertainties, 
+${\bf{a}}_I$ are the red noise parameters describing both individual pulsars' red noise 
+and common red noise in all pulsars, 
+${\bf{j}}_I$ are white noise parameters describing frequency-correlated white noise, 
+and ${\bf{n}}_I$ are white noise parameters describing uncorrelated white noise. 
+The likelihood function is constructed from the residuals as given by
 \begin{equation}
 	p({\bf{r}}|\phi) = \frac{\exp[-\frac{1}{2} {\bf{r}}^T \Sigma^{-1}(\phi) {\bf{r}} ]}{\sqrt{\mathrm{det}[2\pi \Sigma(\phi)]}} \,,
 \end{equation}
@@ -115,10 +135,20 @@ autocovariance and cross-covariance matrices ${\bf{P}}_I$ and ${\bf{S}}_{IJ}$, r
 \end{equation}
 where
 \begin{eqnarray}
-	{\bf{P}} &=& \left\langle {\bf{r}}_I {\bf{r}}_I^T \right\rangle \,, \\
+	{\bf{P}}_I &=& \left\langle {\bf{r}}_I {\bf{r}}_I^T \right\rangle \,, \\
 	{\bf{S}}_{IJ} &=& \left. \left\langle {\bf{r}}_I {\bf{r}}_J^T \right\rangle \right|_{I \neq J} \,.
 \end{eqnarray}
-\sv{something about the ORF...}
+In the frequency domain, these can be written as
+\begin{eqnarray}
+	\left\langle {\bf{r}}_I {\bf{r}}_I^T \right\rangle_{ij} &=& {\bf{R}}_I \left[ \int_{-\infty}^\infty df \; e^{2\pi i f \tau_{ij}} P_I(f) \right] {\bf{R}}_I^T \,, \\
+	\left. \left\langle {\bf{r}}_I {\bf{r}}_J^T \right\rangle \right|_{ij} &=& \chi_{IJ} {\bf{R}}_I \left[ \int_{-\infty}^\infty df \; e^{2\pi i f \tau_{ij}} P_\mathrm{gw}(f) \right] {\bf{R}}_J^T \,,
+\end{eqnarray}
+where $i,j$ index the matrix elements, $\tau_{ij} \equiv |t_i - t_j|$ is the time interval between 
+two observations, 
+$\mathbf{R}$ is the timing model fitting matrix, 
+$\chi_{IJ}$ is the overlap reduction function (ORF) that describes the spatial correlation between two pulsars' residuals, 
+$P_\mathrm{gw}(f)$ is the GW power spectrum, 
+and $P_I(f)$ is the power spectrum for the $I$th pulsar. 
 
 Analytically maximizing this likelihood gives the optimal statistic,
 \begin{equation}
@@ -143,10 +173,21 @@ The expectation value of the SNR, averaged over all realizations of the stochast
 	\left\langle \rho \right\rangle = \Agw^2 \left[ \sum_{IJ} \Tr\left( {\bf{P}}_I^{-1} \tilde{{\bf{S}}}_{IJ} {\bf{P}}_J^{-1} \tilde{{\bf{S}}}_{JI} \right) \right]^{1/2} \,.
 \end{equation}
 
-When constructing the optimal statistic, we typically fix the red noise parameters $\phi$ to the values that 
-maximize the likelihood, which we determine from a Bayesian common red noise analysis 
-\sv{check this part}. However, 
-doing this biases the optimal statistic and SNR \sv{blah blah blah} 
+When constructing the residuals, 
+we typically fix the red noise parameters to the values that 
+maximize the likelihood. 
+However, this leads to a bias in the optimal statistic and SNR because 
+the individual red noise parameters and the common red noise parameters 
+are highly covariant. 
+In this section, we compare three different techniques for computing the 
+optimal statistic for PTAs with significant red noise. 
+First, we fix the individual pulsars' red noise parameters to the 
+maximum-likelihood values from individual pulsar analyses. 
+Second, we fix the individual pulsars' red noise parameters to the 
+values maximum-likelihood values from a common analysis 
+involving all of the pulsars in our PTA. 
+For the third method, we 
+
 In this paper we introduce a procedure to correct this bias by 
 marginalizing over the red noise parameters using 
 posterior distributions from a Bayesian analysis.
@@ -155,19 +196,17 @@ In order to compare the noise-marginalized optimal statistic to the
 fixed-noise optimal statistic, we injected a GW stochastic background with 
 $\Agw = 5 \times 10^{-15}$ into simulated PTA data. 
 We constructed simulated data sets using the same procedure as in \citet{tlb+2017}, 
-which consisted of 10 MSPs with \sv{Steve fill in here...}
-
+which consisted of 10 MSPs with \sv{Steve fill in here...} 
 The optimal statistic was computed using the \sv{fill in...} in PAL2 \sv{add citation}. 
 We incorporate the individual pulsar noise parameters as follows. 
 We perform individual Bayesian noise analyses on all of the pulsars, and 
 fix the white noise to the maximum likelihood value. 
-To compute the fixed-noise optimal statistic, 
-the red noise parameters for each pulsar are set to the mode of 
-the joint posterior distribution for $A_\mathrm{red}$,$\gamma_\mathrm{red}$, 
-found by performing a Bayesian common red noise analysis. 
-For the noise-marginalized optimal statistic, we draw from 
+For the noise-marginalized optimal statistic, we draw the red noise parameters from 
 the common red noise posteriors in order to average the optimal statistic over 
-the individual pulsars' red noise.
+the individual pulsars' red noise. 
+For comparison, we also compute the fixed-noise optimal statistic in two ways -- 
+first, by fixing the red noise parameters at the maximum-likelihood values from individual pulsar analyses; 
+second, by fixing the red noise parameters at the maximum-likelihood values from a common analysis.
 
 Figure~\ref{fig:os_dataset_sample} shows the fixed-noise and noise-marginalized 
 optimal statistic for a single realization of the stochastic background. 
@@ -194,7 +233,7 @@ The noise-marginalized analysis also gives a larger mean SNR compared to the fix
 	\label{fig:os_dataset_sample}
 \end{figure}
 
-Figure~\ref{fig:os_datasetstats} compares the fixed-noise values of $\hat{A}^2$ 
+In Fig.~\ref{fig:os_datasetstats} we compare the fixed-noise values of $\hat{A}^2$ 
 to the mean $\hat{A}^2$ for 425 different realizations of the stochastic background. 
 The fixed-noise analysis tends to underestimate the strength of the stochastic background, 
 whereas the noise-marginalized analysis is better able to recover the injected value. 
