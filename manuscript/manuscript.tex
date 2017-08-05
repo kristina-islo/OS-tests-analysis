@@ -30,7 +30,15 @@
 \date{\today}  
 
 \begin{abstract}
-Supermassive black hole binaries (SMBHBs) are predicted to form a high-redshift cosmological population of low-frequency gravitational wave sources which added together produce a stochastic gravitational wave background (GWB) potentially measurable via pulsar timing. Comparing the actual and predicted times-of-arrival (TOAs) of radio pulses beamed by millisecond pulsars allows us to search for and place limits on the stochastic background. While most estimating of GWB significance is done via Bayesian analysis, here we use a frequentist estimator called the noise-marginalized optimal statistic to assess the significance of a GWB present in simulated PTA data. We find \ki{complete}
+Supermassive black hole binaries (SMBHBs) are predicted to form a 
+high-redshift cosmological population of low-frequency gravitational wave sources 
+which added together produce a stochastic gravitational wave background (GWB) 
+that can be observed by pulsar timing arrays (PTAs). 
+Comparing the actual and predicted times-of-arrival (TOAs) of radio pulses beamed by 
+millisecond pulsars allows us to search for and place limits on the stochastic background. 
+While most estimating of GWB significance is done via Bayesian analysis, 
+here we use a frequentist estimator called the noise-marginalized optimal statistic 
+to assess the significance of a GWB present in simulated PTA data. We find \ki{complete}
 
 \end{abstract}
 
@@ -41,7 +49,7 @@ Supermassive black hole binaries (SMBHBs) are predicted to form a high-redshift 
 
 Low-frequency gravitational waves (GWs) with frequencies of 
 $10^{-9} - 10^{-7} \; \mathrm{Hz}$ can be observed with pulsar timing arrays (PTAs) 
-composed of millisecond pulsars (MSPs) \sv{citation}. 
+composed of millisecond pulsars (MSPs) \cite{hd1983,fb1990}. 
 The dominant astrophysical source in this frequency range is an isotropic stochastic 
 gravitational wave background (GWB) 
 made up of the incoherent superposition of GWs from inspiraling 
@@ -50,18 +58,21 @@ supermassive black hole binaries (SMBHBs)
 By monitoring the ultra-regular periodic emission from these pulsars using radio telescopes, 
 we can probe the dynamics of the spacetime through which the pulses travel. 
 This is done by searching for correlations in the pulsar timing residuals, 
-which measure the difference between the expected and observed pulse times of arrival.
+which measure the difference between the expected and observed pulse times of arrival. 
+Current upper-limits on the stochastic background from PTAs are approaching 
+theoretical predictions for the stochastic GWB \citep{PPTA2013,EPTA2015,NANOGrav9yr}
 
 The primary data analysis technique used by PTAs is Bayesian inference 
 to compare the probabilities of various models for the pulsar timing residuals, 
-including one where the residuals contain evidence of an isotropic GW stochastic background. 
-Bayesian inference is a powerful technique because it allows us to compare arbitrarily complicated 
-models; however, they are computationally intensive, 
+including one where the residuals contain evidence of an isotropic GW stochastic background 
+\citep{vlm+2009,lah+2013}. 
+Bayesian inference is a powerful technique because it allows us to compare arbitrarily complicated models. 
+However, running a full Bayesian analysis is computationally intensive, 
 particularly when searching for evidence of dipole spatial correlations -- 
 ``the smoking gun'' of a stochastic GWB.
 
 The significance of a stochastic GWB can also be assessed using the 
-optimal statistic, a frequentist estimator for the GWB amplitude. 
+optimal statistic, a frequentist estimator for the GWB amplitude \citep{abc+2009,demorest+2013,ccs+2015}. 
 It is an important complement to Bayesian detection techniques 
 because it provides an independent detection procedure, 
 and it is significantly faster to compute. 
@@ -101,6 +112,7 @@ We conclude in Sec.~\ref{sec:conclusion}.
 \section{Noise-marginalized optimal statistic}
 \label{sec:marg_os}
 
+\sv{Justin, please bring notation up to date}
 As introduced by \citet{abc+2009}, 
 the optimal statistic is derived by analytically maximizing 
 the PTA likelihood function in the weak-signal regime. 
@@ -193,10 +205,35 @@ allowing us to marginalize over the individual red noise.
 
 We used these three techniques to compute the optimal statistic for simulated data sets. 
 We constructed simulated data sets using the same procedure as in \citet{tlb+2017}. 
-The simulated PTAs consisted of 10 MSPs with \sv{Steve fill in here...}, 
-and the injected GWB amplitude was $\Agw = 5\times10^{-15}$. 
-The optimal statistic was computed using the \sv{fill in...} in PAL2 \sv{add citation}.
+The simulated PTAs consisted of 10 MSPs with 
+total observation times and noise properties chosen to be 
+similar to the properties of the EPTA \cite{caballero+2016} (see Table~\ref{tab:sim}). 
+We also injected a stochastic GWB amplitude with $\Agw = 5\times10^{-15}$.
+\begin{table}[htb]
+	\setlength{\tabcolsep}{5pt}
+	\caption{Pulsar parameters used in simulated PTA}
+	\begin{center}
+	\begin{tabular}{ccccc}
+		\hline\hline
+    		Pulsar	& $T_\mathrm{obs}$ (yrs) & $\sigma_w$ ($\mu\mathrm{s}$) & $\log_{10}A_\mathrm{red}$ & $\gamma_\mathrm{red}$ \\
+		\hline
+		J0613$-$0200 & 16.054 & 1.58 & -13.90 & 3.18 \\
+		J0751+1807 & 17.606 & 2.60 & -14.14 & 2.58 \\
+		J1012+5307 & 16.831 & 1.47 & -13.09 & 1.65 \\
+		J1640+2224 & 16.735 & 1.99 & -13.24 & 0.03 \\
+		J1643$-$1224 & 17.300 & 1.65 & -18.56 & 4.04 \\
+		J1713+0747 & 17.657 & 0.26 & -14.90 & 4.85 \\
+		J1744$-$1134 & 17.250 & 0.65 & -13.60 & 2.00 \\
+		J1857+0943 & 17.310 & 1.51 & -16.00 & 1.35 \\
+		J1909$-$3744 & 9.379 & 0.12 & -13.99 & 2.06 \\
+		J2145$-$0750 & 17.161 & 1.19 & -13.87 & 4.02 \\
+    		\hline\hline
+	\end{tabular}
+	\end{center}
+	\label{tab:sim}
+\end{table}
 
+The optimal statistic was computed using the \sv{fill in...} in PAL2 \sv{add citation}. 
 Figure~\ref{fig:os_dataset_sample} shows the fixed-noise and noise-marginalized 
 optimal statistic for a single realization of the stochastic background. 
 We also include the distribution of $\Agw^2$ found using the results of a Bayesian analysis 
@@ -206,7 +243,7 @@ with each other and the injected GW stochastic background,
 but the value from the fixed-noise analysis is significantly lower. 
 The noise-marginalized analysis also gives a larger mean SNR compared to the fixed-noise analysis.
 \begin{figure}[ht]
-	\includegraphics[width=0.9\columnwidth]{plots/os_dataset50.pdf}
+	\includegraphics[width=0.95\columnwidth]{plots/os_dataset50.pdf}
 	\caption{Optimal statistic and SNR for a simulated dataset 
 			containing an injected GW background with $\Agw = 5\times10^{-15}$. 
 			We compare the values found using a fixed-noise analysis (dashed blue line) to the 
@@ -232,7 +269,7 @@ while the mean value from the noise-marginalized analysis is $\hat{A}^2 = 2.5 \t
 The noise-marginalized analysis also gives a higher average mean SNR of 1.7, 
 compared to an average SNR of 1.0 using the fixed-noise analysis.
 \begin{figure}[ht]
-	\includegraphics[width=0.9\columnwidth]{plots/os_datasetstats_5e-15.pdf}
+	\includegraphics[width=0.95\columnwidth]{plots/os_datasetstats_5e-15.pdf}
 	\caption{Optimal statistic and SNR for 425 simulated datasets 
 			containing an injected GW background with $\Agw = 5\times10^{-15}$. 
 			We compare the values found using a fixed-noise analysis (blue) to the 
@@ -248,7 +285,7 @@ compared to an average SNR of 1.0 using the fixed-noise analysis.
 \end{figure}
 
 
-\section{Compare Significance with Monopole and Dipole}
+\section{Monopole and Dipole Spatial Correlations}
 \label{sec:spatial}
 
 The optimal statistic is particularly well-suited to compare multiple spatial correlation relations 
@@ -275,19 +312,19 @@ monopole, dipole, and quadrupole ORFs, indicating that it is not easy to differe
 between those three spatial correlations for an injected GW background of this amplitude. 
 We find a noise-marginalized mean SNR above 1.0 in 68\% of our simulated data sets 
 using the quadrupole ORF, and in 45\% and 24\% of our simulated data sets 
-using the monopole and dipole ORF, respectively.
-\begin{figure}[ht]
-	\includegraphics[width=0.9\columnwidth]{plots/os_datasetstats_5e-15_ORF.pdf}
+using the monopole and dipole ORFs, respectively.
+\begin{figure}[htb]
+	\includegraphics[width=0.95\columnwidth]{plots/os_datasetstats_5e-15_ORF.pdf}
 	\caption{Noise-marginalized mean optimal statistic and mean SNR for 425 simulated datasets 
-			containing an injected GW background with $\Agw = 5\times10^{-15}$. 
-			We compare the values found using monopole (blue), dipole (orange), and quadrupole (green) 
-			spatial correlations. 
+			containing an injected isotropic stochastic GWB with $\Agw = 5\times10^{-15}$. 
+			We compare the values found using monopole (blue), dipole (orange), 
+			and quadrupole (green) spatial correlations. 
 			The dashed vertical line indicates the injected value, $\hat{A}^2 = 2.5 \times 10^{-29}$.}
 	\label{fig:os_ORF}
 \end{figure}
 
 
-\section{Compare Significance with Sky Scrambles/Phase Shifts}
+\section{Sky Scrambles}
 \label{sec:skyscrambles}
 
 Another technique for testing the spatial correlations is through ``sky scrambles,'' 
@@ -295,7 +332,18 @@ where the ORF is altered in order to simulate changing the pulsars' positions \c
 \citet{tlb+2017} showed how sky scrambles affect the Bayes' factor for simulated data sets. 
 Here we perform a similar analysis using frequentist methods.
 
-The scrambled sky positions were generated \sv{Steve, explain here...}
+We used the same scrambled sky positions as were used in \citet{tlb+2017}. 
+These positions were chosen so as to minimize the overlap  
+between the scrambled ORFs and the true ORF, 
+which can be assessed using the ``match statistic'' \citep{cs2016}:
+\begin{equation}
+	\bar{M} = \frac{\sum_{I,J \neq I} \Gamma_{IJ} \Gamma'_{IJ}}{\sqrt{ \left( \sum_{I, J \neq I} \Gamma_{IJ} \Gamma_{IJ} \right) \left( \sum_{I, J \neq I} \Gamma'_{IJ} \Gamma'_{IJ} \right)}} \,,
+\end{equation}
+where $I$,$J$ index the pulsar number, and $\Gamma$ and $\Gamma'$ are two different ORFs. 
+The 210 sky scrambles used in this paper were generated 
+using a particle swarm optimization (PSO) algorithm \citep{ke1995,se1998} 
+with the requirement that the scrambled ORFs had $\bar{M} < 0.1$ when compared to the true ORF and to each other.
+\sv{Steve, check this section}
 
 Figure~\ref{fig:skyscrambles_dataset_sample} compares the noise-marginalized optimal statistic 
 for a particular data set to the distribution of noise-marginalized optimal statistics obtained using sky scrambles. 
@@ -307,16 +355,17 @@ and for 24 out of the 210 sky scrambles, the SNR is above the true value of $1.1
 Figure~\ref{fig:skyscrambles} shows the $p$-values for 210 sky scrambles 
 using 425 realizations of the stochastic background. 
 For 62\% of simulations the $p$-value is $<0.1$, and for 29\% of simulations the $p$-value is $<0.01$.
-\begin{figure}[ht]
-	\includegraphics[width=0.9\columnwidth]{plots/skyscrambles_dataset50.pdf}
-	\caption{Comparison between the optimal statistic with and without sky scrambles 
-			for a simulated dataset containing an injected GW background with $\Agw = 5\times10^{-15}$. 
-			The true analysis found an $\mathrm{SNR} = 1.1$, while only 24 of the 210 sky scramble analyses 
-			found $\mathrm{SNR} \geq 1.1$ ($p=0.11$).}
+\begin{figure}[htb]
+	\includegraphics[width=0.95\columnwidth]{plots/skyscrambles_dataset50.pdf}
+	\caption{Comparison between the noise-marginalized mean optimal statistic and mean SNR 
+			with and without sky scrambles for a simulated dataset 
+			containing an injected GW background with $\Agw = 5\times10^{-15}$. 
+			Using the true ORF, we found an SNR of 1.1, while only 24 of the 210 analyses using scrambled ORFs 
+			found an SNR $\geq 1.1$ ($p=0.11$).}
 	\label{fig:skyscrambles_dataset_sample}
 \end{figure}
-\begin{figure}[ht]
-	\includegraphics[width=0.9\columnwidth]{plots/os_skyscrambles.pdf}
+\begin{figure}[htb]
+	\includegraphics[width=0.95\columnwidth]{plots/os_skyscrambles.pdf}
 	\caption{Distribution of $p$-values for 425 different realizations of the stochastic background. 
 			For each realization, the $p$-value is the fraction of sky scrambled ORFs that gives a 
 			noise-marginalized mean SNR greater than the mean SNR using the correct ORF.}
@@ -332,14 +381,18 @@ the frequentist and Bayesian detection techniques.
 \section{Conclusion}
 \label{sec:conclusion}
 
+The noise-marginalized optimal statistic is a computationally inexpensive 
+method for assessing the significance of an isotropic stochastic GWB in 
+PTA data.
+
 
 \acknowledgments
 We thank Joe Romano and Xavier Siemens for useful discussions. 
+KPI and SJV are supported by NSF Physics Frontier Center Grant 1430284.
 JAE was supported by NASA through Einstein Fellowship Grant PF4-150120. 
 SRT was supported by appointment to the NASA Postdoctoral Program 
 at the Jet Propulsion Laboratory, which is administered by Oak Ridge Associated Universities 
 and the Universities Space Research Association through a contract with NASA. 
-KPI and SJV are supported by NSF Physics Frontier Center Grant 1430284.
 
 
 \bibliographystyle{apsrev}
