@@ -281,7 +281,7 @@ def init_os_individual(dataset, h5file, psrlist, nf, noisedir=None, noVaryNoise=
     # make model dictionary, can play with number of frequencies here
     # Note: Tmax=0 means it will use the largest time span in the array to set the frequency bin size
     fullmodel = model.makeModelDict(incRedNoise=True, incEquad=incEquad, incJitterEquad=incJitterEquad,
-                                    likfunc='mark9', incGWB=True, nfreqs=nf, Tmax=0)
+                                    likfunc='mark9', incGWB=True, incEphemMixture=False, nfreqs=nf, Tmax=0)
 
     # loop through pulsars and fix white noise parameters to values in file
     if noisedir is not None:
@@ -334,7 +334,7 @@ def init_os_common(dataset, h5file, psrlist, nf, noisedir=None, noVaryNoise=Fals
     # make model dictionary, can play with number of frequencies here
     # Note: Tmax=0 means it will use the largest time span in the array to set the frequency bin size
     fullmodel = model.makeModelDict(incRedNoise=True, incEquad=incEquad, incJitterEquad=incJitterEquad,
-                                    likfunc='mark9', incGWB=True, nfreqs=nf, Tmax=0)
+                                    likfunc='mark9', incGWB=True, incEphemMixture=False, nfreqs=nf, Tmax=0)
 
     # loop through pulsars and fix white noise parameters to values in file
     if noisedir is not None:
