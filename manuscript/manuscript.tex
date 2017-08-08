@@ -4,6 +4,7 @@
 \DeclareMathOperator{\Tr}{Tr}
 
 \usepackage[usenames]{color}
+\newcommand{\CiteNeed}{\textcolor{red}{\scriptsize[citation needed]}}
 \newcommand{\sv}[1]{\textcolor{blue}{\it{\textbf{sv: #1}}} }
 \newcommand{\ki}[1]{\textcolor{cyan}{\it{\textbf{ki: #1}}} }
 
@@ -233,7 +234,7 @@ We also injected a stochastic GWB amplitude with $\Agw = 5\times10^{-15}$.
 	\label{tab:sim}
 \end{table}
 
-The optimal statistic was computed using the \sv{fill in...} in PAL2 \sv{add citation}. 
+The optimal statistic was computed using the \sv{fill in...} in PAL2 \CiteNeed. 
 Figure~\ref{fig:os_dataset_sample} shows the fixed-noise and noise-marginalized 
 optimal statistic for a single realization of the stochastic background. 
 We also include the distribution of $\Agw^2$ found using the results of a Bayesian analysis 
@@ -243,7 +244,7 @@ with each other and the injected GW stochastic background,
 but the value from the fixed-noise analysis is significantly lower. 
 The noise-marginalized analysis also gives a larger mean SNR compared to the fixed-noise analysis.
 \begin{figure}[ht]
-	\includegraphics[width=0.95\columnwidth]{plots/os_dataset50.pdf}
+	\includegraphics[width=0.9\columnwidth]{plots/os_dataset50.pdf}
 	\caption{Optimal statistic and SNR for a simulated dataset 
 			containing an injected GW background with $\Agw = 5\times10^{-15}$. 
 			We compare the values found using a fixed-noise analysis (dashed blue line) to the 
@@ -269,7 +270,7 @@ while the mean value from the noise-marginalized analysis is $\hat{A}^2 = 2.5 \t
 The noise-marginalized analysis also gives a higher average mean SNR of 1.7, 
 compared to an average SNR of 1.0 using the fixed-noise analysis.
 \begin{figure}[ht]
-	\includegraphics[width=0.95\columnwidth]{plots/os_datasetstats_5e-15.pdf}
+	\includegraphics[width=0.9\columnwidth]{plots/os_datasetstats_5e-15.pdf}
 	\caption{Optimal statistic and SNR for 425 simulated datasets 
 			containing an injected GW background with $\Agw = 5\times10^{-15}$. 
 			We compare the values found using a fixed-noise analysis (blue) to the 
@@ -314,7 +315,7 @@ We find a noise-marginalized mean SNR above 1.0 in 68\% of our simulated data se
 using the quadrupole ORF, and in 45\% and 24\% of our simulated data sets 
 using the monopole and dipole ORFs, respectively.
 \begin{figure}[htb]
-	\includegraphics[width=0.95\columnwidth]{plots/os_datasetstats_5e-15_ORF.pdf}
+	\includegraphics[width=0.9\columnwidth]{plots/os_datasetstats_5e-15_ORF.pdf}
 	\caption{Noise-marginalized mean optimal statistic and mean SNR for 425 simulated datasets 
 			containing an injected isotropic stochastic GWB with $\Agw = 5\times10^{-15}$. 
 			We compare the values found using monopole (blue), dipole (orange), 
@@ -356,7 +357,7 @@ Figure~\ref{fig:skyscrambles} shows the $p$-values for 210 sky scrambles
 using 425 realizations of the stochastic background. 
 For 62\% of simulations the $p$-value is $<0.1$, and for 29\% of simulations the $p$-value is $<0.01$.
 \begin{figure}[htb]
-	\includegraphics[width=0.95\columnwidth]{plots/skyscrambles_dataset50.pdf}
+	\includegraphics[width=0.9\columnwidth]{plots/skyscrambles_dataset50.pdf}
 	\caption{Comparison between the noise-marginalized mean optimal statistic and mean SNR 
 			with and without sky scrambles for a simulated dataset 
 			containing an injected GW background with $\Agw = 5\times10^{-15}$. 
@@ -365,7 +366,7 @@ For 62\% of simulations the $p$-value is $<0.1$, and for 29\% of simulations the
 	\label{fig:skyscrambles_dataset_sample}
 \end{figure}
 \begin{figure}[htb]
-	\includegraphics[width=0.95\columnwidth]{plots/os_skyscrambles.pdf}
+	\includegraphics[width=0.9\columnwidth]{plots/os_skyscrambles.pdf}
 	\caption{Distribution of $p$-values for 425 different realizations of the stochastic background. 
 			For each realization, the $p$-value is the fraction of sky scrambled ORFs that gives a 
 			noise-marginalized mean SNR greater than the mean SNR using the correct ORF.}
