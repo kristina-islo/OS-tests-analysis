@@ -1,0 +1,41 @@
+PSR              B1855+09
+LAMBDA   286.8634882750854  1     0.0000000132017
+BETA      32.3214862209101  1     0.0000000214243
+PMLAMBDA           -3.2727  1              0.0109
+PMBETA             -5.0641  1              0.0209
+PX                  0.6150  1              0.1611
+POSEPOCH        55367.0000
+F0    186.4940812499313267  1  0.0000000000059748
+F1     -6.204548248452D-16  1  3.658824920209D-20
+PEPOCH        55367.000000
+START            53358.726
+FINISH           57375.734
+DM               13.299393
+SOLARN0               0.00
+EPHEM               DE436
+ECL                 IERS2010
+CLK                 TT(BIPM2015)                    
+UNITS               TDB
+TIMEEPH             FB90
+CORRECT_TROPOSPHERE N
+PLANET_SHAPIRO      N
+DILATEFREQ          N
+NTOA                  5618
+TRES                  1.17
+TZRMJD  55391.17268895300722
+TZRFRQ            1410.000
+TZRSITE                  3
+MODE                     1
+NITS                     1
+INFO -f                              
+BINARY            ELL1    
+A1             9.230780212  1         0.000000207
+PB       12.32717119159634  1    0.00000000015868
+TASC       55360.513155152  1         0.000000018
+EPS1         -0.0000215050  1        0.0000000236
+EPS2          0.0000024385  1        0.0000000159
+SINI              0.999390  1            0.000189
+M2                0.243111  1            0.011552
+# Converted by make_release.py on Tue Jul 25 17:08:12 2017 by pdemores
+# Original filename: 'B1855+09/B1855+09.x2e.par'
+# Ran additional tempo iteration

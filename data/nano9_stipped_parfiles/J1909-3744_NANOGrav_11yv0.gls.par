@@ -1,0 +1,43 @@
+PSR              J1909-3744
+LAMBDA   284.2208544465825  1     0.0000000030392
+BETA     -15.1555127886478  1     0.0000000137469
+PMLAMBDA          -13.8630  1              0.0034
+PMBETA            -34.3170  1              0.0151
+PX                  0.9177  1              0.0295
+POSEPOCH        55339.0000
+F0    339.3156924323431554  1  0.0000000000004002
+F1     -1.614811961023D-15  1  5.384362039116D-21
+PEPOCH        55339.000000
+START            53292.016
+FINISH           57386.799
+DM               10.391362
+SOLARN0               0.00
+EPHEM               DE436
+ECL                 IERS2010
+CLK                 TT(BIPM2015)                    
+UNITS               TDB
+TIMEEPH             FB90
+CORRECT_TROPOSPHERE N
+PLANET_SHAPIRO      N
+DILATEFREQ          N
+NTOA                 17373
+TRES                  0.23
+TZRMJD  55340.24722451642793
+TZRFRQ             872.343
+TZRSITE                  1
+MODE                     1
+NITS                     1
+INFO -f                              
+BINARY            ELL1    
+A1             1.897991065  1         0.000000039
+PB        1.53344945166705  1    0.00000000000364
+TASC       55338.985740971  1         0.000000002
+EPS1          0.0000000402  1        0.0000000193
+EPS2         -0.0000001086  1        0.0000000108
+PBDOT            0.5022002  1           0.0048168
+SINI              0.998085  1            0.000094
+M2                0.207666  1            0.002260
+XDOT             -0.000403  1            0.000127
+# Converted by make_release.py on Mon Mar  6 15:46:35 2017 by pdemores
+# Original filename: 'J1909-3744/J1909-3744.x.par'
+# Ran additional tempo iteration

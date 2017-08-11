@@ -1,0 +1,42 @@
+PSR              J1640+2224
+LAMBDA   243.9890904015324  1     0.0000000156146
+BETA      44.0585168772174  1     0.0000000163655
+PMLAMBDA            4.1817  1              0.0096
+PMBETA            -10.7423  1              0.0146
+PX                  0.0913  1              0.3815
+POSEPOCH        55366.0000
+F0    316.1239842245173008  1  0.0000000000001725
+F1     -2.815448030496D-16  1  3.982510395925D-21
+PEPOCH        55366.000000
+START            53344.637
+FINISH           57387.598
+DM               18.462100
+SOLARN0               0.00
+EPHEM               DE436
+ECL                 IERS2010
+CLK                 TT(BIPM2015)                    
+UNITS               TDB
+TIMEEPH             FB90
+CORRECT_TROPOSPHERE N
+PLANET_SHAPIRO      N
+DILATEFREQ          N
+NTOA                  5982
+TRES                  0.71
+TZRMJD  55391.04697568670732
+TZRFRQ             424.000
+TZRSITE                  3
+MODE                     1
+NITS                     1
+INFO -f                              
+BINARY            DD      
+A1            55.329719841  1         0.000002242
+E             0.0007972677  1        0.0000000122
+T0        55310.8528063539  1        0.0003585621
+PB      175.46066189496440  1    0.00000000638427
+OM         50.731598676385  1      0.000735658538
+SINI              0.882916  1            0.080353
+M2                0.417479  1            0.265247
+XDOT              0.013508  1            0.000944
+# Converted by make_release.py on Mon Mar  6 12:53:55 2017 by pdemores
+# Original filename: 'J1640+2224/J1640+2224.x3.par'
+# Ran additional tempo iteration

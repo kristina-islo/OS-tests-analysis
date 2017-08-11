@@ -1,0 +1,39 @@
+PSR              J2229+2643
+LAMBDA   350.6956387800287  1     0.0000000849084
+BETA      33.2901745546916  1     0.0000000603233
+PMLAMBDA           -4.3302  1              0.3911
+PMBETA             -4.1846  1              0.6857
+PX                  0.8272  1              0.6332
+POSEPOCH        56937.0000
+F0    335.8162133749696068  1  0.0000000000037413
+F1     -1.709729313873D-16  1  6.773901644256D-19
+PEPOCH        56937.000000
+START            56498.241
+FINISH           57376.911
+DM               22.726958
+SOLARN0               0.00
+EPHEM               DE436
+ECL                 IERS2010
+CLK                 TT(BIPM2015)                    
+UNITS               TDB
+TIMEEPH             FB90
+CORRECT_TROPOSPHERE N
+PLANET_SHAPIRO      N
+DILATEFREQ          N
+NTOA                  1131
+TRES                  2.12
+TZRMJD  56950.03897503185005
+TZRFRQ            1287.289
+TZRSITE                  3
+MODE                     1
+NITS                     1
+INFO -f                              
+BINARY            DD      
+A1            18.912526187  1         0.000000288
+E             0.0002553144  1        0.0000000364
+T0        56953.9954202142  1        0.0015183175
+PB       93.01589269757424  1    0.00000014660407
+OM         14.335726608977  1      0.005875959864
+# Converted by make_release.py on Mon Mar  6 16:47:57 2017 by pdemores
+# Original filename: 'J2229+2643/J2229+2643.x1.par'
+# Ran additional tempo iteration

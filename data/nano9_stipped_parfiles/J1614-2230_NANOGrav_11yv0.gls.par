@@ -1,0 +1,42 @@
+PSR              J1614-2230
+LAMBDA   245.7882932679298  1     0.0000000065453
+BETA      -1.2568039218837  1     0.0000003671804
+PMLAMBDA            9.4940  1              0.0139
+PMBETA            -31.2917  1              0.6987
+PX                  1.4987  1              0.0957
+POSEPOCH        56047.0000
+F0    317.3789419569106371  1  0.0000000000003076
+F1     -9.694386520369D-16  1  9.044340528388D-21
+PEPOCH        56047.000000
+START            54724.873
+FINISH           57369.754
+DM               34.491758
+SOLARN0               0.00
+EPHEM               DE436
+ECL                 IERS2010
+CLK                 TT(BIPM2015)                    
+UNITS               TDB
+TIMEEPH             FB90
+CORRECT_TROPOSPHERE N
+PLANET_SHAPIRO      N
+DILATEFREQ          N
+NTOA                 11173
+TRES                  1.50
+TZRMJD  56066.22644728836071
+TZRFRQ            1280.468
+TZRSITE                  1
+MODE                     1
+NITS                     1
+INFO -f                              
+BINARY            ELL1    
+A1            11.291197596  1         0.000000063
+PB        8.68661942214550  1    0.00000000006246
+TASC       56049.043221819  1         0.000000007
+EPS1          0.0000000938  1        0.0000000080
+EPS2         -0.0000013329  1        0.0000000058
+PBDOT            1.6896759  1           0.2146244
+SINI              0.999903  1            0.000003
+M2                0.490799  1            0.002298
+# Converted by make_release.py on Mon Mar  6 12:48:28 2017 by pdemores
+# Original filename: 'J1614-2230/J1614-2230.x.par'
+# Ran additional tempo iteration

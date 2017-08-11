@@ -1,0 +1,33 @@
+PSR              J1923+2515
+LAMBDA   297.9809509695828  1     0.0000000206469
+BETA      46.6962014199465  1     0.0000000254648
+PMLAMBDA           -9.7368  1              0.0425
+PMBETA            -12.4316  1              0.0777
+PX                  1.2198  1              0.4152
+POSEPOCH        56583.0000
+F0    263.9807142414003351  1  0.0000000000009587
+F1     -6.659198477748D-16  1  4.440187611299D-20
+PEPOCH        56583.000000
+START            55791.094
+FINISH           57376.739
+DM               18.857636
+SOLARN0               0.00
+EPHEM               DE436
+ECL                 IERS2010
+CLK                 TT(BIPM2015)                    
+UNITS               TDB
+TIMEEPH             FB90
+CORRECT_TROPOSPHERE N
+PLANET_SHAPIRO      N
+DILATEFREQ          N
+NTOA                  1944
+TRES                  2.50
+TZRMJD  56593.84694363832641
+TZRFRQ             430.000
+TZRSITE                  3
+MODE                     1
+NITS                     1
+INFO -f                              
+# Converted by make_release.py on Tue Jul 25 17:14:16 2017 by pdemores
+# Original filename: 'J1923+2515/J1923+2515.mtl.par'
+# Ran additional tempo iteration

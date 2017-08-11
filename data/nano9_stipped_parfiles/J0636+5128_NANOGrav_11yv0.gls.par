@@ -1,0 +1,41 @@
+PSR              J0636+5128
+LAMBDA    96.3631467299497  1     0.0000000179771
+BETA      28.2430993281736  1     0.0000000360559
+PMLAMBDA            3.6625  1              0.1922
+PMBETA             -2.0247  1              0.2486
+PX                  0.8826  1              0.3014
+POSEPOCH        57002.0000
+F0    348.5592317099453226  1  0.0000000000022207
+F1     -4.182223360679D-16  1  4.685836968488D-19
+PEPOCH        57002.000000
+START            56640.372
+FINISH           57365.516
+DM               11.108159
+DMEPOCH        56307.0000
+SOLARN0               0.00
+EPHEM               DE436
+ECL                 IERS2010
+CLK                 TT(BIPM2015)                    
+UNITS               TDB
+TIMEEPH             FB90
+CORRECT_TROPOSPHERE N
+PLANET_SHAPIRO      N
+DILATEFREQ          N
+NTOA                 13699
+TRES                  3.54
+TZRMJD  57012.22695993044444
+TZRFRQ            1441.406
+TZRSITE                  1
+MODE                     1
+NITS                     1
+INFO -f                              
+BINARY            ELL1    
+A1             0.008986149  1         0.000000076
+PB        0.06655134006262  1    0.00000000002702
+TASC       57002.092357108  1         0.000000119
+EPS1          0.0000257830  1        0.0000120735
+EPS2         -0.0000012018  1        0.0000114024
+PBDOT            2.4881705  1           0.2797453
+# Converted by make_release.py on Mon Mar  6 11:52:41 2017 by pdemores
+# Original filename: 'J0636+5128/J0636+5128.cng3.par'
+# Ran additional tempo iteration

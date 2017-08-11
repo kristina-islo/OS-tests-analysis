@@ -1,0 +1,42 @@
+PSR              J0023+0923
+LAMBDA     9.0703938007712  1     0.0000000101944
+BETA       6.3091085293389  1     0.0000000934112
+PMLAMBDA          -13.9048  1              0.0324
+PMBETA             -0.3347  1              0.3741
+PX                  0.9270  1              0.1579
+POSEPOCH        56567.0000
+F0    327.8470205906107253  1  0.0000000000006814
+F1     -1.227831673044D-15  1  3.454549983319D-20
+PEPOCH        56567.000000
+START            55758.345
+FINISH           57375.953
+DM               14.324999
+SOLARN0               0.00
+EPHEM               DE436
+ECL                 IERS2010
+CLK                 TT(BIPM2015)                    
+UNITS               TDB
+TIMEEPH             FB90
+CORRECT_TROPOSPHERE N
+PLANET_SHAPIRO      N
+DILATEFREQ          N
+NTOA                  8161
+TRES                  1.14
+TZRMJD  56578.09619025049798
+TZRFRQ             430.000
+TZRSITE                  3
+MODE                     1
+NITS                     1
+INFO -f                              
+BINARY            ELL1    
+A1             0.034841418  1         0.000000066
+TASC       56567.026093624  1         0.000000075
+EPS1          0.0000070369  1        0.0000031097
+EPS2         -0.0000040420  1        0.0000032168
+FB0     8.338721549264D-05  1  2.095028388133D-14
+FB1    -1.864804617812D-20  1  1.404196286064D-21
+FB2     2.434118710876D-28  1  4.653087070925D-29
+FB3     2.296704645414D-35  1  4.339992260037D-36
+# Converted by make_release.py on Tue Jul 25 17:09:42 2017 by pdemores
+# Original filename: 'J0023+0923/J0023+0923.x.mtl.par'
+# Ran additional tempo iteration

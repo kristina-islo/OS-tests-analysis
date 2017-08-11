@@ -1,0 +1,33 @@
+PSR              J1747-4036
+LAMBDA   267.5791337703589  1     0.0000001319735
+BETA     -17.2015403466751  1     0.0000004181828
+PMLAMBDA           -1.2830  1              0.4429
+PMBETA             -2.1693  1              1.3785
+PX                 -0.3604  1              1.4255
+POSEPOCH        56676.0000
+F0    607.6775385809751242  1  0.0000000000391357
+F1     -4.852854518369D-15  1  1.694510110179D-18
+PEPOCH        56676.000000
+START            55976.550
+FINISH           57376.792
+DM              152.962668
+SOLARN0               0.00
+EPHEM               DE436
+ECL                 IERS2010
+CLK                 TT(BIPM2015)                    
+UNITS               TDB
+TIMEEPH             FB90
+CORRECT_TROPOSPHERE N
+PLANET_SHAPIRO      N
+DILATEFREQ          N
+NTOA                  6065
+TRES                  5.70
+TZRMJD  56676.64370363086244
+TZRFRQ            1742.969
+TZRSITE                  1
+MODE                     1
+NITS                     1
+INFO -f                              
+# Converted by make_release.py on Mon Mar  6 15:44:21 2017 by pdemores
+# Original filename: 'J1747-4036/J1747-4036.mtl.par'
+# Ran additional tempo iteration

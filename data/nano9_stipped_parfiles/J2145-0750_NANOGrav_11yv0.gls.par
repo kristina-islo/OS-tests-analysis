@@ -1,0 +1,39 @@
+PSR              J2145-0750
+LAMBDA   326.0246173743908  1     0.0000000442198
+BETA       5.3130542156864  1     0.0000004932084
+PMLAMBDA          -12.0711  1              0.0490
+PMBETA             -4.1902  1              0.5443
+PX                  1.5831  1              0.4053
+POSEPOCH        55322.0000
+F0     62.2958888000821105  1  0.0000000000004845
+F1     -1.156103672579D-16  1  7.249920004329D-21
+PEPOCH        55322.000000
+START            53267.182
+FINISH           57376.871
+DM                9.001883
+SOLARN0               0.00
+EPHEM               DE436
+ECL                 IERS2010
+CLK                 TT(BIPM2015)                    
+UNITS               TDB
+TIMEEPH             FB90
+CORRECT_TROPOSPHERE N
+PLANET_SHAPIRO      N
+DILATEFREQ          N
+NTOA                 10938
+TRES                  1.90
+TZRMJD  55337.28442673267284
+TZRFRQ            1217.968
+TZRSITE                  1
+MODE                     1
+NITS                     1
+INFO -f                              
+BINARY            ELL1    
+A1            10.164109331  1         0.000000168
+PB        6.83890250966377  1    0.00000000012245
+TASC       55315.973766863  1         0.000000023
+EPS1         -0.0000069107  1        0.0000000276
+EPS2         -0.0000180504  1        0.0000000287
+# Converted by make_release.py on Mon Mar  6 16:37:58 2017 by pdemores
+# Original filename: 'J2145-0750/J2145-0750.djn2.par'
+# Ran additional tempo iteration

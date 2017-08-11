@@ -1,0 +1,34 @@
+PSR              J1024-0719
+LAMBDA   160.7343512676586  1     0.0000000145131
+BETA     -16.0447275536200  1     0.0000000568529
+PMLAMBDA          -14.4082  1              0.0307
+PMBETA            -57.9922  1              0.1323
+PX                  0.7636  1              0.2216
+POSEPOCH        56239.0000
+F0    193.7156863776279465  1  0.0000000000007914
+F1     -6.963188081220D-16  1  1.559817511159D-20
+F2     -3.481741461371D-27  1  8.768262506078D-28
+PEPOCH        56239.000000
+START            55118.587
+FINISH           57378.268
+DM                6.477743
+SOLARN0               0.00
+EPHEM               DE436
+ECL                 IERS2010
+CLK                 TT(BIPM2015)                    
+UNITS               TDB
+TIMEEPH             FB90
+CORRECT_TROPOSPHERE N
+PLANET_SHAPIRO      N
+DILATEFREQ          N
+NTOA                  8233
+TRES                  1.78
+TZRMJD  56250.32317081525152
+TZRFRQ             728.593
+TZRSITE                  1
+MODE                     1
+NITS                     1
+INFO -f                              
+# Converted by make_release.py on Mon Mar  6 12:37:27 2017 by pdemores
+# Original filename: 'J1024-0719/J1024-0719.djn6.par'
+# Ran additional tempo iteration

@@ -1,0 +1,41 @@
+PSR              J1125+7819
+LAMBDA   115.6292963381997  1     0.0000010671224
+BETA      62.4520301195444  1     0.0000005395586
+PMLAMBDA           14.0551  1              3.3945
+PMBETA             17.8160  1              3.5060
+PX                 19.2505  1             20.0821
+POSEPOCH        57017.0000
+F0    238.0040531829266115  1  0.0000000001286192
+F1     -3.912512078161D-16  1  7.500357111074D-18
+PEPOCH        57017.000000
+START            56640.398
+FINISH           57365.483
+DM               12.027127
+DMEPOCH        56177.0000
+SOLARN0               0.00
+EPHEM               DE436
+ECL                 IERS2010
+CLK                 TT(BIPM2015)                    
+UNITS               TDB
+TIMEEPH             FB90
+CORRECT_TROPOSPHERE N
+PLANET_SHAPIRO      N
+DILATEFREQ          N
+NTOA                  2496
+TRES                 12.67
+TZRMJD  57038.53124683684907
+TZRFRQ             759.843
+TZRSITE                  1
+MODE                     1
+NITS                     1
+INFO -f                              
+BINARY            ELL1    
+A1            12.192421377  1         0.000002070
+PB       15.35544592793802  1    0.00000002771585
+TASC       57017.381318049  1         0.000000352
+EPS1         -0.0000120488  1        0.0000003428
+EPS2          0.0000013601  1        0.0000003797
+XDOT             -0.361177  1            0.114270
+# Converted by make_release.py on Mon Mar  6 12:39:30 2017 by pdemores
+# Original filename: 'J1125+7819/J1125+7819.cng3.par'
+# Ran additional tempo iteration

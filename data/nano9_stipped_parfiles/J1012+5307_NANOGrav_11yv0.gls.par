@@ -1,0 +1,40 @@
+PSR              J1012+5307
+LAMBDA   133.3610973644985  1     0.0000000314350
+BETA      38.7553146998570  1     0.0000000414693
+PMLAMBDA           13.9768  1              0.0275
+PMBETA            -21.4984  1              0.0450
+PX                  1.3200  1              0.4450
+POSEPOCH        55291.0000
+F0    190.2678373761050921  1  0.0000000000015842
+F1     -6.200237390307D-16  1  2.187770605748D-20
+PEPOCH        55291.000000
+START            53217.591
+FINISH           57365.559
+DM                9.022146
+SOLARN0               0.00
+EPHEM               DE436
+ECL                 IERS2010
+CLK                 TT(BIPM2015)                    
+UNITS               TDB
+TIMEEPH             FB90
+CORRECT_TROPOSPHERE N
+PLANET_SHAPIRO      N
+DILATEFREQ          N
+NTOA                 16782
+TRES                  2.17
+TZRMJD  55305.09664817691368
+TZRFRQ            1392.968
+TZRSITE                  1
+MODE                     1
+NITS                     1
+INFO -f                              
+BINARY            ELL1    
+A1             0.581817885  1         0.000000081
+PB        0.60467271378961  1    0.00000000000904
+TASC       55290.756870987  1         0.000000024
+EPS1          0.0000011637  1        0.0000002759
+EPS2          0.0000001013  1        0.0000002953
+PBDOT            0.0814712  1           0.0160286
+# Converted by make_release.py on Mon Mar  6 12:02:52 2017 by pdemores
+# Original filename: 'J1012+5307/J1012+5307.pbd.par'
+# Ran additional tempo iteration

@@ -1,0 +1,33 @@
+PSR              J1453+1902
+LAMBDA   214.2087105582938  1     0.0000001475942
+BETA      33.9046167985289  1     0.0000002042096
+PMLAMBDA            4.1936  1              0.5466
+PMBETA            -10.4881  1              1.7070
+PX                 -3.4931  1              1.6217
+POSEPOCH        56936.0000
+F0    172.6429099329010342  1  0.0000000000050334
+F1     -3.476611345710D-16  1  6.848129100284D-19
+PEPOCH        56936.000000
+START            56497.971
+FINISH           57375.545
+DM               14.055885
+SOLARN0               0.00
+EPHEM               DE436
+ECL                 IERS2010
+CLK                 TT(BIPM2015)                    
+UNITS               TDB
+TIMEEPH             FB90
+CORRECT_TROPOSPHERE N
+PLANET_SHAPIRO      N
+DILATEFREQ          N
+NTOA                   736
+TRES                  6.10
+TZRMJD  56955.72333155660088
+TZRFRQ            1587.291
+TZRSITE                  3
+MODE                     1
+NITS                     1
+INFO -f                              
+# Converted by make_release.py on Mon Mar  6 12:39:37 2017 by pdemores
+# Original filename: 'J1453+1902/J1453+1902.mtl.par'
+# Ran additional tempo iteration

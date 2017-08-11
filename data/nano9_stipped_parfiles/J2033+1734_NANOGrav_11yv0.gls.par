@@ -1,0 +1,40 @@
+PSR              J2033+1734
+LAMBDA   316.2900924146210  1     0.0000000749272
+BETA      35.0628485402311  1     0.0000000848115
+PMLAMBDA           -8.5556  1              0.3704
+PMBETA             -7.6419  1              0.4532
+PX                 -0.7149  1              1.1428
+POSEPOCH        56945.0000
+F0    168.0966779844872292  1  0.0000000000042804
+F1     -3.145147285142D-16  1  3.435869835335D-19
+PEPOCH        56945.000000
+START            56510.198
+FINISH           57355.882
+DM               25.080758
+DMEPOCH        51189.0000
+SOLARN0               0.00
+EPHEM               DE436
+ECL                 IERS2010
+CLK                 TT(BIPM2015)                    
+UNITS               TDB
+TIMEEPH             FB90
+CORRECT_TROPOSPHERE N
+PLANET_SHAPIRO      N
+DILATEFREQ          N
+NTOA                  1511
+TRES                  4.02
+TZRMJD  56949.00287865485137
+TZRFRQ             423.750
+TZRSITE                  3
+MODE                     1
+NITS                     1
+INFO -f                              
+BINARY            DD      
+A1            20.163119315  1         0.000000370
+E             0.0001286776  1        0.0000000435
+T0        56972.9236152629  1        0.0023748731
+PB       56.30779531411779  1    0.00000006973787
+OM         78.194219629114  1      0.015183524095
+# Converted by make_release.py on Mon Mar  6 16:37:48 2017 by pdemores
+# Original filename: 'J2033+1734/J2033+1734.psr.par'
+# Ran additional tempo iteration

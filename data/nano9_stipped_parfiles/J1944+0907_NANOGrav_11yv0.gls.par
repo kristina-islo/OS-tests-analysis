@@ -1,0 +1,33 @@
+PSR              J1944+0907
+LAMBDA   299.9954538581889  1     0.0000000132411
+BETA      29.8910193053166  1     0.0000000283230
+PMLAMBDA            9.1835  1              0.0345
+PMBETA            -25.0894  1              0.0865
+PX                  0.5241  1              0.2197
+POSEPOCH        56570.0000
+F0    192.8565208230048142  1  0.0000000000004674
+F1     -6.447845582940D-16  1  2.151040585603D-20
+PEPOCH        56570.000000
+START            55760.178
+FINISH           57380.781
+DM               24.341000
+SOLARN0               0.00
+EPHEM               DE436
+ECL                 IERS2010
+CLK                 TT(BIPM2015)                    
+UNITS               TDB
+TIMEEPH             FB90
+CORRECT_TROPOSPHERE N
+PLANET_SHAPIRO      N
+DILATEFREQ          N
+NTOA                  2830
+TRES                  2.01
+TZRMJD  56591.88715111288156
+TZRFRQ            1412.371
+TZRSITE                  3
+MODE                     1
+NITS                     1
+INFO -f                              
+# Converted by make_release.py on Tue Jul 25 17:14:18 2017 by pdemores
+# Original filename: 'J1944+0907/J1944+0907.mtl.par'
+# Ran additional tempo iteration

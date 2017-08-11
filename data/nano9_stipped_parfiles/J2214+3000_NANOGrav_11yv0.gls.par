@@ -1,0 +1,39 @@
+PSR              J2214+3000
+LAMBDA   348.8091423328476  1     0.0000000435801
+BETA      37.7131498535655  1     0.0000000491006
+PMLAMBDA           17.8325  1              0.1109
+PMBETA            -10.4368  1              0.1563
+PX                  2.3397  1              0.6618
+POSEPOCH        56610.0000
+F0    320.5922923649958420  1  0.0000000000015501
+F1     -1.513542084713D-15  1  9.794169153121D-20
+PEPOCH        56610.000000
+START            55844.059
+FINISH           57376.877
+DM               22.544019
+SOLARN0               0.00
+EPHEM               DE436
+ECL                 IERS2010
+CLK                 TT(BIPM2015)                    
+UNITS               TDB
+TIMEEPH             FB90
+CORRECT_TROPOSPHERE N
+PLANET_SHAPIRO      N
+DILATEFREQ          N
+NTOA                  4569
+TRES                  1.45
+TZRMJD  56619.92615580366215
+TZRFRQ            2325.702
+TZRSITE                  3
+MODE                     1
+NITS                     1
+INFO -f                              
+BINARY            ELL1    
+A1             0.059081786  1         0.000000254
+PB        0.41663294596662  1    0.00000000028336
+TASC       56609.848509534  1         0.000000382
+EPS1         -0.0000210978  1        0.0000073858
+EPS2          0.0000291888  1        0.0000078104
+# Converted by make_release.py on Fri Mar 10 14:33:43 2017 by pdemores
+# Original filename: 'J2214+3000/J2214+3000.mtl.par'
+# Ran additional tempo iteration

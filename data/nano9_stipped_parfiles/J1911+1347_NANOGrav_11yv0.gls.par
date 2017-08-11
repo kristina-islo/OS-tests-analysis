@@ -1,0 +1,33 @@
+PSR              J1911+1347
+LAMBDA   291.7169263390649  1     0.0000000118465
+BETA      35.8864315494054  1     0.0000000141638
+PMLAMBDA           -3.3525  1              0.0655
+PMBETA             -3.0650  1              0.0752
+PX                  0.4245  1              0.1650
+POSEPOCH        56936.0000
+F0    216.1712305914656440  1  0.0000000000005525
+F1     -7.910790470925D-16  1  5.501905325599D-20
+PEPOCH        56936.000000
+START            56498.159
+FINISH           57375.767
+DM               30.988199
+SOLARN0               0.00
+EPHEM               DE436
+ECL                 IERS2010
+CLK                 TT(BIPM2015)                    
+UNITS               TDB
+TIMEEPH             FB90
+CORRECT_TROPOSPHERE N
+PLANET_SHAPIRO      N
+DILATEFREQ          N
+NTOA                  1356
+TRES                  0.44
+TZRMJD  56949.87292961748692
+TZRFRQ            1337.461
+TZRSITE                  3
+MODE                     1
+NITS                     1
+INFO -f                              
+# Converted by make_release.py on Mon Mar  6 16:25:16 2017 by pdemores
+# Original filename: 'J1911+1347/J1911+1347.mlj.fixdmx.par'
+# Ran additional tempo iteration

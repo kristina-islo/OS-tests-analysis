@@ -1,0 +1,41 @@
+PSR              J2043+1711
+LAMBDA   318.8684847579351  1     0.0000000053269
+BETA      33.9643230451226  1     0.0000000080698
+PMLAMBDA           -8.8301  1              0.0120
+PMBETA             -8.4977  1              0.0201
+PX                  0.6321  1              0.0726
+POSEPOCH        56573.0000
+F0    420.1894432367018908  1  0.0000000000003547
+F1     -9.258249416168D-16  1  1.920934849419D-20
+PEPOCH        56573.000000
+START            55758.239
+FINISH           57387.791
+DM               20.758775
+SOLARN0               0.00
+EPHEM               DE436
+ECL                 IERS2010
+CLK                 TT(BIPM2015)                    
+UNITS               TDB
+TIMEEPH             FB90
+CORRECT_TROPOSPHERE N
+PLANET_SHAPIRO      N
+DILATEFREQ          N
+NTOA                  3262
+TRES                  0.55
+TZRMJD  56591.96406690852335
+TZRFRQ            1700.075
+TZRSITE                  3
+MODE                     1
+NITS                     1
+INFO -f                              
+BINARY            ELL1    
+A1             1.623958339  1         0.000000145
+PB        1.48229078639439  1    0.00000000001379
+TASC       56573.042462244  1         0.000000005
+EPS1         -0.0000040724  1        0.0000000688
+EPS2         -0.0000026658  1        0.0000000389
+SINI              0.992393  1            0.001200
+M2                0.172144  1            0.009380
+# Converted by make_release.py on Fri Mar 10 14:33:33 2017 by pdemores
+# Original filename: 'J2043+1711/J2043+1711.x1.par'
+# Ran additional tempo iteration

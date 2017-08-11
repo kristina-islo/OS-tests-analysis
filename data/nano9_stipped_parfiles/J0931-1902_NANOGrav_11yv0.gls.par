@@ -1,0 +1,33 @@
+PSR              J0931-1902
+LAMBDA   152.3769663618229  1     0.0000000462843
+BETA     -31.7767232005405  1     0.0000000831342
+PMLAMBDA           -0.5925  1              0.1902
+PMBETA             -4.9462  1              0.3499
+PX                  1.2477  1              0.8589
+POSEPOCH        56864.0000
+F0    215.6088104715944382  1  0.0000000000021602
+F1     -1.686779757029D-16  1  2.175837636215D-19
+PEPOCH        56864.000000
+START            56351.056
+FINISH           57378.258
+DM               41.488194
+SOLARN0               0.00
+EPHEM               DE436
+ECL                 IERS2010
+CLK                 TT(BIPM2015)                    
+UNITS               TDB
+TIMEEPH             FB90
+CORRECT_TROPOSPHERE N
+PLANET_SHAPIRO      N
+DILATEFREQ          N
+NTOA                  2597
+TRES                  4.17
+TZRMJD  56885.70744587059730
+TZRFRQ             825.468
+TZRSITE                  1
+MODE                     1
+NITS                     1
+INFO -f                              
+# Converted by make_release.py on Mon Mar  6 12:02:48 2017 by pdemores
+# Original filename: 'J0931-1902/J0931-1902.djn.par'
+# Ran additional tempo iteration

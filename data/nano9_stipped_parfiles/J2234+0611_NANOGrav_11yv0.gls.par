@@ -1,0 +1,41 @@
+PSR              J2234+0611
+LAMBDA   342.6052328590883  1     0.0000000130750
+BETA      14.0794334127404  1     0.0000000518337
+PMLAMBDA           27.2930  1              0.1061
+PMBETA             -1.0816  1              0.3351
+PX                  0.6566  1              0.1963
+POSEPOCH        57026.0000
+F0    279.5965821322245688  1  0.0000000000019392
+F1     -9.398478017121D-16  1  2.986710482239D-19
+PEPOCH        57026.000000
+START            56668.804
+FINISH           57384.850
+DM               10.766960
+SOLARN0               0.00
+EPHEM               DE436
+ECL                 IERS2010
+CLK                 TT(BIPM2015)                    
+UNITS               TDB
+TIMEEPH             FB90
+CORRECT_TROPOSPHERE N
+PLANET_SHAPIRO      N
+DILATEFREQ          N
+NTOA                  1279
+TRES                  0.40
+TZRMJD  57033.80664265654632
+TZRFRQ            1700.708
+TZRSITE                  3
+MODE                     1
+NITS                     1
+INFO -f                              
+BINARY            DD      
+A1            13.937474170  1         0.000000099
+E             0.1292740050  1        0.0000000136
+T0        57018.1029978362  1        0.0000005283
+PB       32.00140148721533  1    0.00000013331029
+OM        277.171349889864  1      0.000006050819
+OMDOT            0.0008712  1           0.0000161
+XDOT             -0.040706  1            0.011215
+# Converted by make_release.py on Mon Mar  6 16:47:58 2017 by pdemores
+# Original filename: 'J2234+0611/J2234+0611.x.par'
+# Ran additional tempo iteration

@@ -1,0 +1,41 @@
+PSR              J0613-0200
+LAMBDA    93.7990075638592  1     0.0000000164890
+BETA     -25.4071368162137  1     0.0000000380560
+PMLAMBDA            2.1261  1              0.0175
+PMBETA            -10.2932  1              0.0434
+PX                  0.9292  1              0.1963
+POSEPOCH        55413.0000
+F0    326.6005670509927086  1  0.0000000000008687
+F1     -1.023005512105D-15  1  1.445828004387D-20
+PEPOCH        55413.000000
+START            53448.793
+FINISH           57378.248
+DM               38.776457
+SOLARN0               0.00
+EPHEM               DE436
+ECL                 IERS2010
+CLK                 TT(BIPM2015)                    
+UNITS               TDB
+TIMEEPH             FB90
+CORRECT_TROPOSPHERE N
+PLANET_SHAPIRO      N
+DILATEFREQ          N
+NTOA                 11566
+TRES                  1.04
+TZRMJD  55429.77829564210065
+TZRFRQ            1667.958
+TZRSITE                  1
+MODE                     1
+NITS                     1
+INFO -f                              
+BINARY            ELL1    
+A1             1.091441593  1         0.000000940
+PB        1.19851255671492  1    0.00000000001362
+TASC       55412.543283282  1         0.000000013
+EPS1          0.0000024960  1        0.0000003895
+EPS2          0.0000035577  1        0.0000001033
+SINI              0.912213  1            0.050287
+M2                0.198543  1            0.099173
+# Converted by make_release.py on Mon Mar  6 11:41:11 2017 by pdemores
+# Original filename: 'J0613-0200/J0613-0200.final.par'
+# Ran additional tempo iteration

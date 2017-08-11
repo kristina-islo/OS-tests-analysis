@@ -1,0 +1,33 @@
+PSR              J1832-0836
+LAMBDA   278.2920070580324  1     0.0000000108033
+BETA      14.5907199531987  1     0.0000000405327
+PMLAMBDA           -9.1867  1              0.0529
+PMBETA            -20.6937  1              0.2131
+PX                  0.3513  1              0.1493
+POSEPOCH        56862.0000
+F0    367.7671211566600391  1  0.0000000000009473
+F1     -1.119205074450D-15  1  9.939677775842D-20
+PEPOCH        56862.000000
+START            56354.495
+FINISH           57369.865
+DM               28.194070
+SOLARN0               0.00
+EPHEM               DE436
+ECL                 IERS2010
+CLK                 TT(BIPM2015)                    
+UNITS               TDB
+TIMEEPH             FB90
+CORRECT_TROPOSPHERE N
+PLANET_SHAPIRO      N
+DILATEFREQ          N
+NTOA                  3886
+TRES                  1.81
+TZRMJD  56886.07462079306332
+TZRFRQ             906.718
+TZRSITE                  1
+MODE                     1
+NITS                     1
+INFO -f                              
+# Converted by make_release.py on Mon Mar  6 15:45:59 2017 by pdemores
+# Original filename: 'J1832-0836/J1832-0836.mtl.par'
+# Ran additional tempo iteration

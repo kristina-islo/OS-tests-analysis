@@ -1,0 +1,40 @@
+PSR              J1455-3330
+LAMBDA   231.3475352603348  1     0.0000000497012
+BETA     -16.0447987007105  1     0.0000001747053
+PMLAMBDA            8.2042  1              0.0529
+PMBETA              0.4996  1              0.1830
+PX                 -0.0715  1              0.3889
+POSEPOCH        55293.0000
+F0    125.2002451766050513  1  0.0000000000004409
+F1     -3.809720108676D-16  1  6.378824491540D-21
+PEPOCH        55293.000000
+START            53217.008
+FINISH           57369.710
+DM               13.569773
+SOLARN0               0.00
+EPHEM               DE436
+ECL                 IERS2010
+CLK                 TT(BIPM2015)                    
+UNITS               TDB
+TIMEEPH             FB90
+CORRECT_TROPOSPHERE N
+PLANET_SHAPIRO      N
+DILATEFREQ          N
+NTOA                  7526
+TRES                  3.96
+TZRMJD  55305.15821331037961
+TZRFRQ            1392.913
+TZRSITE                  1
+MODE                     1
+NITS                     1
+INFO -f                              
+BINARY            DD      
+A1            32.362212236  1         0.000000364
+E             0.0001696454  1        0.0000000128
+T0        55378.7960194660  1        0.0009440056
+PB       76.17456747333355  1    0.00000001049497
+OM       -136.543005793882  1      0.004461073816
+XDOT             -0.020231  1            0.003648
+# Converted by make_release.py on Mon Mar  6 12:39:38 2017 by pdemores
+# Original filename: 'J1455-3330/J1455-3330.x5.par'
+# Ran additional tempo iteration

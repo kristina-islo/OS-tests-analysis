@@ -1,0 +1,41 @@
+PSR              J2017+0603
+LAMBDA   308.2611807365955  1     0.0000000169673
+BETA      25.0444943566053  1     0.0000000434670
+PMLAMBDA            2.1824  1              0.0555
+PMBETA             -0.4111  1              0.1514
+PX                  0.3908  1              0.2364
+POSEPOCH        56682.0000
+F0    345.2781364654948106  1  0.0000000000011321
+F1     -9.529065322853D-16  1  7.559743538290D-20
+PEPOCH        56682.000000
+START            55989.620
+FINISH           57375.803
+DM               23.923485
+SOLARN0               0.00
+EPHEM               DE436
+ECL                 IERS2010
+CLK                 TT(BIPM2015)                    
+UNITS               TDB
+TIMEEPH             FB90
+CORRECT_TROPOSPHERE N
+PLANET_SHAPIRO      N
+DILATEFREQ          N
+NTOA                  2359
+TRES                  0.75
+TZRMJD  56738.53973302371482
+TZRFRQ            1758.542
+TZRSITE                  3
+MODE                     1
+NITS                     1
+INFO -f                              
+BINARY            ELL1    
+A1             2.192919633  1         0.000001641
+PB        2.19848113613198  1    0.00000000011221
+TASC       56682.109963687  1         0.000000026
+EPS1         -0.0000000231  1        0.0000003491
+EPS2         -0.0000070582  1        0.0000000849
+SINI              0.916743  1            0.057097
+M2                0.277663  1            0.168387
+# Converted by make_release.py on Mon Mar  6 16:37:44 2017 by pdemores
+# Original filename: 'J2017+0603/J2017+0603.z.par'
+# Ran additional tempo iteration

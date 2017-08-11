@@ -1,0 +1,33 @@
+PSR              J2010-1323
+LAMBDA   301.9244877643995  1     0.0000000091709
+BETA       6.4909471144206  1     0.0000000929294
+PMLAMBDA            1.2321  1              0.0212
+PMBETA             -6.4030  1              0.2041
+PX                  0.3455  1              0.1496
+POSEPOCH        56235.0000
+F0    191.4509120422516162  1  0.0000000000002462
+F1     -1.768522793027D-16  1  9.325319852966D-21
+PEPOCH        56235.000000
+START            55094.890
+FINISH           57376.846
+DM               22.176742
+SOLARN0               0.00
+EPHEM               DE436
+ECL                 IERS2010
+CLK                 TT(BIPM2015)                    
+UNITS               TDB
+TIMEEPH             FB90
+CORRECT_TROPOSPHERE N
+PLANET_SHAPIRO      N
+DILATEFREQ          N
+NTOA                 10844
+TRES                  2.26
+TZRMJD  56235.88579457294934
+TZRFRQ            1492.968
+TZRSITE                  1
+MODE                     1
+NITS                     1
+INFO -f                              
+# Converted by make_release.py on Mon Mar  6 16:32:56 2017 by pdemores
+# Original filename: 'J2010-1323/J2010-1323.x.par'
+# Ran additional tempo iteration
