@@ -1,16 +1,11 @@
-dist: trusty
-
-install:
-    - sudo apt-get install texlive-latex-recommended texlive-latex-extra texlive-fonts-recommended texlive-fonts-extra dvipng
-
-script:
-    - make
-
-after_success: |
-    if [ -n "$GITHUB_API_KEY" ]; then
-    git checkout --orphan pdf
-    git rm -rf .
-    git add -f manuscript.pdf
-    git -c user.name='travis' -c user.email='travis' commit -m init
-    git push -f -q https://kristina-islo:$GITHUB_API_KEY@github.com/kristina-islo/OS-tests-analysis pdf
-    fi
+sudo: false
+language: generic
+matrix:
+  include:
+    - os: linux
+      env: TEST_LANG='paper'
+script: |
+  if [[ $TEST_LANG == paper ]]
+  then
+    source .ci/build-paper.sh
+  fi
