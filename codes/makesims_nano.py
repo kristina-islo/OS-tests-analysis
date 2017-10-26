@@ -1,90 +1,66 @@
 import numpy as np
 import os,sys,glob,math
-import h5py as h5
+import json
 
-import libstempo.toasim as LTsim
-import NX01_psr
+import libstempo.toasim as LT
 
-
-# Steve's code to get pulsar properties that we want for our simulated pulsar timing data
-def get_pulsar_params():
-    # name, hdf5-path, par-path, tim-path
-    psr_pathinfo = np.genfromtxt('../data/psrList_sim2.txt', dtype=str, skip_header=2)
-
-    tmp_psr = []
-    for ii,tmp_name in enumerate(psr_pathinfo[0:10,0],start=0):
-        tmp_psr.append(h5.File(psr_pathinfo[ii,1], 'r')[tmp_name])
-
-    psr = [NX01_psr.PsrObjFromH5(p) for p in tmp_psr]
-
-    # Grab all the pulsar quantities
-    [p.grab_all_vars() for p in psr]
-
-    # simulation noise properties
-    pwhite = np.array([1.58,2.60,1.47,1.99,1.65,0.26,0.65,1.51,0.12,1.19])
-    predAmp = np.array([-13.90,-14.14,-13.09,-13.24,-18.56,-14.9,-13.6,-16.0,-13.99,-13.87])
-    predGam = np.array([3.18,2.58,1.65,0.03,4.04,4.85,2.00,1.35,2.06,4.02])
-
-    # reading in sim2 par files
-    parfiles = sorted(glob.glob('../data/sim_parfiles/*_stripped.par'))
-
-    for ii in range(len(psr)):
-        print psr[ii].name, parfiles[ii], pwhite[ii], predAmp[ii], predGam[ii]
-
-    return psr, parfiles, pwhite, predAmp, predGam
-
-
-# Steve's code to create simulated pulsar timing data with specified properties
 def create_dataset(dataset, Agwb):
-
+    """ Create simulated dataset using 18 pulsars from NANOGrav 9-year
+        stochastic analysis. Will use 11-year data span and red noise values
+        with white noise values taken from most recent time-to-detection
+        simulations.
+        :param dataset: Name of output dataset.
+        :param Agwb: Amplitude of injected GWB
+        """
+    
     print 'Getting pulsar parameters for simulated dataset...'
-    psr, parfiles, pwhite, predAmp, predGam = get_pulsar_params()
+    # get simulation data
+    with open('nano9_simdata.json', 'r') as fp:
+        pdict = json.load(fp)
+    
+    # get red noise dictionary
+    with open('nano_red_dict.json', 'r') as fp:
+        red_dict = json.load(fp)
+
+    # get parfiles
+    parfiles = glob.glob('../data/nano9_stipped_parfiles/*.par')
+    parfiles = [p for p in parfiles if p.split('/')[-1].split('_')[0]
+                in pdict.keys()]
 
     datadir = '../data/simulated_data/' + dataset
     if not os.path.exists(datadir):
         os.makedirs(datadir)
     print 'Making simulated data in directory ' + datadir
-
-    psrtmp = []
-    for ii in range(len(psr)):
     
-        psrtmp.append(LTsim.fakepulsar(parfile = parfiles[ii],
-                                       obstimes = psr[ii].toas,
-                                       toaerr = psr[ii].toaerrs/1e-6))
+    psrs = []
+    for pf in parfiles:
+        pname = pf.split('/')[-1].split('_')[0]
+        psrs.append(LT.fakepulsar(pf, pdict[pname][0], pdict[pname][1]))
 
-    ## Add in pulsar white noise
+    for psr in psrs:
+        # white noise
+        LT.add_efac(psr)
+        
+        # red noise
+        if pname in red_dict:
+            LT.add_rednoise(psr, red_dict[pname][0], red_dict[pname][1],
+                            components=30)
 
-    for ii in range(len(psrtmp)):
-        LTsim.add_efac(psrtmp[ii], efac=1.0)
+    # GWB
+    LT.createGWB(psrs, Agwb, 13./3., seed=None)
 
-    for ii in range(len(psrtmp)):
-        psrtmp[ii].fit(iters=5)
-
-    ## Add in red noise with same spectral properties as Sim2
-
-    for ii in range(len(psrtmp)):
-        LTsim.add_rednoise(psrtmp[ii],10.0**predAmp[ii],predGam[ii],
-                        components=50,seed=None)
-
-    for ii in range(len(psrtmp)):
-        psrtmp[ii].fit(iters=5)
-
-    ## Add in GWB
-    LTsim.createGWB(psrtmp, Agwb, 13./3., seed=None)
-
-    for ii in range(len(psrtmp)):
-        psrtmp[ii].fit(iters=5)
-
-    ## Save par and tim files
-    for ii in range(len(psrtmp)):
-        psrtmp[ii].savepar(datadir+'/{0}_optstatsim.par'.format(psrtmp[ii].name))
-        psrtmp[ii].savetim(datadir+'/{0}_optstatsim.tim'.format(psrtmp[ii].name))
+    for psr in psrs:
+        psr.fit(iters=2)
+    
+        ## Save par and tim files
+        psr.savepar(datadir+'/{0}_optstatsim.par'.format(psr.name))
+        psr.savetim(datadir+'/{0}_optstatsim.tim'.format(psr.name))
 
     # make the hdf5 file for the simulated dataset
     print 'Making the hdf5 file for the simulated dataset...'
     datadir = '../data/simulated_data/' + dataset
     h5filename = datadir + '/sim.hdf5'
-    
+
     os.system('python makeH5file.py \
               --pardir {0} --timdir {0} \
               --h5File {1}'.format(datadir, h5filename));
