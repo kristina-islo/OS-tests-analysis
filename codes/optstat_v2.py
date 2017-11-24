@@ -6,7 +6,7 @@ import scipy.ndimage.filters as filter
 
 from PAL2 import PALmodels, PALutils, pputils as pp
 
-import makesims
+import makesims_nano
 
 
 def get_ml_vals(cp):
@@ -593,7 +593,7 @@ if __name__ == '__main__':
     writenoise = args.writenoise
     
     if not args.skipdatacreate:
-        makesims.create_dataset(dataset, Agwb)
+        makesims_nano.create_dataset(dataset, Agwb)
     
     if not args.skipnoiseanalysis:
         run_noise_analysis(dataset, writenoise)
