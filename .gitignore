@@ -37,3 +37,18 @@ codes/.ipynb_checkpoints/
 .Trashes
 ehthumbs.db
 Thumbs.db
+
+# Data #
+######################
+data/chains/*
+data/noisefiles/*
+data/simulated_data/*
+data/optstat/*
+
+# Manuscript #
+######################
+manuscript/manuscript.aux
+manuscript/manuscript.blg
+manuscript/manuscript.bbl
+manuscript/manuscriptNotes.bib
+manuscript/manuscript.pdf
