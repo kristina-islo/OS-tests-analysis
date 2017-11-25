@@ -44,6 +44,8 @@ data/chains/*
 data/noisefiles/*
 data/simulated_data/*
 data/optstat/*
+data/optstat_individual/*
+data/optstat_common/*
 
 # Manuscript #
 ######################
