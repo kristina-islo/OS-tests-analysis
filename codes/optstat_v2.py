@@ -87,16 +87,18 @@ def run_noise_analysis(dataset, writenoise, niter=1000000):
               --outDir {1}/fix_spec_nf_30/ --niter {2} --fixWhite \
               --noVaryNoise --mark9 --incRed --incGWB --Tspan 0 --noCorrelations --nf 30 \
               --fixSi 4.33'.format(h5filename, chaindir, niter))
-    
 
     # run the individual noise analyses for each pulsar
     print 'Running the individual white noise analyses for each pulsar...'
 
     pfile = h5.File(h5filename)
     psrs = list(pfile.keys())
+    
+    print psrs
 
     for psr in psrs:
         print psr
+        print h5filename
         os.system('PAL2_run.py --h5File {0} --pulsar {1} \
                   --outDir ../data/chains/{2}/noise/{1}/ --niter {3} \
                   --mark9 --incRed --nf 30'.format(h5filename, psr, dataset, niter))
@@ -598,7 +600,7 @@ if __name__ == '__main__':
     if not args.skipnoiseanalysis:
         run_noise_analysis(dataset, writenoise)
     
-    psrlist = list(np.loadtxt('../data/psrList.txt', dtype='S42'))
+    psrlist = list(np.loadtxt('../data/psrList_nano.txt', dtype='S42'))
     h5file = '../data/simulated_data/' + dataset + '/sim.hdf5'
     opts, sigs, snr = compute_optstat_marg_individual(dataset, psrlist, nf=30, 
                                            noVaryNoise=True, incJitterEquad=False, 
