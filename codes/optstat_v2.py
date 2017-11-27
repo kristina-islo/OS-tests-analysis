@@ -381,8 +381,6 @@ def init_os_common(dataset, h5file, psrlist, nf, noisedir=None, noVaryNoise=Fals
     return model
 
 
-
-
 # compute the optimal statistic, marginalizing over the noise parameters
 # noise parameters are drawn from chainfile
 def compute_optstat_marg_individual(dataset, psrlist, nf, nreal=1000,
