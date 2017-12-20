@@ -50,7 +50,7 @@ Test travis...
 
 \section{Introduction}
 
-Low-frequency gravitational waves (GWs) with frequencies of 
+Long-wavelength gravitational waves (GWs) with frequencies of 
 $10^{-9} - 10^{-7} \; \mathrm{Hz}$ can be observed with pulsar timing arrays (PTAs) 
 composed of millisecond pulsars (MSPs) \cite{hd1983,fb1990}. 
 The dominant astrophysical source in this frequency range is an isotropic stochastic 
@@ -71,33 +71,38 @@ including one where the residuals contain evidence of an isotropic GW stochastic
 \citep{vlm+2009,lah+2013}. 
 Bayesian inference is a powerful technique because it allows us to compare arbitrarily complicated models. 
 However, running a full Bayesian analysis is computationally intensive, 
-particularly when searching for evidence of dipole spatial correlations -- 
+particularly when searching for evidence of dipole spatial correlations:
 ``the smoking gun'' of a stochastic GWB.
 
 The significance of a stochastic GWB can also be assessed using the 
 optimal statistic, a frequentist estimator for the GWB amplitude \citep{abc+2009,demorest+2013,ccs+2015}. 
-It is an important complement to Bayesian detection techniques 
-because it provides an independent detection procedure, 
-and it is significantly faster to compute. 
-In particular, different spatial correlations can be tested with the optimal statistic 
-in less than a second, 
-whereas a Bayesian analysis with spatial correlations requires 
-several weeks to run on a supercomputing cluster.
+%It is an important complement to Bayesian detection techniques 
+%because it provides an independent detection procedure, 
+%and it is significantly faster to compute. 
+%In particular, different spatial correlations can be tested with the optimal statistic 
+%in less than a second, 
+%whereas a Bayesian analysis with spatial correlations requires 
+%several weeks to run on a supercomputing cluster.
+Not only does it provide an independent detection procedure, complementing a more robust Bayesian analysis, but its calculation requires significantly less time to compute. In particular, the optimal statistic produces results for various spatial correlation functions, a bottleneck within the more traditional stochastic GWB analysis, within seconds; a full Bayesian analysis including correlations has to run for several weeks on a supercomputing cluster. 
+
 
 However, previous work has found that the optimal statistic gives biased results 
 for PTAs with significant red noise in the individual pulsars due to the 
 strong covariance between the individual red noise parameters 
 and the GWB amplitude \sv{has this ever been discussed in a paper?}. 
-In this paper, we present a technique for improving the accuracy of the optimal statistic 
-by marginalizing the optimal statistic over the individual red noise parameters 
-using the posterior distributions from a full Bayesian analysis. 
-This hybrid approach produces a more accurate 
-estimate of \Agw\ and its uncertainty. 
-This method is more computationally intensive than previous methods 
-for computing the optimal statistic, but still requires only minutes. 
-Furthermore, the same Bayesian analysis drawn upon by the noise marginalization 
-can be used to compute the optimal statistic with any choice of the ORF, 
-allowing additional spatial correlations to be tested very quickly.
+%In this paper, we present a technique for improving the accuracy of the optimal statistic 
+%by marginalizing the optimal statistic over the individual red noise parameters 
+%using the posterior distributions from a full Bayesian analysis. 
+%This hybrid approach produces a more accurate 
+%estimate of \Agw\ and its uncertainty. 
+Here we present a technique for improving the accuracy of the optimal statistic by including an additional step: marginalizing over the individual pulsar red noise parameters using the posterior distributions from a full PTA Bayesian analysis. This hybrid approach produces a more precise estimate of the stochastic GWB amplitude, 
+\Agw\/, and its uncertainty, while requiring only a few minutes over the more traditional method of computation. 
+%This method is more computationally intensive than previous methods 
+%for computing the optimal statistic, but still requires only minutes. 
+%Furthermore, the same Bayesian analysis drawn upon by the noise marginalization 
+%can be used to compute the optimal statistic with any choice of the ORF, 
+%allowing additional spatial correlations to be tested very quickly.
+Furthermore, the same Bayesian analysis drawn upon by the noise marginalization can be used to compute the optimal statistic with any choice of overlap-reduction function (ORF), allowing for quick testing of various spatial correlations. 
 
 This paper is organized as follows. In Sec.~\ref{sec:marg_os} 
 we lay out the procedure for computing the noise-marginalized optimal statistic 
