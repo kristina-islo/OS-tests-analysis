@@ -435,9 +435,9 @@ def compute_optstat_marg_individual(dataset, psrlist, nf, nreal=1000,
         if computeSkyScrambles:
             for j in range(nscrambles):
                 opt_ss[j][ii], sig_ss[j][ii] = compute_os(xi_ss[j], rho, sig)
-        if ii > 1:
+        if ii > 1 and ii % 100 == 0:
             sys.stdout.write('\r')
-            sys.stdout.write('Finished %2.2f percent'
+            sys.stdout.write('Finished %2.1f percent'
                                  % (float(ii) / nreal * 100))
             sys.stdout.flush()
 
@@ -529,9 +529,9 @@ def compute_optstat_marg_common(dataset, psrlist, nf, nreal=1000,
         if computeSkyScrambles:
             for j in range(nscrambles):
                 opt_ss[j][ii], sig_ss[j][ii] = compute_os(xi_ss[j], rho, sig)
-        if ii > 1:
+        if ii > 1 and ii % 100 == 0:
             sys.stdout.write('\r')
-            sys.stdout.write('Finished %2.2f percent'
+            sys.stdout.write('Finished %2.1f percent'
                                 % (float(ii) / nreal * 100))
             sys.stdout.flush()
 
