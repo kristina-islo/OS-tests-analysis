@@ -435,7 +435,12 @@ def compute_optstat_marg_individual(dataset, psrlist, nf, nreal=1000,
         if computeSkyScrambles:
             for j in range(nscrambles):
                 opt_ss[j][ii], sig_ss[j][ii] = compute_os(xi_ss[j], rho, sig)
-    
+        if ii > 1:
+            sys.stdout.write('\r')
+            sys.stdout.write('Finished %2.2f percent'
+                                 % (ii / nreal * 100)
+            sys.stdout.flush()
+
     # write output to a file (optimal statistic, sigma, and SNR for each noise realization)
     outputfile = outputdir + '/marg_os.dat'
     print 'Writing output to file ' + outputfile
@@ -524,7 +529,12 @@ def compute_optstat_marg_common(dataset, psrlist, nf, nreal=1000,
         if computeSkyScrambles:
             for j in range(nscrambles):
                 opt_ss[j][ii], sig_ss[j][ii] = compute_os(xi_ss[j], rho, sig)
-    
+        if ii > 1:
+            sys.stdout.write('\r')
+            sys.stdout.write('Finished %2.2f percent'
+                                % (ii / nreal * 100)
+            sys.stdout.flush()
+
     # write output to a file (optimal statistic, sigma, and SNR for each noise realization)
     outputfile = outputdir + '/marg_os.dat'
     print 'Writing output to file ' + outputfile
