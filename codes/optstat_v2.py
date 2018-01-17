@@ -438,7 +438,7 @@ def compute_optstat_marg_individual(dataset, psrlist, nf, nreal=1000,
         if ii > 1:
             sys.stdout.write('\r')
             sys.stdout.write('Finished %2.2f percent'
-                                 % (ii / nreal * 100)
+                                 % (ii / nreal * 100))
             sys.stdout.flush()
 
     # write output to a file (optimal statistic, sigma, and SNR for each noise realization)
