@@ -91,14 +91,12 @@ def run_noise_analysis(dataset, writenoise, niter=1000000):
     # run the individual noise analyses for each pulsar
     print 'Running the individual white noise analyses for each pulsar...'
 
-    pfile = h5.File(h5filename)
-    psrs = list(pfile.keys())
-    
+    with h5.File(h5filename) as f:
+        psrs = list(f.keys())
     print psrs
 
     for psr in psrs:
         print psr
-        print h5filename
         os.system('PAL2_run.py --h5File {0} --pulsar {1} \
                   --outDir ../data/chains/{2}/noise/{1}/ --niter {3} \
                   --mark9 --incRed --nf 30'.format(h5filename, psr, dataset, niter))
