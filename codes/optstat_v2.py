@@ -573,6 +573,8 @@ if __name__ == '__main__':
                         help='how to determine individual pulsar noise values \
                         (1-d maximization / maximum likelihood sample from common red process / 2-d maximization from individual pulsar noise chains & \
                         2-d maximization from common red process chain, DEFAULT: 2dmax)')
+    parser.add_argument('--nreal', default=10000, 
+                        help='number of realizations (DEFAULT: 10000)')
     parser.add_argument('--computeMonopole', action='store_true',
                         help='also compute optimal statistic for monopole spatial correlations (DEFAULT: false)')
     parser.add_argument('--computeDipole', action='store_true',
@@ -601,6 +603,7 @@ if __name__ == '__main__':
     opts, sigs, snr = compute_optstat_marg_individual(dataset, psrlist, nf=30, 
                                            noVaryNoise=True, incJitterEquad=False, 
                                            incEquad=False,
+                                           nreal=int(args.nreal), 
                                            computeMonopole=args.computeMonopole,
                                            computeDipole=args.computeDipole,
                                            computeSkyScrambles=args.computeSkyScrambles,
@@ -610,6 +613,7 @@ if __name__ == '__main__':
     opts, sigs, snr = compute_optstat_marg_common(dataset, psrlist, nf=30, 
                                            noVaryNoise=True, incJitterEquad=False, 
                                            incEquad=False,
+                                           nreal=int(args.nreal), 
                                            computeMonopole=args.computeMonopole,
                                            computeDipole=args.computeDipole,
                                            computeSkyScrambles=args.computeSkyScrambles,
