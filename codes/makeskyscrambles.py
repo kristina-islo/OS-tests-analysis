@@ -49,7 +49,8 @@ def compute_orf(ptheta, pphi):
     return orf
 
 
-def get_scrambles(orf_true, N=500, Nmax=10000, thresh=0.2, save=False, filename='../data/scrambles_nano_thresh02.npy'):
+def get_scrambles(orf_true, N=500, Nmax=10000, thresh=0.2, 
+                  save=False, filename='../data/scrambles_nano_thresh02.npz', resume=False):
     """
     Get sky scramble ORFs and matches.
     
@@ -61,7 +62,13 @@ def get_scrambles(orf_true, N=500, Nmax=10000, thresh=0.2, save=False, filename=
 
     print 'Generating {0} sky scrambles from {1} attempts with threshold {2}...'.format(N, Nmax, thresh)
     npsr = compute_npsrs(len(orf_true))
-    matchs, orfs = [], []
+    
+    if resume:
+        npzfile = np.load(filename)
+        matchs, orfs = npzfile['matchs'], npzfile['orfs']
+    else:
+        matchs, orfs = [], []
+    
     ct = 0
     tstart = time.time()
     while ct <= Nmax and len(matchs) <= N:
@@ -73,11 +80,16 @@ def get_scrambles(orf_true, N=500, Nmax=10000, thresh=0.2, save=False, filename=
             if len(orfs) == 0:
                 orfs.append(orf_s)
                 matchs.append(match)
+                orfs = np.array(orfs)
+                matchs = np.array(matchs)
             else:
                 check = np.all(map(lambda x: compute_match(orf_s, x)<=thresh, orfs))
                 if check:
-                    orfs.append(orf_s)
-                    matchs.append(match)
+#                    orfs.append(orf_s)
+#                    matchs.append(match)
+                    matchs = np.append(matchs, match)
+                    orf_reshape = np.vstack(orf_s).T
+                    orfs = np.append(orfs, orf_reshape, axis=0)
 
         ct += 1
         if ct % 1000 == 0:
@@ -93,7 +105,7 @@ def get_scrambles(orf_true, N=500, Nmax=10000, thresh=0.2, save=False, filename=
     print 'Total runtime: {0:.1f} min'.format((time.time()-tstart)/60.)
 
     if save:
-        np.save(filename, orfs)
+        np.savez(filename, matchs=matchs, orfs=orfs)
 
     return (matchs, orfs)
 
@@ -108,10 +120,12 @@ if __name__ == '__main__':
     parser.add_argument('--threshold', default=0.2, help='threshold for sky scrambles (DEFAULT 0.2)')
     parser.add_argument('--nscrambles', default=1000, help='number of sky scrambles to generate (DEFAULT 1000)')
     parser.add_argument('--nmax', default=1000, help='maximum number of attempts (DEFAULT 1000)')
-    parser.add_argument('--savefile', default='../data/scrambles_nano.npy', help='outputfile name')
+    parser.add_argument('--savefile', default='../data/scrambles_nano.npz', help='outputfile name')
+    parser.add_argument('--resume', action='store_true', help='resume from existing savefile?')
 
     args = parser.parse_args()
 
     orf0 = np.load(args.orf_true)
 
-    get_scrambles(orf0, N=int(args.nscrambles), Nmax=int(args.nmax), thresh=float(args.threshold), save=True, filename=args.savefile)
+    get_scrambles(orf0, N=int(args.nscrambles), Nmax=int(args.nmax), thresh=float(args.threshold), 
+                  save=True, filename=args.savefile, resume=args.resume)
