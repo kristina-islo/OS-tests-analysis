@@ -104,7 +104,7 @@ if __name__ == '__main__':
 
     parser = argparse.ArgumentParser(description='')
 
-    parser.add_argument('--orf_true', default='../data/orf_nano.py')
+    parser.add_argument('--orf_true', default='../data/orf_nano.npy')
     parser.add_argument('--threshold', default=0.2, help='threshold for sky scrambles (DEFAULT 0.2)')
     parser.add_argument('--nscrambles', default=1000, help='number of sky scrambles to generate (DEFAULT 1000)')
     parser.add_argument('--nmax', default=1000, help='maximum number of attempts (DEFAULT 1000)')
