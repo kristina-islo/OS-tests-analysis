@@ -2,17 +2,12 @@ import numpy as np
 import sys, time
 
 
-def compute_match(orf1, orf2):
+def compute_match(orf1, orf1_mag, orf2, orf2_mag):
     
-    orf1_mag = np.sqrt(np.dot(orf1,orf1))
-    orf2_mag = np.sqrt(np.dot(orf2,orf2))
+#    orf1_mag = np.sqrt(np.dot(orf1,orf1))
+#    orf2_mag = np.sqrt(np.dot(orf2,orf2))
 
     match = np.abs(np.dot(orf1, orf2))/(orf1_mag*orf2_mag)
-
-    if match > 1.0:
-        print 'Match is > 1.0! What is going on?'
-        print orf1
-        print orf2
 
     return match
 
@@ -46,7 +41,7 @@ def compute_orf(ptheta, pphi):
 
     orf = HD(x)
 
-    return orf
+    return orf, np.sqrt(np.dot(orf, orf))
 
 
 def get_scrambles(orf_true, N=500, Nmax=10000, thresh=0.2, 
@@ -62,10 +57,15 @@ def get_scrambles(orf_true, N=500, Nmax=10000, thresh=0.2,
 
     print 'Generating {0} sky scrambles from {1} attempts with threshold {2}...'.format(N, Nmax, thresh)
     npsr = compute_npsrs(len(orf_true))
+    orf_true_mag = np.sqrt(np.dot(orf_true, orf_true))
+    
+    orf_mags = []
     
     if resume:
         npzfile = np.load(filename)
         matchs, orfs = npzfile['matchs'], npzfile['orfs']
+        for o in orfs:
+            orf_mags.append(np.sqrt(np.dot(o,o)))
     else:
         matchs, orfs = [], []
     
@@ -74,22 +74,22 @@ def get_scrambles(orf_true, N=500, Nmax=10000, thresh=0.2,
     while ct <= Nmax and len(matchs) <= N:
         ptheta = np.arccos(np.random.uniform(-1, 1, npsr))
         pphi = np.random.uniform(0, 2*np.pi, npsr)
-        orf_s = compute_orf(ptheta, pphi)
-        match = compute_match(orf_true, orf_s)
+        orf_s, orf_s_mag = compute_orf(ptheta, pphi)
+        match = compute_match(orf_true, orf_true_mag, orf_s, orf_s_mag)
         if match <= thresh:
             if len(orfs) == 0:
                 orfs.append(orf_s)
                 matchs.append(match)
                 orfs = np.array(orfs)
                 matchs = np.array(matchs)
+                orf_mags.append(np.sqrt(np.dot(orf_s,orf_s)))
             else:
-                check = np.all(map(lambda x: compute_match(orf_s, x)<=thresh, orfs))
+                check = np.all(map(lambda x, y: compute_match(orf_s, orf_s_mag, x, y)<=thresh, orfs, orf_mags))
                 if check:
-#                    orfs.append(orf_s)
-#                    matchs.append(match)
                     matchs = np.append(matchs, match)
                     orf_reshape = np.vstack(orf_s).T
                     orfs = np.append(orfs, orf_reshape, axis=0)
+                    orf_mags.append(orf_s_mag)
 
         ct += 1
         if ct % 1000 == 0:
@@ -116,12 +116,18 @@ if __name__ == '__main__':
 
     parser = argparse.ArgumentParser(description='')
 
-    parser.add_argument('--orf_true', default='../data/orf_nano.npy')
-    parser.add_argument('--threshold', default=0.2, help='threshold for sky scrambles (DEFAULT 0.2)')
-    parser.add_argument('--nscrambles', default=1000, help='number of sky scrambles to generate (DEFAULT 1000)')
-    parser.add_argument('--nmax', default=1000, help='maximum number of attempts (DEFAULT 1000)')
-    parser.add_argument('--savefile', default='../data/scrambles_nano.npz', help='outputfile name')
-    parser.add_argument('--resume', action='store_true', help='resume from existing savefile?')
+    parser.add_argument('--orf_true', default='../data/orf_nano.npy', 
+                        help='file for the true ORF (DEFAULT: ../data/orf_nano.npy)')
+    parser.add_argument('--threshold', default=0.2, 
+                        help='threshold for sky scrambles (DEFAULT 0.2)')
+    parser.add_argument('--nscrambles', default=1000, 
+                        help='number of sky scrambles to generate (DEFAULT 1000)')
+    parser.add_argument('--nmax', default=1000, 
+                        help='maximum number of attempts (DEFAULT 1000)')
+    parser.add_argument('--savefile', default='../data/scrambles_nano.npz', 
+                        help='outputfile name')
+    parser.add_argument('--resume', action='store_true', 
+                        help='resume from existing savefile?')
 
     args = parser.parse_args()
 
