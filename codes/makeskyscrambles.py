@@ -62,8 +62,10 @@ def get_scrambles(orf_true, N=500, Nmax=10000, thresh=0.2,
     orf_mags = []
     
     if resume:
+        print 'Resuming from earlier run... loading sky scrambles from file {0}'.format(filename)
         npzfile = np.load(filename)
         matchs, orfs = npzfile['matchs'], npzfile['orfs']
+        print '{0} sky scrambles have already been generated.'.format(len(matchs))
         for o in orfs:
             orf_mags.append(np.sqrt(np.dot(o,o)))
     else:
@@ -76,7 +78,21 @@ def get_scrambles(orf_true, N=500, Nmax=10000, thresh=0.2,
         pphi = np.random.uniform(0, 2*np.pi, npsr)
         orf_s, orf_s_mag = compute_orf(ptheta, pphi)
         match = compute_match(orf_true, orf_true_mag, orf_s, orf_s_mag)
-        if match <= thresh:
+        if thresh == 1.0:
+            if ct == 0:
+                print 'There is no threshold! Keep all the sky scrambles'
+            if len(orfs) == 0:
+                orfs.append(orf_s)
+                matchs.append(match)
+                orfs = np.array(orfs)
+                matchs = np.array(matchs)
+                orf_mags.append(np.sqrt(np.dot(orf_s,orf_s)))
+            else:
+                matchs = np.append(matchs, match)
+                orf_reshape = np.vstack(orf_s).T
+                orfs = np.append(orfs, orf_reshape, axis=0)
+                orf_mags.append(orf_s_mag)
+        elif thresh < 1.0 and match <= thresh:
             if len(orfs) == 0:
                 orfs.append(orf_s)
                 matchs.append(match)
