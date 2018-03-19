@@ -30,7 +30,8 @@
 \affiliation{Theoretical AstroPhysics Including Relativity (TAPIR), MC 350-17, California Institute of Technology, Pasadena, California 91125, USA}
 
 \author{Justin A.\ Ellis}
-\affiliation{Department of Physics and Astronomy, West Virginia University, P.O. Box 6315, Morgantown, WV 26506, USA}\affiliation{Center for Gravitational Waves and Cosmology, West Virginia University, Chestnut Ridge Research Building, Morgantown, WV 26505, USA}
+\affiliation{Department of Physics and Astronomy, West Virginia University, P.O. Box 6315, Morgantown, WV 26506, USA}
+\affiliation{Center for Gravitational Waves and Cosmology, West Virginia University, Chestnut Ridge Research Building, Morgantown, WV 26505, USA}
 
 \date{\today}  
 
@@ -356,9 +357,9 @@ Here we compute the optimal statistic with monopole and dipole spatial correlati
 for the same simulated data sets as in the previous section in order to determine 
 how well we can distinguish a GW background from a monopole or dipole signal. 
 For a monopole signal, the ORF becomes simply
-\[ \Gamma(\theta_{IJ}) = 1 \,\]
+$\Gamma(\theta_{IJ}) = 1$, 
 while for a dipole signal, the ORF becomes
-\[ \Gamma(\theta_{IJ}) = \cos\theta_{IJ} \,. \]
+$\Gamma(\theta_{IJ}) = \cos\theta_{IJ}$.
 
 Figure~\ref{fig:os_ORF} shows the noise-marginalized mean value of $\hat{A}^2$ and the mean SNR 
 computed assuming monopole, dipole, and quadrupole spatial correlations 
@@ -439,9 +440,21 @@ the frequentist and Bayesian detection techniques.
 \section{Conclusion}
 \label{sec:conclusion}
 
-The noise-marginalized optimal statistic is a computationally inexpensive 
-method for assessing the significance of an isotropic stochastic GWB in 
-PTA data.
+The optimal statistic is a computationally inexpensive 
+method for assessing the significance of an isotropic stochastic GWB in PTA data. 
+The optimal statistic specifically looks for the spatial correlations characteristic 
+of a GWB. These analyses are computationally expensive using a full Bayesian approach, 
+but with the optimal statistic the significance of different spatial correlations 
+can be computed very quickly. 
+This makes the optimal statistic particularly well-suited for sky scramble analyses, 
+where the ORF is scrambled many times to simulate randomizing the pulsars' sky locations.
+
+However, the optimal statistic tends to systematically underestimate the strength of a GWB 
+when computed for fixed values of the red noise because of 
+covariances between red noise in individual pulsars and the GWB. 
+In this paper, we introduce an improved method for computing the optimal statistic 
+that marginalizes over the individual pulsars' red noises. 
+This approach \sv{expand...}
 
 
 \acknowledgments
