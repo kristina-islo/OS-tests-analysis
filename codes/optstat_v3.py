@@ -602,6 +602,9 @@ if __name__ == '__main__':
     dataset = args.datasetname
     writenoise = args.writenoise
     
+    nreal = int(args.nreal)
+    nscrambles = int(args.nscrambles)
+    
     if not args.skipdatacreate:
         makesims_nano.create_dataset(dataset, Agwb)
     
@@ -634,6 +637,7 @@ if __name__ == '__main__':
         os.makedirs(outputdir)
 
     chaindir = '../data/chains/' + dataset + '/fix_spec_nf_30/'
+    chain = np.loadtxt(chaindir + 'chain_1.txt')
     burn = int(0.25*chain.shape[0])
 
     index = np.argmax(chain[:,-3])
@@ -664,7 +668,7 @@ if __name__ == '__main__':
         sig_ss = [ np.zeros(nreal) for i in range(nscrambles) ]
 
     for ii in range(nreal):
-        preal = chain[np.random.randint(0, chain.shape[0]), :]
+        preal = chain[np.random.randint(burn, chain.shape[0]), :-4]
         preal = np.concatenate((preal, np.array([4.33])))
         xi, rho, sig, opts[ii], sigs[ii] = model.opt_stat_mark9(preal, fixWhite=True)
         if args.computeMonopole:
@@ -672,7 +676,7 @@ if __name__ == '__main__':
         if args.computeDipole:
             opts2[ii], sigs2[ii] = compute_os(xi2, rho, sig)
         if args.computeSkyScrambles:
-            for j in range(args.nscrambles):
+            for j in range(nscrambles):
                 opt_ss[j][ii], sig_ss[j][ii] = compute_os(xi_ss[j], rho, sig)
         if ii > 1 and ii % 100 == 0:
             sys.stdout.write('\r')
