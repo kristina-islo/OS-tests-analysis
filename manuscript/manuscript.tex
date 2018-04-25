@@ -36,15 +36,21 @@
 \date{\today}  
 
 \begin{abstract}
-Supermassive black hole binaries (SMBHBs) are predicted to form a 
-high-redshift cosmological population of low-frequency gravitational wave (GW) sources, 
-which added together produce a stochastic gravitational wave background (GWB). 
-Pulsar timing arrays (PTAs) can observe this signal by looking for correlations in the 
-times of arrival (TOAs) of millisecond pulsars (MSPs). 
-In this paper, we introduce an improved frequentist estimator called the noise-marginalized optimal statistic, 
-which can be used to assess the significance of a GWB present in PTA data. 
-We find \ki{complete}
-
+Observations have revealed that nearly all galaxies contain supermassive black holes (SMBHs) at their centers, 
+with masses between \sv{look up}. 
+When galaxies merge, these SMBHs form SMBH binaries (SMBHBs), 
+which emit low-frequency gravitational waves (GWs). 
+The incoherent superposition of these GW sources produce a stochastic GW background (GWB) 
+that can be observed by pulsar timing arrays (PTAs). 
+The optimal statistic is a frequentist estimator for the amplitude of a GWB 
+that specifically looks for the spatial correlations induced by the GWB in PTA data. 
+In this paper, we introduce an improved method for computing the optimal statistic 
+that marginalizes over the red noise in individual pulsars. 
+We use simulations to demonstrate that this method 
+more accurately determines the strength of a GWB, 
+and we use the noise-marginalized optimal statistic to assess the 
+significance of different spatial correlations and 
+by performing sky scrambles.
 \end{abstract}
 
 \maketitle
@@ -65,7 +71,7 @@ we can probe the dynamics of the spacetime through which the pulses travel.
 This is done by searching for correlations in the pulsar timing residuals, 
 which measure the difference between the expected and observed pulse times of arrival. 
 Current upper-limits on the stochastic background from PTAs are approaching 
-theoretical predictions for the stochastic GWB \citep{PPTA2013,EPTA2015,NANOGrav9yr}
+theoretical predictions for the stochastic GWB \citep{PPTA2013,EPTA2015,abb+17b}
 
 The primary data analysis technique used by PTAs is Bayesian inference 
 to compare the probabilities of various models for the pulsar timing residuals, 
@@ -87,8 +93,7 @@ optimal statistic, a frequentist estimator for the GWB amplitude \citep{abc+2009
 %several weeks to run on a supercomputing cluster.
 Not only does it provide an independent detection procedure, complementing a more robust Bayesian analysis, but its calculation requires significantly less time to compute. In particular, the optimal statistic produces results for various spatial correlation functions, a bottleneck within the more traditional stochastic GWB analysis, within seconds; a full Bayesian analysis including correlations has to run for several weeks on a supercomputing cluster. 
 
-
-However, previous work has found that the optimal statistic gives biased results 
+However, the optimal statistic gives biased results 
 for PTAs with significant red noise in the individual pulsars due to the 
 strong covariance between the individual red noise parameters 
 and the GWB amplitude \sv{has this ever been discussed in a paper?}. 
@@ -97,26 +102,35 @@ and the GWB amplitude \sv{has this ever been discussed in a paper?}.
 %using the posterior distributions from a full Bayesian analysis. 
 %This hybrid approach produces a more accurate 
 %estimate of \Agw\ and its uncertainty. 
-Here we present a technique for improving the accuracy of the optimal statistic by including an additional step: marginalizing over the individual pulsar red noise parameters using the posterior distributions from a full PTA Bayesian analysis. This hybrid approach produces a more precise estimate of the stochastic GWB amplitude, 
-\Agw\/, and its uncertainty, while requiring only a few minutes over the more traditional method of computation. 
+Here we present a technique for improving the accuracy of the optimal statistic by including an additional step: 
+marginalizing over the individual pulsar red noise parameters 
+using the posterior distributions from a full Bayesian analysis of all the pulsars. 
+This hybrid approach produces a more precise estimate of the stochastic GWB amplitude \Agw\ 
+and its uncertainty, while requiring only a few minutes over the more traditional method of computation. 
 %This method is more computationally intensive than previous methods 
 %for computing the optimal statistic, but still requires only minutes. 
 %Furthermore, the same Bayesian analysis drawn upon by the noise marginalization 
 %can be used to compute the optimal statistic with any choice of the ORF, 
 %allowing additional spatial correlations to be tested very quickly.
-Furthermore, the same Bayesian analysis drawn upon by the noise marginalization can be used to compute the optimal statistic with any choice of overlap-reduction function (ORF), allowing for quick testing of various spatial correlations. 
+Furthermore, the same Bayesian analysis drawn upon by the noise marginalization 
+can be used to compute the optimal statistic with any choice of overlap-reduction function (ORF), 
+allowing for quick testing of various spatial correlations. 
+This technique was used to perform the frequentist searches 
+for common red signals with monopole, dipole, and Hellings-Downs spatial correlations 
+in the NANOGrav 11-year dataset \citep{abb+17b}.
 
 This paper is organized as follows. In Sec.~\ref{sec:marg_os} 
-we lay out the procedure for computing the noise-marginalized optimal statistic 
-and compare to the fixed-noise optimal statistic. 
+we lay out the procedure for computing the noise-marginalized optimal statistic. 
+We use simulations to compare the noise-marginalized optimal statistic 
+to the optimal statistic computed using fixed noise. 
 In Sec.~\ref{sec:spatial} determine how well 
 the noise-marginalized optimal statistic can 
-differentiate between different spatial correlations 
-using simulated PTA data. 
+differentiate between monopole, dipole, and Hellings-Downs spatial correlations. 
 In Sec.~\ref{sec:skyscrambles} we determine how well the noise-marginalized optimal statistic 
 can assess the significance of a GW detection by performing sky scrambles \citep{cs2016}. 
 %We also compare our sky scramble results to the Bayesian analysis of sky scrambles done by \citet{tlb+2017}. 
-We conclude in Sec.~\ref{sec:conclusion}.
+We summarize our results in Sec.~\ref{sec:conclusion} 
+and discuss future applications of the noise-marginalized optimal statistic.
 
 
 \section{Noise-marginalized optimal statistic}
@@ -230,7 +244,7 @@ To these data sets we injected an isotropic stochastic GWB
 \sv{insert strength of GWB... are we going to have one value or more than one?}.
 \begin{table}[htb]
 	\setlength{\tabcolsep}{5pt}
-	\caption{Pulsar parameters used in simulated PTAs.}
+	\caption{Pulsar parameters used in simulated PTAs. \sv{finish filling in this table}}
 	\begin{center}
 	\begin{tabular}{ccccc}
 		\hline\hline
@@ -294,7 +308,7 @@ The optimal statistic was computed using the PTA data analysis package
 PAL2 %\footnote{\href{https://github.com/jellis18/PAL2}{https://github.com/jellis18/PAL2}} 
 \citep{evh17a}. 
 Figure~\ref{fig:os_dataset_sample} shows the fixed-noise and noise-marginalized 
-optimal statistic for a single realization of the stochastic background. 
+optimal statistic for a single realization of the stochastic background with $\Agw=$. 
 We also include the distribution of $\Agw^2$ found using the results of a Bayesian analysis 
 for a common red process. For this particular realization of the stochastic background, 
 the values of $\hat{A}^2$ from the noise-marginalized and Bayesian analyses are in good agreement 
@@ -320,28 +334,57 @@ The noise-marginalized analysis also gives a larger mean SNR compared to the fix
 
 In Fig.~\ref{fig:os_datasetstats} we compare the fixed-noise values of $\hat{A}^2$ 
 to the mean $\hat{A}^2$ for 200 different realizations of a GWB with $\Agw = 5\times10^{-15}$. 
-The fixed-noise analysis tends to underestimate the strength of the stochastic background, 
-whereas the noise-marginalized analysis is better able to recover the injected value. 
-The mean value of the optimal statistic from the fixed-noise analysis, 
-averaged over realizations of the stochastic background, is $\hat{A}^2 = 8.9 \times 10^{-30}$, 
-while the mean value from the noise-marginalized analysis is $\hat{A}^2 = 2.5 \times 10^{-29}$. 
-The noise-marginalized analysis also gives a higher average mean SNR of 1.7, 
-compared to an average SNR of 1.0 using the fixed-noise analysis.
-%\begin{figure}[ht]
-%	\includegraphics[width=0.9\columnwidth]{plots/os_datasetstats_5e-15.pdf}
-%	\caption{Optimal statistic and SNR for 425 simulated datasets 
-%			containing an injected GW background with $\Agw = 5\times10^{-15}$. 
-%			We compare the values found using a fixed-noise analysis (blue) to the 
-%			mean optimal statistic and mean SNR found by marginalizing over 
-%			the individual pulsars' red noise parameters. The dashed vertical line 
-%			indicates the injected value, $\hat{A}^2 = 2.5 \times 10^{-29}$. 
-%			The value of $\hat{A}^2$ from the fixed-noise analysis, 
-%			averaged over realizations of the stochastic background, is $\hat{A}^2 = 8.9 \times 10^{-30}$, 
-%			while the noise-marginalized analysis gives a mean value of $\hat{A}^2 = 2.5 \times 10^{-29}$. 
-%			Furthermore, the fixed-noise analysis gives an average SNR of 1.0, while the 
-%			noise-marginalized analysis gives an average mean SNR of 1.7.}
-%	\label{fig:os_datasetstats}
-%\end{figure}
+Using the noise values from individual noise analyses 
+systematically underestimates the strength of the GWB, 
+while using the noise values from a common noise analysis more accurately recovers the injected value. 
+The mean value of the optimal statistic from the fixed-noise analysis using the individual noise results, 
+averaged over realizations of the GWB, is $\hat{A}^2 = 7.9 \times10^{-30}$ with a mean SNR of 2.3. 
+The fixed-noise and noise-marginalized analyses using the common noise results both give 
+$\hat{A}^2 = 2.4\times10^{-29}$ and a mean SNR of 4.1.
+\begin{figure}[ht]
+	\includegraphics[width=0.9\columnwidth]{plots/optstat_A5e-15.pdf}
+	\caption{Optimal statistic and SNR for 200 simulated datasets 
+			containing an injected GWB. 
+			The dashed vertical line indicates the injected value, $\hat{A}^2 = 2.5 \times 10^{-29}$. 
+			We compare the values found by fixing the red noise 
+			based on the results from individual and common noise analyses 
+			(blue and orange lines, respectively) 
+			to the mean optimal statistic and mean SNR found by marginalizing over 
+			the red noise parameters using the results of a common noise analysis (green lines). 
+			Using the red noise values from individual noise analyses leads to values of $\hat{A}^2$ 
+			that are significantly lower than the injected value, 
+			while using the values from a common noise analysis more accurately estimates $\hat{A}^2$.}
+	\label{fig:os_datasetstats}
+\end{figure}
+
+The fixed-noise and noise-marginalized analyses gave the same results 
+for an injected GWB with $\Agw = 5\times10^{-15}$, 
+but there are differences between them when analyzing datasets 
+containing smaller injected values of $\Agw$. 
+Figure~\ref{fig:os_datasetstats2} shows the mean optimal statistic and mean SNR 
+for 100 realizations of a GWB with $\Agw = 10^{-15}$. 
+The fixed-noise analysis using the individual noise values 
+gives a mean value of $\hat{A}^2 = 2.9\times10^{-31}$ and a mean SNR of 1.1. 
+The fixed-noise analysis using the common noise values 
+gives a mean value of $\hat{A}^2 = 8.4\times10^{-31}$ and a mean SNR of 2.1, 
+which the noise-marginalized analysis gives a mean value of $\hat{A}^2 = 1.1\times10^{-30}$ and a mean SNR of 2.4.  
+The difference between the fixed-noise and noise-marginalized analyses using the common noise values 
+is very small compared to the large spread in $\hat{A}^2$ and the SNR over different realizations of the GWB.
+\begin{figure}[ht]
+	\includegraphics[width=0.9\columnwidth]{plots/optstat_A1e-15.pdf}
+	\caption{Optimal statistic and SNR for 100 simulated datasets 
+			containing an injected GWB. 
+			The dashed vertical line indicates the injected value, $\hat{A}^2 = 10^{-30}$. 
+			We compare the values found by fixing the red noise 
+			based on the results from individual and common noise analyses 
+			(blue and orange lines, respectively) 
+			to the mean optimal statistic and mean SNR found by marginalizing over 
+			the red noise parameters using the results of a common noise analysis (green lines). 
+			Using the red noise values from individual noise analyses leads to values of $\hat{A}^2$ 
+			that are significantly lower than the injected value, 
+			while using the values from a common noise analysis more accurately estimates $\hat{A}^2$.}
+	\label{fig:os_datasetstats2}
+\end{figure}
 
 
 \section{Monopole and Dipole Spatial Correlations}
@@ -349,7 +392,7 @@ compared to an average SNR of 1.0 using the fixed-noise analysis.
 
 The optimal statistic is particularly well-suited to compare multiple spatial correlation relations 
 because using a different spatial correlation only requires changing the ORF 
-in $\tilde{{\bf{S}}}_{IJ}$. 
+in Eq.~\eqref{eq:}. 
 \citet{thk+2016} demonstrated how the optimal statistic can be altered to fit for 
 multiple spatial correlations at once in order to mitigate common noise sources such as 
 clock error and ephemeris error. 
@@ -361,26 +404,44 @@ $\Gamma(\theta_{IJ}) = 1$,
 while for a dipole signal, the ORF becomes
 $\Gamma(\theta_{IJ}) = \cos\theta_{IJ}$.
 
-Figure~\ref{fig:os_ORF} shows the noise-marginalized mean value of $\hat{A}^2$ and the mean SNR 
+Our ability to distinguish between different spatial correlations 
+depends on the strength of the GWB 
+and the angular separations between pulsar pairs, $\theta_{IJ}$. 
+We can determine the overlap between ORFs corresponding to different spatial correlations 
+by computing the ``match statistic'' \citep{cs2016},
+\begin{equation}
+	\bar{M} = \frac{\sum_{I,J \neq I} \Gamma_{IJ} \Gamma'_{IJ}}{\sqrt{ \left( \sum_{I, J \neq I} \Gamma_{IJ} \Gamma_{IJ} \right) \left( \sum_{I, J \neq I} \Gamma'_{IJ} \Gamma'_{IJ} \right)}} \,,
+\end{equation}
+where $I$,$J$ index the pulsar number, and $\Gamma$ and $\Gamma'$ are two different ORFs. 
+For the 18 pulsars used in these simulations, the 
+match statistic for monopole and Hellings-Downs correlations is $\bar{M} = 0.264$, 
+and the match statistic for dipole and Hellings-Downs correlations is $\bar{M} = 0.337$. 
+These match statistics describe a fundamental limit on our ability 
+to identify the spatial correlations of a common red signal as Hellings-Downs 
+rather than monopole or dipole 
+that depends only on the number of pulsars in our PTA and their sky positions.
+
+Figure~\ref{fig:os_ORF} shows the noise-marginalized 
+mean value of $\hat{A}^2$ and the mean SNR 
 computed assuming monopole, dipole, and quadrupole spatial correlations 
-for 425 simulated data sets. Using a monopole or dipole ORF 
+for 200 simulated data sets. Using a monopole or dipole ORF 
 gives a lower value for the mean optimal statistic and mean SNR compared to the 
 Hellings-Downs ORF. 
-However, there is significant overlap between the distributions for the mean SNR using 
-monopole, dipole, and quadrupole ORFs, indicating that it is not easy to differentiate 
-between those three spatial correlations for an injected GW background of this amplitude. 
-We find a noise-marginalized mean SNR above 1.0 in 68\% of our simulated data sets 
-using the quadrupole ORF, and in 45\% and 24\% of our simulated data sets 
-using the monopole and dipole ORFs, respectively.
-%\begin{figure}[htb]
-%	\includegraphics[width=0.9\columnwidth]{plots/os_datasetstats_5e-15_ORF.pdf}
-%	\caption{Noise-marginalized mean optimal statistic and mean SNR for 425 simulated datasets 
-%			containing an injected isotropic stochastic GWB with $\Agw = 5\times10^{-15}$. 
-%			We compare the values found using monopole (blue), dipole (orange), 
-%			and quadrupole (green) spatial correlations. 
-%			The dashed vertical line indicates the injected value, $\hat{A}^2 = 2.5 \times 10^{-29}$.}
-%	\label{fig:os_ORF}
-%\end{figure}
+We find a noise-marginalized mean SNR above 1.0 in 97\% of our simulated data sets 
+using the quadrupole ORF, and in 50\% and 68\% of our simulated data sets 
+using the monopole and dipole ORFs, respectively. 
+The mean SNR using the quadrupole ORF, averaged over realizations of the GWB, is 4.1, 
+and we find an SNR greater than this using the monopole and dipole ORFs in just 
+3\% and 3.5\% of our simulations, respectively.
+\begin{figure}[htb]
+	\includegraphics[width=0.9\columnwidth]{plots/optstat_spatial_A5e-15.pdf}
+	\caption{Noise-marginalized mean optimal statistic and mean SNR for 200 simulated datasets 
+			containing an injected GWB with $\Agw = 5\times10^{-15}$. 
+			We compare the values found using monopole (blue), dipole (orange), 
+			and quadrupole (green) spatial correlations. 
+			The dashed vertical line indicates the injected value, $\hat{A}^2 = 2.5 \times 10^{-29}$.}
+	\label{fig:os_ORF}
+\end{figure}
 
 
 \section{Sky Scrambles}
@@ -458,7 +519,7 @@ This approach \sv{expand...}
 
 
 \acknowledgments
-We thank Joe Romano and Xavier Siemens for useful discussions. 
+We thank Joe Romano, Xavier Siemens, and Jeff Hazboun for useful discussions. 
 KPI and SJV are supported by NSF Physics Frontier Center Grant 1430284.
 JAE was supported by NASA through Einstein Fellowship Grant PF4-150120. 
 SRT was supported by appointment to the NASA Postdoctoral Program 
