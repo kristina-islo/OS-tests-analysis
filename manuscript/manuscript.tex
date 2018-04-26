@@ -12,7 +12,7 @@
 \newcommand{\ki}[1]{\textcolor{cyan}{\it{\textbf{ki: #1}}} }
 
 \newcommand{\Agw}{\ensuremath{A_\mathrm{gw}}}
-
+\newcommand{\res}{\ensuremath{\delta {\bf t}}}
 
 \begin{document}
 
@@ -136,80 +136,66 @@ and discuss future applications of the noise-marginalized optimal statistic.
 \section{Noise-marginalized optimal statistic}
 \label{sec:marg_os}
 
-\sv{bring notation up to date}
-As introduced by \citet{abc+2009}, 
-the optimal statistic is derived by analytically maximizing 
-the PTA likelihood function in the weak-signal regime. 
-We begin by finding the timing residuals for a given pulsar ${\bf{r}}_I$, which can be written as 
+The optimal statistic is a frequentist estimator 
+for the amplitude of an isotropic stochastic GWB, 
+and can be derived by analytically maximizing 
+the PTA likelihood function in the weak-signal regime (see~\citet{abc+2009}). 
+It is constructed from the timing residuals $\res$, 
+which can be written as 
 \begin{equation}
-	{\bf{r}}_I = M {\bf{\epsilon}}_I + F {\bf{a}}_I + U {\bf{j}}_I + {\bf{n}}_I \,,\\
+	\res = M {\bf{\epsilon}} + F {\bf{a}} + U {\bf{j}} + {\bf{n}} \,.
 \end{equation}
-where $M$ is the design matrix, 
-$\epsilon_I$ is a vector of the timing model parameter uncertainties, 
-${\bf{a}}_I$ are the red noise parameters describing both individual pulsars' red noise 
-and common red noise in all pulsars, 
-${\bf{j}}_I$ are white noise parameters describing frequency-correlated white noise, 
-and ${\bf{n}}_I$ are white noise parameters describing uncorrelated white noise. 
-The likelihood function is constructed from the residuals as given by
-\begin{equation}
-	p({\bf{r}}|\phi) = \frac{\exp[-\frac{1}{2} {\bf{r}}^T \Sigma^{-1}(\phi) {\bf{r}} ]}{\sqrt{\mathrm{det}[2\pi \Sigma(\phi)]}} \,,
-\end{equation}
-where $\bf{r}$ is an array of the timing residuals 
-from the $M$ pulsars in the PTA,
-\begin{equation}
-	\bf{r} = \left[ \begin{array}{c} {\bf{r}}_1 \\ {\bf{r}}_2 \\ \vdots \\ {\bf{r}}_M \end{array} \right] \,,
-\end{equation}
-$\phi$ is the set of pulsar noise parameters, 
-and $\Sigma$ is the covariance matrix of the residuals. 
-We can write $\Sigma$ in terms of 
-autocovariance and cross-covariance matrices ${\bf{P}}_I$ and ${\bf{S}}_{IJ}$, respectively, as
-\begin{equation}
-	\Sigma = \left[ \begin{array}{cccc} {\bf{P}}_1 & {\bf{S}}_{12} & \hdots & {\bf{S}}_{1M}  \\
-							{\bf{S}}_{21} & {\bf{P}}_2 & \hdots & {\bf{S}}_{2M} \\
-							\vdots & \vdots & \ddots & \vdots \\
-							{\bf{S}}_{M1} & {\bf{S}}_{M2} & \hdots & {\bf{P}}_M \end{array} \right] \,,
-\end{equation}
-where
-\begin{eqnarray}
-	{\bf{P}}_I &=& \left\langle {\bf{r}}_I {\bf{r}}_I^T \right\rangle \,, \\
-	{\bf{S}}_{IJ} &=& \left. \left\langle {\bf{r}}_I {\bf{r}}_J^T \right\rangle \right|_{I \neq J} \,.
-\end{eqnarray}
-In the frequency domain, these can be written as
-\begin{eqnarray}
-	\left\langle {\bf{r}}_I {\bf{r}}_I^T \right\rangle_{ij} &=& {\bf{R}}_I \left[ \int_{-\infty}^\infty df \; e^{2\pi i f \tau_{ij}} P_I(f) \right] {\bf{R}}_I^T \,, \\
-	\left. \left\langle {\bf{r}}_I {\bf{r}}_J^T \right\rangle \right|_{ij} &=& \chi_{IJ} {\bf{R}}_I \left[ \int_{-\infty}^\infty df \; e^{2\pi i f \tau_{ij}} P_\mathrm{gw}(f) \right] {\bf{R}}_J^T \,,
-\end{eqnarray}
-where $i,j$ index the matrix elements, $\tau_{ij} \equiv |t_i - t_j|$ is the time interval between 
-two observations, 
-$\mathbf{R}$ is the timing model fitting matrix, 
-$\chi_{IJ}$ is the overlap reduction function (ORF) that describes the spatial correlation between two pulsars' residuals, 
-$P_\mathrm{gw}(f)$ is the GW power spectrum, 
-and $P_I(f)$ is the power spectrum for the $I$th pulsar. 
+The design matrix $M$ and timing model parameter uncertainties $\epsilon$ 
+describe the contributions to the residuals from uncertainties in the timing model. 
+The term $F{\bf{a}}$ describes red noise, 
+including both red noise intrinsic to the pulsar 
+and a common red noise signal common to all the pulsar (i.e., a GW signal). 
+The term $U{\bf{j}}$ describes noise that is correlated for observations made at the same time 
+at different frequencies and uncorrelated over different observing epochs, 
+while ${\bf{n}}$ describes uncorrelated white noise.
 
-Analytically maximizing this likelihood gives the optimal statistic,
+The optimal statistic is constructed from the autocovariance and cross-covariance matrices of the residuals 
+${\bf{P}}_a$ and ${\bf{S}}_{ab}$,
+\begin{eqnarray}
+	{\bf{P}}_a &=& \left\langle \res_a \res_a^T \right\rangle \,, \\
+	{\bf{S}}_{ab} &=& \left. \left\langle \res_a \res_b^T \right\rangle \right|_{a \neq b} \,.
+\end{eqnarray}
+where $a,b$ index pulsars in the PTA. 
+%In the frequency domain, these can be written as
+%\begin{eqnarray}
+%	\left\langle {\bf{r}}_I {\bf{r}}_I^T \right\rangle_{ij} &=& {\bf{R}}_I \left[ \int_{-\infty}^\infty df \; e^{2\pi i f \tau_{ij}} P_I(f) \right] {\bf{R}}_I^T \,, \\
+%	\left. \left\langle {\bf{r}}_I {\bf{r}}_J^T \right\rangle \right|_{ij} &=& \chi_{IJ} {\bf{R}}_I \left[ \int_{-\infty}^\infty df \; e^{2\pi i f \tau_{ij}} P_\mathrm{gw}(f) \right] {\bf{R}}_J^T \,,
+%\end{eqnarray}
+%where $i,j$ index the matrix elements, $\tau_{ij} \equiv |t_i - t_j|$ is the time interval between 
+%two observations, 
+%$\mathbf{R}$ is the timing model fitting matrix, 
+%$\chi_{IJ}$ is the overlap reduction function (ORF) that describes the spatial correlation between two pulsars' residuals, 
+%$P_\mathrm{gw}(f)$ is the GW power spectrum, 
+%and $P_I(f)$ is the power spectrum for the $I$th pulsar. 
+The optimal statistic $\hat{A}^2$ is given by
 \begin{equation}
-	\hat{A}^2 = \frac{\sum_{IJ} {\bf{r}}_I^T {\bf{P}}_I^{-1} \tilde{{\bf{S}}}_{IJ} {\bf{P}}_J^{-1} {\bf{r}}_J}{\sum_{IJ} \Tr \left( {\bf{P}}_I^{-1} \tilde{{\bf{S}}}_{IJ} {\bf{P}}_J^{-1} \tilde{{\bf{S}}}_{JI} \right) } \,,
+	\hat{A}^2 = \frac{\sum_{ab} \res_a^T {\bf{P}}_a^{-1} \tilde{{\bf{S}}}_{ab} {\bf{P}}_b^{-1} \res_b}{\sum_{ab} \Tr \left( {\bf{P}}_a^{-1} \tilde{{\bf{S}}}_{ab} {\bf{P}}_b^{-1} \tilde{{\bf{S}}}_{ba} \right) } \,,
 \end{equation}
-where $\tilde{{\bf{S}}}_{IJ}$ is the amplitude-independent cross-correlation matrix,
+where $\tilde{{\bf{S}}}_{ab}$ is the amplitude-independent cross-correlation matrix,
 \begin{equation}
-	\Agw^2 \tilde{{\bf{S}}}_{IJ} = {\bf{S}}_{IJ} \,.
+	\Agw^2 \tilde{{\bf{S}}}_{ab} = {\bf{S}}_{ab} \,.
 \end{equation}
-The normalization of $\hat{A}^2$ has been chosen so that 
+This definition of the optimal statistic ensures that  
 $\langle \hat{A}^2 \rangle = \Agw^2$. 
-For a weak GW signal, the standard deviation is 
+For a weak GW signal, the variance of the optimal statistic is
 \begin{equation}
-	\sigma_0 = \left[ \sum_{IJ} \Tr \left( {\bf{P}}_I^{-1} \tilde{{\bf{S}}}_{IJ} {\bf{P}}_J^{-1} \tilde{{\bf{S}}}_{JI} \right) \right]^{-1/2} \,,
+	\sigma_0 = \left[ \sum_{ab} \Tr \left( {\bf{P}}_a^{-1} \tilde{{\bf{S}}}_{ab} {\bf{P}}_b^{-1} \tilde{{\bf{S}}}_{ba} \right) \right]^{-1/2} \,,
 \end{equation}
 and the signal-to-noise ratio (SNR) is
 \begin{equation}
-	\hat{\rho} = \frac{\hat{A}^2}{\sigma_0} = \frac{\sum_{IJ} {\bf{r}}_I^T {\bf{P}}_I^{-1} \tilde{{\bf{S}}}_{IJ} {\bf{P}}_J^{-1} {\bf{r}}_J}{\left[ \sum_{IJ} \Tr \left( {\bf{P}}_I^{-1} \tilde{{\bf{S}}}_{IJ} {\bf{P}}_J^{-1} \tilde{{\bf{S}}}_{JI} \right) \right]^{1/2}} \,.
+	\rho = \frac{\hat{A}^2}{\sigma_0} = \frac{\sum_{ab} \res_a^T {\bf{P}}_a^{-1} \tilde{{\bf{S}}}_{ab} {\bf{P}}_b^{-1} \res_b}{\left[ \sum_{ab} \Tr \left( {\bf{P}}_a^{-1} \tilde{{\bf{S}}}_{ab} {\bf{P}}_b^{-1} \tilde{{\bf{S}}}_{ba} \right) \right]^{1/2}} \,.
 \end{equation}
 The expectation value of the SNR, averaged over all realizations of the stochastic background, is
 \begin{equation}
-	\left\langle \rho \right\rangle = \Agw^2 \left[ \sum_{IJ} \Tr\left( {\bf{P}}_I^{-1} \tilde{{\bf{S}}}_{IJ} {\bf{P}}_J^{-1} \tilde{{\bf{S}}}_{JI} \right) \right]^{1/2} \,.
+	\left\langle \rho \right\rangle = \Agw^2 \left[ \sum_{ab} \Tr\left( {\bf{P}}_a^{-1} \tilde{{\bf{S}}}_{ab} {\bf{P}}_b^{-1} \tilde{{\bf{S}}}_{ba} \right) \right]^{1/2} \,.
 \end{equation}
 
-When constructing the residuals, 
+When constructing the residuals $\res$, 
 we typically fix the red noise parameters to the values that 
 maximize the likelihood. 
 However, this leads to a bias in the optimal statistic and SNR because 
