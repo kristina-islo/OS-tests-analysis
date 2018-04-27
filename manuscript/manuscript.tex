@@ -33,6 +33,9 @@
 \affiliation{Department of Physics and Astronomy, West Virginia University, P.O. Box 6315, Morgantown, WV 26506, USA}
 \affiliation{Center for Gravitational Waves and Cosmology, West Virginia University, Chestnut Ridge Research Building, Morgantown, WV 26505, USA}
 
+\author{Xavier Siemens}
+\affiliation{Center for Gravitation, Cosmology and Astrophysics, University of Wisconsin--Milwaukee, PO Box 413, Milwaukee WI, 53201, USA}
+
 \date{\today}  
 
 \begin{abstract}
@@ -182,7 +185,7 @@ where $\tilde{{\bf{S}}}_{ab}$ is the amplitude-independent cross-correlation mat
 \end{equation}
 This definition of the optimal statistic ensures that  
 $\langle \hat{A}^2 \rangle = \Agw^2$. 
-For a weak GW signal, the variance of the optimal statistic is
+Assuming $\Agw=0$, the variance of the optimal statistic is
 \begin{equation}
 	\sigma_0 = \left[ \sum_{ab} \Tr \left( {\bf{P}}_a^{-1} \tilde{{\bf{S}}}_{ab} {\bf{P}}_b^{-1} \tilde{{\bf{S}}}_{ba} \right) \right]^{-1/2} \,,
 \end{equation}
@@ -190,6 +193,7 @@ and the signal-to-noise ratio (SNR) is
 \begin{equation}
 	\rho = \frac{\hat{A}^2}{\sigma_0} = \frac{\sum_{ab} \res_a^T {\bf{P}}_a^{-1} \tilde{{\bf{S}}}_{ab} {\bf{P}}_b^{-1} \res_b}{\left[ \sum_{ab} \Tr \left( {\bf{P}}_a^{-1} \tilde{{\bf{S}}}_{ab} {\bf{P}}_b^{-1} \tilde{{\bf{S}}}_{ba} \right) \right]^{1/2}} \,.
 \end{equation}
+The SNR $\rho$ gives the significance of $\hat{A}^2 \neq 0$. 
 The expectation value of the SNR, averaged over all realizations of the stochastic background, is
 \begin{equation}
 	\left\langle \rho \right\rangle = \Agw^2 \left[ \sum_{ab} \Tr\left( {\bf{P}}_a^{-1} \tilde{{\bf{S}}}_{ab} {\bf{P}}_b^{-1} \tilde{{\bf{S}}}_{ba} \right) \right]^{1/2} \,.
@@ -541,7 +545,7 @@ This approach \sv{expand...}
 
 
 \acknowledgments
-We thank Joe Romano, Xavier Siemens, and Jeff Hazboun for useful discussions. 
+We thank Joe Romano and Jeff Hazboun for useful discussions. 
 KPI and SJV are supported by NSF Physics Frontier Center Grant 1430284.
 JAE was supported by NASA through Einstein Fellowship Grant PF4-150120. 
 SRT was supported by appointment to the NASA Postdoctoral Program 
