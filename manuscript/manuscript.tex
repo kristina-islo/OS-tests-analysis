@@ -157,13 +157,13 @@ The term $U{\bf{j}}$ describes noise that is correlated for observations made at
 at different frequencies and uncorrelated over different observing epochs, 
 while ${\bf{n}}$ describes uncorrelated white noise.
 
-The optimal statistic is constructed from the autocovariance and cross-covariance matrices of the residuals 
+The optimal statistic is constructed from the autocovariance and cross-covariance matrices 
 ${\bf{P}}_a$ and ${\bf{S}}_{ab}$,
 \begin{eqnarray}
 	{\bf{P}}_a &=& \left\langle \res_a \res_a^T \right\rangle \,, \\
 	{\bf{S}}_{ab} &=& \left. \left\langle \res_a \res_b^T \right\rangle \right|_{a \neq b} \,.
 \end{eqnarray}
-where $a,b$ index pulsars in the PTA. 
+where $\res_a$ is a vector of the residuals of the $a$th pulsar in the PTA. 
 %In the frequency domain, these can be written as
 %\begin{eqnarray}
 %	\left\langle {\bf{r}}_I {\bf{r}}_I^T \right\rangle_{ij} &=& {\bf{R}}_I \left[ \int_{-\infty}^\infty df \; e^{2\pi i f \tau_{ij}} P_I(f) \right] {\bf{R}}_I^T \,, \\
@@ -185,15 +185,15 @@ where $\tilde{{\bf{S}}}_{ab}$ is the amplitude-independent cross-correlation mat
 \end{equation}
 This definition of the optimal statistic ensures that  
 $\langle \hat{A}^2 \rangle = \Agw^2$. 
-Assuming $\Agw=0$, the variance of the optimal statistic is
+If $\Agw=0$, the variance of the optimal statistic is
 \begin{equation}
-	\sigma_0 = \left[ \sum_{ab} \Tr \left( {\bf{P}}_a^{-1} \tilde{{\bf{S}}}_{ab} {\bf{P}}_b^{-1} \tilde{{\bf{S}}}_{ba} \right) \right]^{-1/2} \,,
+	\sigma_0 = \left[ \sum_{ab} \Tr \left( {\bf{P}}_a^{-1} \tilde{{\bf{S}}}_{ab} {\bf{P}}_b^{-1} \tilde{{\bf{S}}}_{ba} \right) \right]^{-1/2} \,.
 \end{equation}
-and the signal-to-noise ratio (SNR) is
+For a measured value of $\hat{A}^2$, 
+the significance of $\hat{A}^2 \neq 0$ is given by the signal-to-noise ratio (SNR) 
 \begin{equation}
 	\rho = \frac{\hat{A}^2}{\sigma_0} = \frac{\sum_{ab} \res_a^T {\bf{P}}_a^{-1} \tilde{{\bf{S}}}_{ab} {\bf{P}}_b^{-1} \res_b}{\left[ \sum_{ab} \Tr \left( {\bf{P}}_a^{-1} \tilde{{\bf{S}}}_{ab} {\bf{P}}_b^{-1} \tilde{{\bf{S}}}_{ba} \right) \right]^{1/2}} \,.
 \end{equation}
-The SNR $\rho$ gives the significance of $\hat{A}^2 \neq 0$. 
 The expectation value of the SNR, averaged over all realizations of the stochastic background, is
 \begin{equation}
 	\left\langle \rho \right\rangle = \Agw^2 \left[ \sum_{ab} \Tr\left( {\bf{P}}_a^{-1} \tilde{{\bf{S}}}_{ab} {\bf{P}}_b^{-1} \tilde{{\bf{S}}}_{ba} \right) \right]^{1/2} \,.
@@ -234,7 +234,7 @@ We include white noise for all pulsars, plus
 red noise parametrized as a power law, $P(f) = A_\mathrm{red} f^{-\gamma}$, 
 for those pulsars that show evidence of red noise 
 (see Table~\ref{tab:sim} for more details).
-\begin{table}[t]
+\begin{table}[tb]
 	\setlength{\tabcolsep}{5pt}
 	\caption{Pulsar parameters used in simulated PTAs. \sv{finish filling in this table}}
 	\begin{center}
@@ -316,18 +316,20 @@ than the analyses using the common noise results.
 The mean SNR from the noise-marginalized analysis is smaller 
 than the SNR found with the fixed-noise analysis using the common noise results, 
 but the two are consistent at $1.6\sigma$.
-\begin{figure}[t]
+\begin{figure}[htb]
 	\includegraphics[width=0.95\columnwidth]{plots/optstat_A5e-15_dataset11.pdf}
-	\caption{Optimal statistic for a simulated dataset containing an injected GWB. 
-			We compare the values found using a fixed-noise analysis with noise parameters taken from 
-			individual and common noise analyses (dashed blue lines and solid orange lines, respectively) 
+	\caption{Optimal statistic for a simulated PTA dataset containing an injected GWB. 
+			We compare the values found using a fixed-noise analysis 
+			with noise parameters taken from 
+			individual and common noise analyses 
+			(dashed blue lines and solid orange lines, respectively) 
 			to the values found by marginalizing over 
-			the individual pulsars' red noise parameters (solid green lines). 
-			The dotted vertical line indicates the injected value, $\hat{A}^2 = 2.5 \times 10^{-29}$. 
-			For this particular realization of the GWB, the fixed-noise analysis 
-			using the individual noise results underestimates the strength of the GWB, 
+			the individual pulsars' red noise parameters (green histograms). 
+			The dotted vertical line indicates the injected value, $\Agw^2 = 2.5 \times 10^{-29}$. 
+			The fixed-noise analysis 
+			using the individual noise results underestimates $\Agw$, 
 			while the fixed-noise analysis using the common noise results 
-			and the noise-marginalized analysis more accurately find $\hat{A}^2$.}
+			and the noise-marginalized analysis more accurately recover $\Agw$.}
 	\label{fig:os_dataset_sample}
 \end{figure}
 %\begin{figure}[ht]
@@ -378,30 +380,29 @@ The fixed-noise and noise-marginalized analyses give the same results
 for an injected GWB with $\Agw = 5\times10^{-15}$, 
 but there are differences between them when analyzing datasets 
 containing smaller injected values of $\Agw$. 
-Figure~\ref{fig:os_datasetstats2} shows the mean optimal statistic and mean SNR 
-for 100 realizations of a GWB with $\Agw = 10^{-15}$. 
-The fixed-noise analysis using the individual noise values 
-gives a mean value of $\hat{A}^2 = 2.9\times10^{-31}$ and a mean SNR of 1.1. 
-The fixed-noise analysis using the common noise values 
-gives a mean value of $\hat{A}^2 = 8.4\times10^{-31}$ and a mean SNR of 2.1, 
-which the noise-marginalized analysis gives a mean value of 
-$\hat{A}^2 = 1.1\times10^{-30}$ and a mean SNR of 2.4.
-\begin{figure}[t]
-	\includegraphics[width=0.95\columnwidth]{plots/optstat_A1e-15.pdf}
-	\caption{Optimal statistic and SNR for 100 simulated datasets 
-			containing an injected GWB with $\hat{A}^2 = 10^{-30}$ (dashed vertical line). 
-			We show the values found by fixing the red noise 
-			based on the results from individual and common noise analyses 
-			(blue and orange lines, respectively) 
-			to the mean optimal statistic and mean SNR found by marginalizing over 
-			the red noise parameters using the results of a common noise analysis (green lines). 
-			Using the red noise values from individual noise analyses leads to values of $\hat{A}^2$ 
-			that are significantly lower than the injected value, 
-			while using the values from a common noise analysis gives values of $\hat{A}^2$ 
-			that are closer to the injected value.}
-	\label{fig:os_datasetstats2}
-\end{figure}
-
+%Figure~\ref{fig:os_datasetstats2} shows the mean optimal statistic and mean SNR 
+%for 100 realizations of a GWB with $\Agw = 10^{-15}$. 
+%The fixed-noise analysis using the individual noise values 
+%gives a mean value of $\hat{A}^2 = 2.9\times10^{-31}$ and a mean SNR of 1.1. 
+%The fixed-noise analysis using the common noise values 
+%gives a mean value of $\hat{A}^2 = 8.4\times10^{-31}$ and a mean SNR of 2.1, 
+%which the noise-marginalized analysis gives a mean value of 
+%$\hat{A}^2 = 1.1\times10^{-30}$ and a mean SNR of 2.4.
+%\begin{figure}[t]
+%	\includegraphics[width=0.95\columnwidth]{plots/optstat_A1e-15.pdf}
+%	\caption{Optimal statistic and SNR for 100 simulated datasets 
+%			containing an injected GWB with $\hat{A}^2 = 10^{-30}$ (dashed vertical line). 
+%			We show the values found by fixing the red noise 
+%			based on the results from individual and common noise analyses 
+%			(blue and orange lines, respectively) 
+%			to the mean optimal statistic and mean SNR found by marginalizing over 
+%			the red noise parameters using the results of a common noise analysis (green lines). 
+%			Using the red noise values from individual noise analyses leads to values of $\hat{A}^2$ 
+%			that are significantly lower than the injected value, 
+%			while using the values from a common noise analysis gives values of $\hat{A}^2$ 
+%			that are closer to the injected value.}
+%	\label{fig:os_datasetstats2}
+%\end{figure}
 We also compare these three methods 
 based on how far the computed values of the optimal statistic are from the injected value of of the GWB 
 compared to the uncertainty in the optimal statistic,
@@ -409,6 +410,11 @@ compared to the uncertainty in the optimal statistic,
 	s = \frac{\hat{A}^2 - \Agw^2}{\sigma} = \frac{\hat{A}^2 - \Agw^2}{\hat{A}^2/\rho} \,.
 \end{equation}
 Figure~\ref{fig:os_compare} shows the distribution of $(\hat{A}^2-\Agw^2)/\sigma$
+\begin{figure*}[t]
+	\includegraphics[width=0.95\columnwidth]{plots/pp_plot.pdf}
+	\caption{\sv{write caption}}
+	\label{fig:os_compare}
+\end{figure*}
 
 
 \section{Monopole and Dipole Spatial Correlations}
