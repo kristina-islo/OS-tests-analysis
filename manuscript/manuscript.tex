@@ -164,17 +164,22 @@ ${\bf{P}}_a$ and ${\bf{S}}_{ab}$,
 	{\bf{S}}_{ab} &=& \left. \left\langle \res_a \res_b^T \right\rangle \right|_{a \neq b} \,.
 \end{eqnarray}
 where $\res_a$ is a vector of the residuals of the $a$th pulsar in the PTA. 
-%In the frequency domain, these can be written as
-%\begin{eqnarray}
-%	\left\langle {\bf{r}}_I {\bf{r}}_I^T \right\rangle_{ij} &=& {\bf{R}}_I \left[ \int_{-\infty}^\infty df \; e^{2\pi i f \tau_{ij}} P_I(f) \right] {\bf{R}}_I^T \,, \\
-%	\left. \left\langle {\bf{r}}_I {\bf{r}}_J^T \right\rangle \right|_{ij} &=& \chi_{IJ} {\bf{R}}_I \left[ \int_{-\infty}^\infty df \; e^{2\pi i f \tau_{ij}} P_\mathrm{gw}(f) \right] {\bf{R}}_J^T \,,
-%\end{eqnarray}
-%where $i,j$ index the matrix elements, $\tau_{ij} \equiv |t_i - t_j|$ is the time interval between 
-%two observations, 
-%$\mathbf{R}$ is the timing model fitting matrix, 
-%$\chi_{IJ}$ is the overlap reduction function (ORF) that describes the spatial correlation between two pulsars' residuals, 
-%$P_\mathrm{gw}(f)$ is the GW power spectrum, 
-%and $P_I(f)$ is the power spectrum for the $I$th pulsar. 
+In the frequency domain, these can be written as
+\begin{eqnarray}
+	{\bf{P}}_a^{ij} &=& {\bf{R}}_a \left[ \int_{-\infty}^\infty df \; e^{2\pi i f \tau_{ij}} P_a(f) \right] {\bf{R}}_a^T \,, \\
+	{\bf{S}}_{ab}^{ij} &=& \Gamma_{ab} \; {\bf{R}}_a \left[ \int_{-\infty}^\infty df \; e^{2\pi i f \tau_{ij}} P_\mathrm{gw}(f) \right] {\bf{R}}_b^T \,, \label{eq:Sab}
+\end{eqnarray}
+where $i,j$ index the matrix elements, $\tau_{ij} \equiv |t_i - t_j|$ is the time interval between 
+two observations, 
+$\mathbf{R}$ is the timing model fitting matrix, 
+$P_\mathrm{gw}(f)$ is the GW power spectrum, 
+and $P_a(f)$ is the power spectrum for the $a$th pulsar. 
+$\Gamma_{ab}$ is the overlap reduction function (ORF) 
+that describes the spatial correlation between two pulsars' residuals \citet{hd1983}, 
+\begin{equation}
+	\Gamma_{ab} =  \,,
+\end{equation}
+where $\theta_{ab}$ is the angle between the pulsars. 
 The optimal statistic $\hat{A}^2$ is given by
 \begin{equation}
 	\hat{A}^2 = \frac{\sum_{ab} \res_a^T {\bf{P}}_a^{-1} \tilde{{\bf{S}}}_{ab} {\bf{P}}_b^{-1} \res_b}{\sum_{ab} \Tr \left( {\bf{P}}_a^{-1} \tilde{{\bf{S}}}_{ab} {\bf{P}}_b^{-1} \tilde{{\bf{S}}}_{ba} \right) } \,,
@@ -231,9 +236,10 @@ NANOGrav 11-year data set \citep{abb+17}.
 with the observation times increased so that the longest-observed pulsars 
 had TOAs spanning over 11 years. 
 We include white noise for all pulsars, plus 
-red noise parametrized as a power law, $P(f) = A_\mathrm{red} f^{-\gamma}$, 
+red noise parametrized as a power law, $P_a(f) = A_\mathrm{red} f^{-\gamma}$, 
 for those pulsars that show evidence of red noise 
 (see Table~\ref{tab:sim} for more details).
+
 \begin{table}[tb]
 	\setlength{\tabcolsep}{5pt}
 	\caption{Pulsar parameters used in simulated PTAs. \sv{finish filling in this table}}
@@ -265,12 +271,6 @@ for those pulsars that show evidence of red noise
 	\end{center}
 	\label{tab:sim}
 \end{table}
-
-%We constructed simulated data sets using the same procedure as in \citet{tlb+2017}. 
-%The simulated PTAs consisted of 10 MSPs with 
-%total observation times and noise properties chosen to be 
-%similar to the properties of the EPTA \cite{caballero+2016} (see Table~\ref{tab:sim}). 
-%We also injected a stochastic GWB amplitude with $\Agw = 5\times10^{-15}$.
 %\begin{table}[htb]
 %	\setlength{\tabcolsep}{5pt}
 %	\caption{Pulsar parameters used in simulated PTA}
@@ -316,8 +316,9 @@ than the analyses using the common noise results.
 The mean SNR from the noise-marginalized analysis is smaller 
 than the SNR found with the fixed-noise analysis using the common noise results, 
 but the two are consistent at $1.6\sigma$.
-\begin{figure}[htb]
-	\includegraphics[width=0.95\columnwidth]{plots/optstat_A5e-15_dataset11.pdf}
+
+\begin{figure}[tb]
+	\includegraphics[width=0.9\columnwidth]{plots/optstat_A5e-15_dataset11.pdf}
 	\caption{Optimal statistic for a simulated PTA dataset containing an injected GWB. 
 			We compare the values found using a fixed-noise analysis 
 			with noise parameters taken from 
@@ -332,22 +333,6 @@ but the two are consistent at $1.6\sigma$.
 			and the noise-marginalized analysis more accurately recover $\Agw$.}
 	\label{fig:os_dataset_sample}
 \end{figure}
-%\begin{figure}[ht]
-%	\includegraphics[width=0.9\columnwidth]{plots/os_dataset50.pdf}
-%	\caption{Optimal statistic and SNR for a simulated dataset 
-%			containing an injected GW background with $\Agw = 5\times10^{-15}$. 
-%			We compare the values found using a fixed-noise analysis (dashed blue line) to the 
-%			mean optimal statistic and mean SNR found by marginalizing over 
-%			the individual pulsars' red noise parameters (solid orange line). 
-%			We also include the distribution of $\Agw^2$ found using the results of a Bayesian analysis 
-%			for a common red process (solid green line). 
-%			The dotted vertical line indicates the injected value, $\hat{A}^2 = 2.5 \times 10^{-29}$. 
-%			For this particular realization of the stochastic background, the fixed-noise analysis 
-%			gives $\hat{A}^2 = 1.9 \times 10^{-30}$ with $\mathrm{SNR} = 0.60$, 
-%			while the noise-marginalized analysis gives $\hat{A}^2 = 1.9\times10^{-29}$ with $\mathrm{SNR} = 1.1$. 
-%			For comparison, the Bayesian analysis gives a mean value of $\Agw^2 = 4.5\times10^{-29}$.}
-%	\label{fig:os_dataset_sample}
-%\end{figure}
 
 In Fig.~\ref{fig:os_datasetstats} we show the optimal statistic 
 for 200 different realizations of a GWB with $\Agw = 5\times10^{-15}$ 
@@ -362,8 +347,9 @@ averaging over realizations of the GWB.
 The fixed-noise and noise-marginalized analyses 
 using the common noise results both give 
 $\hat{A}^2 = (2.4\pm1.2)\times10^{-29}$ and $\rho = 4.1 \pm 1.7$.
-\begin{figure}[htb]
-	\includegraphics[width=0.95\columnwidth]{plots/optstat_A5e-15.pdf}
+
+\begin{figure}[tb]
+	\includegraphics[width=0.9\columnwidth]{plots/optstat_A5e-15.pdf}
 	\caption{Optimal statistic and SNR for 200 simulated datasets 
 			containing an injected GWB. 
 			The dashed vertical line indicates the injected value, $\hat{A}^2 = 2.5 \times 10^{-29}$. 
@@ -379,29 +365,7 @@ $\hat{A}^2 = (2.4\pm1.2)\times10^{-29}$ and $\rho = 4.1 \pm 1.7$.
 	\label{fig:os_datasetstats}
 \end{figure}
 
-The fixed-noise and noise-marginalized analyses give the same results 
-for $\Agw = 5\times10^{-15}$, 
-but there are differences between them when analyzing datasets 
-containing smaller injected values of $\Agw$. 
-In Fig.~\ref{fig:os_compare} we show a P--P plot 
-of the cumulative fraction of simulations for which the injected $\Agw^2$ lies within 
-a given confidence interval of the measured $\hat{A}^2$, 
-assuming a Gaussian distribution with mean equal to the measured $\hat{A}^2$ 
-and variance $\sigma^2_{\hat{A}^2}$, 
-determined from the distribution of $\hat{A}^2$ for our simulations. 
-If $\hat{A}^2$ has a Gaussian distribution centered around $\Agw^2$, 
-the curves should lie along a straight line with slope 1 (the dotted, diagonal line).
-
-We compare the three methods for computing the optimal statistic for 
-simulations with $\Agw=5\times10^{-15}$, $\Agw=10^{-15}$, and $\Agw=5\times10^{-16}$. 
-The fixed-noise optimal statistic using the individual noise results systematically underestimates $\hat{A}^2$ 
-(Fig.~\ref{fig:os_compare}, left panel). 
-The fixed-noise optimal statistic using the common noise results 
-estimates $\hat{A}^2$ well for large values of $\Agw$, but for small values it also underestimates $\hat{A}^2$ 
-(Fig.~\ref{fig:os_compare}, middle panel). 
-The noise-marginalized optimal statistic provides the most accurate estimate of $\hat{A}^2$ 
-over the range of \Agw\ considered here (Fig.~\ref{fig:os_compare}, right panel).
-\begin{figure*}[t]
+\begin{figure*}[ht]
 	\includegraphics[width=0.95\textwidth]{plots/pp_plot.pdf}
 	\caption{P--P plot showing the cumulative fraction of simulations for which $\Agw^2$ lies within 
 			a given confidence interval of the measured $\hat{A}^2$. 
@@ -414,13 +378,36 @@ over the range of \Agw\ considered here (Fig.~\ref{fig:os_compare}, right panel)
 	\label{fig:os_compare}
 \end{figure*}
 
+The fixed-noise and noise-marginalized analyses give the same results 
+for $\Agw = 5\times10^{-15}$, 
+but there are differences between them when analyzing datasets 
+containing smaller injected values of $\Agw$. 
+In Fig.~\ref{fig:os_compare} we show a P--P plot 
+of the cumulative fraction of simulations for which the injected $\Agw^2$ lies within 
+a given confidence interval of the measured $\hat{A}^2$, 
+assuming a Gaussian distribution with mean equal to the measured $\hat{A}^2$ 
+and variance $\sigma^2_{\hat{A}^2}$, 
+determined from the distribution of $\hat{A}^2$ for our simulations. 
+If $\hat{A}^2$ has a Gaussian distribution centered around $\Agw^2$, 
+the curves should lie along a straight line with slope 1 (the dotted, diagonal lines in Fig.~\ref{fig:os_compare}).
+
+We compare the three methods for computing the optimal statistic for 
+simulations with $\Agw=5\times10^{-15}$, $\Agw=10^{-15}$, and $\Agw=5\times10^{-16}$. 
+The fixed-noise optimal statistic using the individual noise results systematically underestimates $\hat{A}^2$ 
+(Fig.~\ref{fig:os_compare}, left panel). 
+The fixed-noise optimal statistic using the common noise results 
+estimates $\hat{A}^2$ well for large values of $\Agw$, but for small values it also underestimates $\hat{A}^2$ 
+(Fig.~\ref{fig:os_compare}, middle panel). 
+The noise-marginalized optimal statistic provides the most accurate estimate of $\hat{A}^2$ 
+over the range of \Agw\ considered here (Fig.~\ref{fig:os_compare}, right panel).
+
 
 \section{Monopole and Dipole Spatial Correlations}
 \label{sec:spatial}
 
 The optimal statistic is particularly well-suited to compare multiple spatial correlation relations 
 because using a different spatial correlation only requires changing the ORF 
-in Eq.~\eqref{eq:}. 
+in Eq.~\eqref{eq:Sab}. 
 \citet{thk+2016} demonstrated how the optimal statistic can be altered to fit for 
 multiple spatial correlations at once in order to mitigate common noise sources such as 
 clock error and ephemeris error. 
@@ -428,19 +415,19 @@ Here we compute the optimal statistic with monopole and dipole spatial correlati
 for the same simulated data sets as in the previous section in order to determine 
 how well we can distinguish a GW background from a monopole or dipole signal. 
 For a monopole signal, the ORF becomes simply
-$\Gamma(\theta_{IJ}) = 1$, 
+$\Gamma(\theta_{ab}) = 1$, 
 while for a dipole signal, the ORF becomes
-$\Gamma(\theta_{IJ}) = \cos\theta_{IJ}$.
+$\Gamma(\theta_{ab}) = \cos\theta_{ab}$.
 
 Our ability to distinguish between different spatial correlations 
 depends on the strength of the GWB 
-and the angular separations between pulsar pairs, $\theta_{IJ}$. 
+and the angular separations between pulsar pairs, $\theta_{ab}$. 
 We can determine the overlap between ORFs corresponding to different spatial correlations 
 by computing the ``match statistic'' \citep{cs2016},
 \begin{equation}
-	\bar{M} = \frac{\sum_{I,J \neq I} \Gamma_{IJ} \Gamma'_{IJ}}{\sqrt{ \left( \sum_{I, J \neq I} \Gamma_{IJ} \Gamma_{IJ} \right) \left( \sum_{I, J \neq I} \Gamma'_{IJ} \Gamma'_{IJ} \right)}} \,,
+	\bar{M} = \frac{\sum_{a,b \neq a} \Gamma_{ab} \Gamma'_{ab}}{\sqrt{ \left( \sum_{a, b \neq a} \Gamma_{ab} \Gamma_{ab} \right) \left( \sum_{a, b \neq a} \Gamma'_{ab} \Gamma'_{ab} \right)}} \,,
 \end{equation}
-where $I$,$J$ index the pulsar number, and $\Gamma$ and $\Gamma'$ are two different ORFs. 
+where $\Gamma$ and $\Gamma'$ are two different ORFs. 
 For the 18 pulsars used in these simulations, the 
 match statistic for monopole and Hellings-Downs correlations is $\bar{M} = 0.264$, 
 and the match statistic for dipole and Hellings-Downs correlations is $\bar{M} = 0.337$. 
@@ -455,6 +442,9 @@ computed assuming monopole, dipole, and quadrupole spatial correlations
 for 200 simulated data sets. Using a monopole or dipole ORF 
 gives a lower value for the mean optimal statistic and mean SNR compared to the 
 Hellings-Downs ORF. 
+Using quadrupole spatial correlations gives $\hat{A}^2 = (2.4 \pm 1.2) \times 10^{-29}$, 
+while using monopole spatial correlations gives $\hat{A}^2 = (2.5 \pm 3.1) \times 10^{-30}$, 
+and dipole spatial correlations gives $\hat{A}^2 = (5.3 \pm 4.2) \times 10^{-30}$. 
 We find a noise-marginalized mean SNR above 1.0 in 97\% of our simulated data sets 
 using the quadrupole ORF, and in 50\% and 68\% of our simulated data sets 
 using the monopole and dipole ORFs, respectively. 
@@ -549,7 +539,7 @@ This approach \sv{expand...}
 
 
 \acknowledgments
-We thank Joe Romano, Xavier Siemens, Jolien Creighton, and Jeff Hazboun for useful discussions. 
+We thank Joe Romano, Xavier Siemens, Jolien Creighton, and Jeffrey Hazboun for useful discussions. 
 KPI and SJV are supported by NSF Physics Frontier Center Grant 1430284.
 JAE was supported by NASA through Einstein Fellowship Grant PF4-150120. 
 SRT was supported by appointment to the NASA Postdoctoral Program 
