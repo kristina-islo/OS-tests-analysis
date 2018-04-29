@@ -33,8 +33,8 @@
 \affiliation{Department of Physics and Astronomy, West Virginia University, P.O. Box 6315, Morgantown, WV 26506, USA}
 \affiliation{Center for Gravitational Waves and Cosmology, West Virginia University, Chestnut Ridge Research Building, Morgantown, WV 26505, USA}
 
-\author{Xavier Siemens}
-\affiliation{Center for Gravitation, Cosmology and Astrophysics, University of Wisconsin--Milwaukee, PO Box 413, Milwaukee WI, 53201, USA}
+%\author{Xavier Siemens}
+%\affiliation{Center for Gravitation, Cosmology and Astrophysics, University of Wisconsin--Milwaukee, PO Box 413, Milwaukee WI, 53201, USA}
 
 \date{\today}  
 
@@ -383,32 +383,24 @@ The fixed-noise and noise-marginalized analyses give the same results
 for $\Agw = 5\times10^{-15}$, 
 but there are differences between them when analyzing datasets 
 containing smaller injected values of $\Agw$. 
-%Figure~\ref{fig:os_datasetstats2} shows the mean optimal statistic and mean SNR 
-%for 100 realizations of a GWB with $\Agw = 10^{-15}$. 
-%The fixed-noise analysis using the individual noise values 
-%gives a mean value of $\hat{A}^2 = 2.9\times10^{-31}$ and a mean SNR of 1.1. 
-%The fixed-noise analysis using the common noise values 
-%gives a mean value of $\hat{A}^2 = 8.4\times10^{-31}$ and a mean SNR of 2.1, 
-%which the noise-marginalized analysis gives a mean value of 
-%$\hat{A}^2 = 1.1\times10^{-30}$ and a mean SNR of 2.4.
-%\begin{figure}[t]
-%	\includegraphics[width=0.95\columnwidth]{plots/optstat_A1e-15.pdf}
-%	\caption{Optimal statistic and SNR for 100 simulated datasets 
-%			containing an injected GWB with $\hat{A}^2 = 10^{-30}$ (dashed vertical line). 
-%			We show the values found by fixing the red noise 
-%			based on the results from individual and common noise analyses 
-%			(blue and orange lines, respectively) 
-%			to the mean optimal statistic and mean SNR found by marginalizing over 
-%			the red noise parameters using the results of a common noise analysis (green lines). 
-%			Using the red noise values from individual noise analyses leads to values of $\hat{A}^2$ 
-%			that are significantly lower than the injected value, 
-%			while using the values from a common noise analysis gives values of $\hat{A}^2$ 
-%			that are closer to the injected value.}
-%	\label{fig:os_datasetstats2}
-%\end{figure}
-We also compare these three methods 
+In Fig.~\ref{fig:os_compare} we show a P--P plot 
+of the cumulative fraction of simulations for which the injected $\Agw^2$ lies within 
+a given confidence interval of the measured $\hat{A}^2$, 
+assuming a Gaussian distribution with mean equal to the measured $\hat{A}^2$ 
+and variance $\sigma^2_{\hat{A}^2}$, 
+determined from the distribution of $\hat{A}^2$ for our simulations. 
+If $\hat{A}^2$ has a Gaussian distribution centered around $\Agw^2$, 
+the curves should lie along a straight line with slope 1 (the dotted, diagonal line).
 
-Figure~\ref{fig:os_compare} shows the distribution of $(\hat{A}^2-\Agw^2)/\sigma$
+We compare the three methods for computing the optimal statistic for 
+simulations with $\Agw=5\times10^{-15}$, $\Agw=10^{-15}$, and $\Agw=5\times10^{-16}$. 
+The fixed-noise optimal statistic using the individual noise results systematically underestimates $\hat{A}^2$ 
+(Fig.~\ref{fig:os_compare}, left panel). 
+The fixed-noise optimal statistic using the common noise results 
+estimates $\hat{A}^2$ well for large values of $\Agw$, but for small values it also underestimates $\hat{A}^2$ 
+(Fig.~\ref{fig:os_compare}, middle panel). 
+The noise-marginalized optimal statistic provides the most accurate estimate of $\hat{A}^2$ 
+over the range of \Agw\ considered here (Fig.~\ref{fig:os_compare}, right panel).
 \begin{figure*}[t]
 	\includegraphics[width=0.95\textwidth]{plots/pp_plot.pdf}
 	\caption{P--P plot showing the cumulative fraction of simulations for which $\Agw^2$ lies within 
@@ -557,7 +549,7 @@ This approach \sv{expand...}
 
 
 \acknowledgments
-We thank Joe Romano and Jeff Hazboun for useful discussions. 
+We thank Joe Romano, Xavier Siemens, Jolien Creighton, and Jeff Hazboun for useful discussions. 
 KPI and SJV are supported by NSF Physics Frontier Center Grant 1430284.
 JAE was supported by NASA through Einstein Fellowship Grant PF4-150120. 
 SRT was supported by appointment to the NASA Postdoctoral Program 
