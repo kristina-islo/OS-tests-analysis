@@ -362,7 +362,7 @@ averaging over realizations of the GWB.
 The fixed-noise and noise-marginalized analyses 
 using the common noise results both give 
 $\hat{A}^2 = (2.4\pm1.2)\times10^{-29}$ and $\rho = 4.1 \pm 1.7$.
-\begin{figure}[t]
+\begin{figure}[htb]
 	\includegraphics[width=0.95\columnwidth]{plots/optstat_A5e-15.pdf}
 	\caption{Optimal statistic and SNR for 200 simulated datasets 
 			containing an injected GWB. 
@@ -407,15 +407,18 @@ containing smaller injected values of $\Agw$.
 %	\label{fig:os_datasetstats2}
 %\end{figure}
 We also compare these three methods 
-based on how far the computed values of the optimal statistic are from the injected value of of the GWB 
-compared to the uncertainty in the optimal statistic,
-\begin{equation}
-	s = \frac{\hat{A}^2 - \Agw^2}{\sigma} = \frac{\hat{A}^2 - \Agw^2}{\hat{A}^2/\rho} \,.
-\end{equation}
+
 Figure~\ref{fig:os_compare} shows the distribution of $(\hat{A}^2-\Agw^2)/\sigma$
 \begin{figure*}[t]
-	\includegraphics[width=0.95\columnwidth]{plots/pp_plot.pdf}
-	\caption{\sv{write caption}}
+	\includegraphics[width=0.95\textwidth]{plots/pp_plot.pdf}
+	\caption{P--P plot showing the cumulative fraction of simulations for which $\Agw^2$ lies within 
+			a given confidence interval of the measured $\hat{A}^2$. 
+			The probability distribution of $\hat{A}^2$ is assumed to be a Gaussian 
+			with variance $\sigma^2_{\hat{A}^2}$. 
+			The fixed-noise optimal statistic using the individual and common noise results 
+			both give biased values of $\hat{A}^2$, particularly for small values of \Agw, 
+			while the noise-marginalized optimal statistic gives more accurate values of $\hat{A}^2$ 
+			over a large range of injected values of \Agw.}
 	\label{fig:os_compare}
 \end{figure*}
 
