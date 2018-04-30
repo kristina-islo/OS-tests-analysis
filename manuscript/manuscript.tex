@@ -100,7 +100,7 @@ Not only does it provide an independent detection procedure, complementing a mor
 However, the optimal statistic gives biased results 
 when the pulsars have significant red noise 
 due to the strong covariance between the individual red noise parameters 
-and the GWB amplitude \sv{has this ever been discussed in a paper?}. 
+and the GWB amplitude. 
 %In this paper, we present a technique for improving the accuracy of the optimal statistic 
 %by marginalizing the optimal statistic over the individual red noise parameters 
 %using the posterior distributions from a full Bayesian analysis. 
@@ -176,10 +176,11 @@ $\mathbf{R}$ is the timing model fitting matrix,
 $P_\mathrm{gw}(f)$ is the GW power spectrum, 
 and $P_a(f)$ is the power spectrum for the $a$th pulsar. 
 $\Gamma_{ab}$ is the overlap reduction function (ORF) 
-that describes the spatial correlation between two pulsars' residuals \citet{hd1983}, 
-\begin{equation}
-	\Gamma_{ab} =  \,,
-\end{equation}
+that describes the spatial correlation between two pulsars' residuals \citep{hd1983}, 
+\begin{eqnarray}
+	\Gamma_{ab} &=& \frac{1}{2} \left[ 1 - \frac{1}{2} \left( \frac{1-\cos\theta_{ab}}{2} \right) \right. \nonumber \\
+		&& \left. + 3 \left( \frac{1-\cos\theta_{ab}}{2} \right) \ln \left( \frac{1-\cos\theta_{ab}}{2} \right) \right]  \,,
+\end{eqnarray}
 where $\theta_{ab}$ is the angle between the pulsars. 
 The optimal statistic $\hat{A}^2$ is given by
 \begin{equation}
@@ -205,12 +206,13 @@ the significance of $\hat{A}^2 \neq 0$ is given by the signal-to-noise ratio (SN
 %	\left\langle \rho \right\rangle = \Agw^2 \left[ \sum_{ab} \Tr\left( {\bf{P}}_a^{-1} \tilde{{\bf{S}}}_{ab} {\bf{P}}_b^{-1} \tilde{{\bf{S}}}_{ba} \right) \right]^{1/2} \,.
 %\end{equation}
 
-When constructing the residuals $\res$, 
+When constructing the residuals $\res_a$, 
 we typically fix the red noise parameters to the values that 
 maximize the likelihood. 
 However, this leads to a bias in the optimal statistic and SNR because 
 the individual red noise parameters and the common red noise parameters 
 are highly covariant. 
+
 In this section, we compare three different techniques for computing the 
 optimal statistic for PTAs with significant red noise. 
 First, we fix the individual pulsars' red noise parameters to the 
@@ -475,17 +477,17 @@ We generated \sv{XXX} scrambled ORFs
 using a Monte Carlo algorithm. 
 We required the scrambled ORFs to have $\bar{M} < 0.2$ 
 with respect to the true ORF and each other 
-in order to minimize the overlap. 
-Figure~\ref{fig:skyscrambles_dataset_sample} compares the noise-marginalized optimal statistic 
-for a particular data set to the distribution of noise-marginalized optimal statistics obtained using sky scrambles. 
-For this data set, the noise-marginalized mean optimal statistic is 
-$1.9\times10^{-29}$ and the mean SNR is 1.1. 
-The distributions of the noise-marginalized optimal statistic and SNR obtained using the scrambled ORFs 
-are both centered around zero, 
-and for 24 out of the 210 sky scrambles, the SNR is above the true value of $1.1$ ($p=0.11$). 
-Figure~\ref{fig:skyscrambles} shows the $p$-values for 210 sky scrambles 
-using 425 realizations of the stochastic background. 
-For 62\% of simulations the $p$-value is $<0.1$, and for 29\% of simulations the $p$-value is $<0.01$.
+in order to minimize the overlap between the ORFs. 
+%Figure~\ref{fig:skyscrambles_dataset_sample} compares the noise-marginalized optimal statistic 
+%for a particular data set to the distribution of noise-marginalized optimal statistics obtained using sky scrambles. 
+%For this data set, the noise-marginalized mean optimal statistic is 
+%$1.9\times10^{-29}$ and the mean SNR is 1.1. 
+%The distributions of the noise-marginalized optimal statistic and SNR obtained using the scrambled ORFs 
+%are both centered around zero, 
+%and for 24 out of the 210 sky scrambles, the SNR is above the true value of $1.1$ ($p=0.11$). 
+%Figure~\ref{fig:skyscrambles} shows the $p$-values for 210 sky scrambles 
+%using 425 realizations of the stochastic background. 
+%For 62\% of simulations the $p$-value is $<0.1$, and for 29\% of simulations the $p$-value is $<0.01$.
 %\begin{figure}[htb]
 %	\includegraphics[width=0.9\columnwidth]{plots/skyscrambles_dataset50.pdf}
 %	\caption{Comparison between the noise-marginalized mean optimal statistic and mean SNR 
@@ -502,11 +504,6 @@ For 62\% of simulations the $p$-value is $<0.1$, and for 29\% of simulations the
 %			noise-marginalized mean SNR greater than the mean SNR using the correct ORF.}
 %	\label{fig:skyscrambles}
 %\end{figure}
-
-For five realizations of the stochastic background, we also computed the Bayes' factors for the 
-true and sky scrambled ORFs in order to directly compare 
-the frequentist and Bayesian detection techniques.
-\sv{comparison to Steve's}
 
 
 \section{Conclusion}
