@@ -50,8 +50,8 @@
 \date{\today}  
 
 \begin{abstract}
-Observations have revealed that nearly all galaxies contain supermassive black holes (SMBHs) at their centers, 
-with masses between \sv{look up}. 
+Observations have revealed that nearly all galaxies 
+contain supermassive black holes (SMBHs) at their centers. 
 When galaxies merge, these SMBHs form SMBH binaries (SMBHBs), 
 which emit low-frequency gravitational waves (GWs). 
 The incoherent superposition of these GW sources produce a stochastic GW background (GWB) 
@@ -75,7 +75,7 @@ by performing sky scrambles.
 Long-wavelength gravitational waves (GWs) with frequencies of 
 $10^{-9} - 10^{-7} \; \mathrm{Hz}$ can be observed with pulsar timing arrays (PTAs) 
 composed of millisecond pulsars (MSPs) \cite{hd1983,fb1990}. 
-The dominant astrophysical source in this frequency range is an isotropic stochastic 
+The dominant astrophysical source in this frequency range is the isotropic stochastic 
 gravitational wave background (GWB) 
 made up of the incoherent superposition of GWs from inspiraling 
 supermassive black hole binaries (SMBHBs) 
@@ -85,18 +85,21 @@ we can probe the dynamics of the spacetime through which the pulses travel.
 This is done by searching for correlations in the pulsar timing residuals, 
 which measure the difference between the expected and observed pulse times of arrival. 
 Current upper-limits on the stochastic background from PTAs are approaching 
-theoretical predictions for the stochastic GWB \citep{PPTA2013,EPTA2015,abb+17b}
+theoretical predictions for the GWB \citep{PPTA2013,EPTA2015,abb+17b}
 
 The primary data analysis technique used by PTAs is Bayesian inference 
 to compare the probabilities of various models for the pulsar timing residuals, 
-including one where the residuals contain evidence of an isotropic GW stochastic background 
+including one where the residuals contain evidence of the GWB 
 \citep{vlm+2009,lah+2013}. 
-Bayesian inference is a powerful technique because it allows us to compare arbitrarily complicated models. 
+%Bayesian inference is a powerful technique because it allows us to compare arbitrarily complicated models. 
+Bayesian inference is a powerful tool because 
+it performs a non-linear fit and 
+accounts for degeneracies between parameters. 
 However, running a full Bayesian analysis is computationally intensive, 
 particularly when searching for evidence of dipole spatial correlations:
-``the smoking gun'' of a stochastic GWB.
+``the smoking gun'' of the GWB.
 
-The significance of a stochastic GWB can also be assessed using the 
+The significance of the GWB can also be assessed using the 
 optimal statistic, a frequentist estimator for the GWB amplitude \citep{abc+2009,demorest+2013,ccs+2015}. 
 %It is an important complement to Bayesian detection techniques 
 %because it provides an independent detection procedure, 
@@ -119,8 +122,8 @@ and the GWB amplitude.
 Here we present a technique for improving the accuracy of the optimal statistic by including an additional step: 
 marginalizing over the individual pulsar red noise parameters 
 using the posterior distributions from a full Bayesian analysis of all the pulsars. 
-This hybrid approach produces a more precise estimate of the stochastic GWB amplitude \Agw\ 
-and its uncertainty, while requiring only a few minutes over the more traditional method of computation. 
+This hybrid approach produces a more precise estimate of the GWB amplitude \Agw\ 
+and its uncertainty, while requiring only a few minutes more than the more traditional method of computation. 
 %This method is more computationally intensive than previous methods 
 %for computing the optimal statistic, but still requires only minutes. 
 %Furthermore, the same Bayesian analysis drawn upon by the noise marginalization 
@@ -129,7 +132,7 @@ and its uncertainty, while requiring only a few minutes over the more traditiona
 Furthermore, the same Bayesian analysis drawn upon by the noise marginalization 
 can be used to compute the optimal statistic with any choice of overlap-reduction function (ORF), 
 allowing for quick testing of various spatial correlations. 
-This technique was used to perform the frequentist searches 
+This technique is used to perform the frequentist searches 
 for common red signals with monopole, dipole, and Hellings-Downs spatial correlations 
 in the NANOGrav 11-year dataset \citep{abb+17b}.
 
@@ -342,7 +345,7 @@ The fixed-noise and noise-marginalized analyses
 using the common noise results both give 
 $\hat{A}^2 = (2.4\pm1.2)\times10^{-29}$ and $\rho = 4.1 \pm 1.7$.
 
-\begin{figure}[!h]
+\begin{figure}[tb]
 	\includegraphics[width=0.9\columnwidth]{plots/optstat_A5e-15_dataset11.pdf}
 	\caption{Optimal statistic 
 			for a simulated PTA dataset containing a GWB with $\Agw = 5\times10^{-15}$. 
@@ -354,7 +357,7 @@ $\hat{A}^2 = (2.4\pm1.2)\times10^{-29}$ and $\rho = 4.1 \pm 1.7$.
 	\label{fig:os_dataset_sample}
 \end{figure}
 
-\begin{figure}[!h]
+\begin{figure}[tb]
 	\includegraphics[width=0.9\columnwidth]{plots/optstat_A5e-15.pdf}
 	\caption{Optimal statistic and SNR for 200 simulated datasets 
 			containing a GWB with $\Agw = 5\times10^{-15}$. 
@@ -455,7 +458,7 @@ using the monopole and dipole ORFs, respectively.
 The mean SNR using the quadrupole ORF, averaged over realizations of the GWB, is 4.1, 
 and we find an SNR greater than this using the monopole and dipole ORFs in just 
 3\% and 3.5\% of our simulations, respectively.
-\begin{figure}[t]
+\begin{figure}[tb]
 	\includegraphics[width=0.9\columnwidth]{plots/optstat_spatial_A5e-15.pdf}
 	\caption{Noise-marginalized mean optimal statistic and mean SNR for 200 simulated datasets 
 			containing an injected GWB with $\Agw = 5\times10^{-15}$. 
@@ -481,7 +484,8 @@ with respect to the true ORF and each other
 in order to minimize the overlap between the ORFs. 
 For each simulation, 
 we computed the noise-marginalized mean optimal statistic and mean SNR 
-for each scrambled ORF, and compared to the values found using the true ORF. 
+for each scrambled ORF, and compared to the values found using the true ORF.
+
 Figure~\ref{fig:skyscrambles_dataset_sample} shows the results of a sky scramble analysis 
 for a sample dataset with $\Agw=5\times10^{-15}$. 
 For this particular realization of the GWB, 
@@ -542,11 +546,14 @@ and 33\% have $p \leq 0.003$.
 \section{Conclusion}
 \label{sec:conclusion}
 
-In this paper, we introduce an improved method for computing the optimal statistic, 
-a frequentist estimator for the strength of an isotropic stochastic GWB in PTA data 
-that searches for a common signal with a particular spatial correlation relation 
-using a matched filter approach. 
-Our method uses the output from a Bayesian analyses 
+The definitive signature of a GWB in PTA data is spatial correlations 
+described by the Hellings-Downs curve. 
+Searching for these using a full Bayesian approach is computationally expensive, 
+requiring \sv{estimate of CPU time}. 
+In contrast, the optimal statistic can be computed in minutes. 
+In this paper, we introduce an improved method 
+for computing the optimal statistic, 
+which uses the output from a Bayesian analysis 
 for individual and common red signals 
 to marginalize the optimal statistic over the individual pulsars' red noises. 
 As shown in Sec.~\ref{sec:marg_os}, 
@@ -554,21 +561,37 @@ the noise-marginalized optimal statistic more accurately recovers the GWB amplit
 than the fixed-noise optimal statistic, which underestimates the GWB amplitude 
 when significant red noise is present in some pulsars.
 
-Searching for the spatial correlations characteristic of a GWB 
-using a full Bayesian approach is computationally inexpensive, 
-whereas the optimal statistic can be computed in a fraction of the time. 
-This makes the optimal statistic particularly useful for simulations 
-or for analyses where many spatial correlations are compared 
-such as sky scramble analyses.
+Although the noise-marginalized optimal statistic 
+requires computing the optimal statistic thousands of times, 
+it is still many orders of magnitude faster than a Bayesian search. 
+Furthermore, the results from a single Bayesian analysis, 
+which are needed to marginalize over the red noise parameters, 
+can be used to compute the optimal statistic for many different spatial correlations. 
+In Sec.~\ref{sec:spatial} we use the noise-marginalized optimal statistic 
+to compare the strength of monopole, dipole, and quadrupole correlations 
+in simulated PTA data with a GWB. 
+In Sec.~\ref{sec:skyscrambles} we use the noise-marginalized optimal statistic 
+to perform sky scramble analyses, where we compare the mean SNR 
+computed using the true ORF to the mean SNR computed using scrambled ORFs 
+and measure the significance of HD spatial correlations through the $p$-value.
+
+The primary strength of the optimal statistic is how quickly it can be computed. 
+This is useful for analyses where the significance of many spatial correlations are compared, 
+as with the sky scrambles. 
+It also makes the optimal statistic a valuable tool for analyzing simulations 
+where many realizations of the GWB are compared. 
+The noise marginalization technique described in this paper is key 
+to being able to accurately measure the GWB for PTA data 
+where significant red noise is present.
 
 
 \acknowledgments
 We thank Joe Romano, Xavier Siemens, Jolien Creighton, and Jeffrey Hazboun for useful discussions. 
 This work was supported by NSF Physics Frontier Center Grant 1430284. 
-JAE was supported by NASA through Einstein Fellowship Grant PF4-150120. 
-SRT was supported by appointment to the NASA Postdoctoral Program 
+SRT was partially supported by appointment to the NASA Postdoctoral Program 
 at the Jet Propulsion Laboratory, which is administered by Oak Ridge Associated Universities 
 and the Universities Space Research Association through a contract with NASA. 
+JAE was partially supported by NASA through Einstein Fellowship Grant PF4-150120. 
 
 
 \bibliographystyle{apsrev}
