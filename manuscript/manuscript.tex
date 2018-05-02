@@ -1,7 +1,7 @@
 \documentclass[twocolumn,aps,prd,superscriptaddress]{revtex4-1}  
 \usepackage{amsmath,graphicx}
 
-\DeclareMathOperator{\Tr}{Tr}
+\DeclareMathOperator{\Tr}{tr}
 
 \usepackage{natbib}
 \usepackage{amsmath,amssymb}
@@ -26,8 +26,8 @@
 
 \begin{document}
 
-\title{Assessing spatial correlations in pulsar timing arrays with the noise-marginalized optimal statistic}
-
+\title{The noise-marginalized optimal statistic: A robust hybrid frequentist-Bayesian statistic for a stochastic gravitational-wave background in pulsar timing arrays}
+%\title{Assessing spatial correlations in pulsar timing arrays with the noise-marginalized optimal statistic}
 
 \author{Sarah J.\ Vigeland}
 \affiliation{Center for Gravitation, Cosmology and Astrophysics, University of Wisconsin--Milwaukee, PO Box 413, Milwaukee WI, 53201, USA}
@@ -144,7 +144,7 @@ In Sec.~\ref{sec:spatial} determine how well
 the noise-marginalized optimal statistic can 
 differentiate between monopole, dipole, and Hellings-Downs spatial correlations. 
 In Sec.~\ref{sec:skyscrambles} we determine how well the noise-marginalized optimal statistic 
-can assess the significance of a GW detection by performing sky scrambles \citep{cs2016}. 
+can assess the significance of a GW detection by performing sky scrambles \citep{cs2016, tlb+2017}. 
 %We also compare our sky scramble results to the Bayesian analysis of sky scrambles done by \citet{tlb+2017}. 
 We summarize our results in Sec.~\ref{sec:conclusion} 
 and discuss future applications of the noise-marginalized optimal statistic.
@@ -164,32 +164,85 @@ which can be written as
 \end{equation}
 The design matrix $M$ and timing model parameter uncertainties $\epsilon$ 
 describe the contributions to the residuals from uncertainties in the timing model. 
-The term $F{\bf{a}}$ describes red noise, 
-including both red noise intrinsic to the pulsar 
-and a common red noise signal common to all the pulsar (such as a GW signal). 
 The term $U{\bf{j}}$ describes noise that is correlated for observations made at the same time 
 at different frequencies and uncorrelated over different observing epochs, 
 while ${\bf{n}}$ describes uncorrelated white noise.
+The term $F{\bf{a}}$ describes red noise, 
+including both red noise intrinsic to the pulsar 
+and a common red noise signal common to all the pulsar (such as a GW signal). 
+We model the red noise as a Fourier series,
+\begin{equation}
+	F {\bf{a}} = \sum_{j=1}^N \left[ a_j \sin\left( \frac{2\pi j t}{T} \right) + b_j \cos \left( \frac{2\pi j t}{T} \right) \right] \,,
+\end{equation}
+where $N$ is the number of Fourier modes used (typically $N=30$) 
+and $T$ is the span of the observations.
+
+%The optimal statistic is constructed from the autocovariance and cross-covariance matrices 
+%${\bf{P}}_a$ and ${\bf{S}}_{ab}$. 
+%%\begin{eqnarray}
+%%	{\bf{P}}_a &=& \left\langle \res_a \res_a^T \right\rangle \,, \\
+%%	{\bf{S}}_{ab} &=& \left. \left\langle \res_a \res_b^T \right\rangle \right|_{a \neq b} \,.
+%%\end{eqnarray}
+%%where $\res_a$ is a vector of the residuals of the $a$th pulsar in the PTA. 
+%In the frequency domain, these can be written as
+%\begin{eqnarray}
+%	{\bf{P}}_a^{ij} &=& {\bf{R}}_a \left[ \int_{-\infty}^\infty df \; e^{2\pi i f \tau_{ij}} P_a(f) \right] {\bf{R}}_a^T \,, \\
+%	{\bf{S}}_{ab}^{ij} &=& \Gamma_{ab} \; {\bf{R}}_a \left[ \int_{-\infty}^\infty df \; e^{2\pi i f \tau_{ij}} P_\mathrm{gw}(f) \right] {\bf{R}}_b^T \,, \label{eq:Sab}
+%\end{eqnarray}
+%where $i,j$ index the matrix elements, $\tau_{ij} \equiv |t_i - t_j|$ is the time interval between 
+%two observations, 
+%$\mathbf{R}$ is the timing model fitting matrix, 
+%$P_\mathrm{gw}(f)$ is the GW power spectrum, 
+%and $P_a(f)$ is the power spectrum for the $a$th pulsar. 
+%$\Gamma_{ab}$ is the overlap reduction function (ORF) 
+%that describes the spatial correlation between two pulsars' residuals \citep{hd1983}, 
+%\begin{eqnarray}
+%	\Gamma_{ab} &=& \frac{1}{2} \left[ 1 - \frac{1}{2} \left( \frac{1-\cos\theta_{ab}}{2} \right) \right. \nonumber \\
+%		&& \left. + 3 \left( \frac{1-\cos\theta_{ab}}{2} \right) \ln \left( \frac{1-\cos\theta_{ab}}{2} \right) \right]  \,,
+%\end{eqnarray}
+%where $\theta_{ab}$ is the angle between the pulsars. 
+%The optimal statistic $\hat{A}^2$ is given by
+%\begin{equation}
+%	\hat{A}^2 = \frac{\sum_{ab} \res_a^T {\bf{P}}_a^{-1} \tilde{{\bf{S}}}_{ab} {\bf{P}}_b^{-1} \res_b}{\sum_{ab} \Tr \left( {\bf{P}}_a^{-1} \tilde{{\bf{S}}}_{ab} {\bf{P}}_b^{-1} \tilde{{\bf{S}}}_{ba} \right) } \,,
+%\end{equation}
+%where $\tilde{{\bf{S}}}_{ab}$ is the amplitude-independent cross-correlation matrix,
+%\begin{equation}
+%	\Agw^2 \tilde{{\bf{S}}}_{ab} = {\bf{S}}_{ab} \,.
+%\end{equation}
+%This definition of the optimal statistic ensures that  
+%$\langle \hat{A}^2 \rangle = \Agw^2$. 
+%If $\Agw=0$, the variance of the optimal statistic is
+%\begin{equation}
+%	\sigma_0 = \left[ \sum_{ab} \Tr \left( {\bf{P}}_a^{-1} \tilde{{\bf{S}}}_{ab} {\bf{P}}_b^{-1} \tilde{{\bf{S}}}_{ba} \right) \right]^{-1/2} \,.
+%\end{equation}
+%For a measured value of $\hat{A}^2$, 
+%the significance of $\hat{A}^2 \neq 0$ is given by the signal-to-noise ratio (SNR) 
+%\begin{equation}
+%	\rho = \frac{\hat{A}^2}{\sigma_0} = \frac{\sum_{ab} \res_a^T {\bf{P}}_a^{-1} \tilde{{\bf{S}}}_{ab} {\bf{P}}_b^{-1} \res_b}{\left[ \sum_{ab} \Tr \left( {\bf{P}}_a^{-1} \tilde{{\bf{S}}}_{ab} {\bf{P}}_b^{-1} \tilde{{\bf{S}}}_{ba} \right) \right]^{1/2}} \,.
+%\end{equation}
+%%The expectation value of the SNR, averaged over all realizations of the stochastic background, is
+%%\begin{equation}
+%%	\left\langle \rho \right\rangle = \Agw^2 \left[ \sum_{ab} \Tr\left( {\bf{P}}_a^{-1} \tilde{{\bf{S}}}_{ab} {\bf{P}}_b^{-1} \tilde{{\bf{S}}}_{ba} \right) \right]^{1/2} \,.
+%%\end{equation}
 
 The optimal statistic is constructed from the autocovariance and cross-covariance matrices 
-${\bf{P}}_a$ and ${\bf{S}}_{ab}$. 
-%\begin{eqnarray}
-%	{\bf{P}}_a &=& \left\langle \res_a \res_a^T \right\rangle \,, \\
-%	{\bf{S}}_{ab} &=& \left. \left\langle \res_a \res_b^T \right\rangle \right|_{a \neq b} \,.
-%\end{eqnarray}
-%where $\res_a$ is a vector of the residuals of the $a$th pulsar in the PTA. 
-In the frequency domain, these can be written as
+$C_a$ and $S_{ab}$, 
 \begin{eqnarray}
-	{\bf{P}}_a^{ij} &=& {\bf{R}}_a \left[ \int_{-\infty}^\infty df \; e^{2\pi i f \tau_{ij}} P_a(f) \right] {\bf{R}}_a^T \,, \\
-	{\bf{S}}_{ab}^{ij} &=& \Gamma_{ab} \; {\bf{R}}_a \left[ \int_{-\infty}^\infty df \; e^{2\pi i f \tau_{ij}} P_\mathrm{gw}(f) \right] {\bf{R}}_b^T \,, \label{eq:Sab}
+	C_a &=& \left\langle \res_a \res_a^T \right\rangle \,, \\
+	S_{ab} &=& \left. \left\langle \res_a \res_b^T \right\rangle \right|_{a \neq b} \,,
 \end{eqnarray}
-where $i,j$ index the matrix elements, $\tau_{ij} \equiv |t_i - t_j|$ is the time interval between 
-two observations, 
-$\mathbf{R}$ is the timing model fitting matrix, 
-$P_\mathrm{gw}(f)$ is the GW power spectrum, 
-and $P_a(f)$ is the power spectrum for the $a$th pulsar. 
-$\Gamma_{ab}$ is the overlap reduction function (ORF) 
-that describes the spatial correlation between two pulsars' residuals \citep{hd1983}, 
+where $\res_a$ is a vector of the residuals of the $a$th pulsar in the PTA. 
+Assuming a GWB with power spectrum $P_\mathrm{gw}(f)$ 
+and overlap reduction function (ORF) $\Gamma_{ab}$, 
+\begin{equation}
+	S_{ab} = F_a \, \phi_{ab}^\mathrm{gw} \, F_b^T \,,
+\end{equation}
+where
+\begin{equation}
+	\phi_{ab}^\mathrm{gw} = \Gamma_{ab} \, P_\mathrm{gw}(f) \,.
+	\label{eq:phi_gw}
+\end{equation}
+For a GWB, the ORF is the Hellings-Downs curve \citep{hd1983}, 
 \begin{eqnarray}
 	\Gamma_{ab} &=& \frac{1}{2} \left[ 1 - \frac{1}{2} \left( \frac{1-\cos\theta_{ab}}{2} \right) \right. \nonumber \\
 		&& \left. + 3 \left( \frac{1-\cos\theta_{ab}}{2} \right) \ln \left( \frac{1-\cos\theta_{ab}}{2} \right) \right]  \,,
@@ -197,27 +250,24 @@ that describes the spatial correlation between two pulsars' residuals \citep{hd1
 where $\theta_{ab}$ is the angle between the pulsars. 
 The optimal statistic $\hat{A}^2$ is given by
 \begin{equation}
-	\hat{A}^2 = \frac{\sum_{ab} \res_a^T {\bf{P}}_a^{-1} \tilde{{\bf{S}}}_{ab} {\bf{P}}_b^{-1} \res_b}{\sum_{ab} \Tr \left( {\bf{P}}_a^{-1} \tilde{{\bf{S}}}_{ab} {\bf{P}}_b^{-1} \tilde{{\bf{S}}}_{ba} \right) } \,,
+	\hat{A}^2 = \frac{\sum_{ab} \res_a^T {C_a^{-1} \tilde{S}_{ab} C_b^{-1} \res_b}}{\sum_{ab} \Tr \left( C_a^{-1} \tilde{S}_{ab} C_b^{-1} \tilde{S}_{ba} \right) } \,,
 \end{equation}
-where $\tilde{{\bf{S}}}_{ab}$ is the amplitude-independent cross-correlation matrix,
+where $\tilde{S}_{ab}$ is the amplitude-independent cross-correlation matrix,
 \begin{equation}
-	\Agw^2 \tilde{{\bf{S}}}_{ab} = {\bf{S}}_{ab} \,.
+	\Agw^2 \tilde{S}_{ab} = S_{ab} \,.
 \end{equation}
 This definition of the optimal statistic ensures that  
 $\langle \hat{A}^2 \rangle = \Agw^2$. 
 If $\Agw=0$, the variance of the optimal statistic is
 \begin{equation}
-	\sigma_0 = \left[ \sum_{ab} \Tr \left( {\bf{P}}_a^{-1} \tilde{{\bf{S}}}_{ab} {\bf{P}}_b^{-1} \tilde{{\bf{S}}}_{ba} \right) \right]^{-1/2} \,.
+	\sigma_0 = \left[ \sum_{ab} \Tr \left( C_a^{-1} \tilde{S}_{ab} C_b^{-1} \tilde{S}_{ba} \right) \right]^{-1/2} \,.
 \end{equation}
 For a measured value of $\hat{A}^2$, 
 the significance of $\hat{A}^2 \neq 0$ is given by the signal-to-noise ratio (SNR) 
 \begin{equation}
-	\rho = \frac{\hat{A}^2}{\sigma_0} = \frac{\sum_{ab} \res_a^T {\bf{P}}_a^{-1} \tilde{{\bf{S}}}_{ab} {\bf{P}}_b^{-1} \res_b}{\left[ \sum_{ab} \Tr \left( {\bf{P}}_a^{-1} \tilde{{\bf{S}}}_{ab} {\bf{P}}_b^{-1} \tilde{{\bf{S}}}_{ba} \right) \right]^{1/2}} \,.
+	\rho = \frac{\sum_{ab} \res_a^T {C_a^{-1} \tilde{S}_{ab} C_b^{-1} \res_b}}{ \left[ \sum_{ab} \Tr \left( C_a^{-1} \tilde{S}_{ab} C_b^{-1} \tilde{S}_{ba} \right) \right]^{1/2}} \,.
 \end{equation}
-%The expectation value of the SNR, averaged over all realizations of the stochastic background, is
-%\begin{equation}
-%	\left\langle \rho \right\rangle = \Agw^2 \left[ \sum_{ab} \Tr\left( {\bf{P}}_a^{-1} \tilde{{\bf{S}}}_{ab} {\bf{P}}_b^{-1} \tilde{{\bf{S}}}_{ba} \right) \right]^{1/2} \,.
-%\end{equation}
+
 
 When constructing the residuals $\res_a$, 
 we typically fix the red noise parameters to the values that 
@@ -412,7 +462,7 @@ over the range of \Agw\ considered here (Fig.~\ref{fig:os_compare}, right panel)
 The optimal statistic is particularly well-suited 
 to compare multiple spatial correlation relations 
 because using a different spatial correlation only requires changing the ORF 
-in Eq.~\eqref{eq:Sab}. 
+in Eq.~\eqref{eq:phi_gw}. 
 \citet{thk+2016} demonstrated how the optimal statistic can be altered to fit for 
 multiple spatial correlations at once in order to mitigate common noise sources such as 
 clock error and ephemeris error. 
