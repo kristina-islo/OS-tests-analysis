@@ -54,18 +54,17 @@ Observations have revealed that nearly all galaxies
 contain supermassive black holes (SMBHs) at their centers. 
 When galaxies merge, these SMBHs form SMBH binaries (SMBHBs), 
 which emit low-frequency gravitational waves (GWs). 
-The incoherent superposition of these GW sources produce a stochastic GW background (GWB) 
+The incoherent superposition of these sources produce a stochastic GW background (GWB) 
 that can be observed by pulsar timing arrays (PTAs). 
-The optimal statistic is a frequentist estimator for the amplitude of a GWB 
+The optimal statistic is a frequentist estimator of the amplitude of the GWB 
 that specifically looks for the spatial correlations induced by the GWB in PTA data. 
 In this paper, we introduce an improved method for computing the optimal statistic 
 that marginalizes over the red noise in individual pulsars. 
 We use simulations to demonstrate that this method 
-more accurately determines the strength of a GWB, 
-and we use the noise-marginalized optimal statistic to assess the 
-significance of the spatial correlations 
-by comparing monopole, dipole, and Hellings-Downs spatial correlations 
-and performing sky scrambles.
+more accurately determines the strength of the GWB, 
+and we use the noise-marginalized optimal statistic 
+to compare the significance of monopole, dipole, and Hellings-Downs spatial correlations 
+and perform sky scrambles.
 \end{abstract}
 
 \maketitle
@@ -89,8 +88,8 @@ Current upper limits on the stochastic background from PTAs are approaching
 theoretical predictions for the GWB \citep{PPTA2013,EPTA2015,abb+17b}
 
 PTAs primarily use Bayesian data analysis to compare the inferred probabilities 
-of various models for the pulsar timing residuals, 
-including one where the residuals contain evidence of the GWB 
+of various models for the residuals, 
+including one where they contain evidence of the GWB 
 \citep{vlm+2009,lah+2013}. 
 %Bayesian inference is a powerful technique because it allows us to compare arbitrarily complicated models. 
 Bayesian inference is a powerful tool because 
@@ -109,7 +108,7 @@ optimal statistic, a frequentist estimator for the GWB amplitude \citep{abc+2009
 %in less than a second, 
 %whereas a Bayesian analysis with spatial correlations requires 
 %several weeks to run on a supercomputing cluster.
-Not only does it provide an independent detection procedure, complementing a more robust Bayesian analysis, but its calculation requires significantly less time to compute. In particular, the optimal statistic produces results for various spatial correlation functions, a bottleneck within the more traditional stochastic GWB analysis, within seconds; a full Bayesian analysis including correlations has to run for several weeks on a supercomputing cluster. 
+Not only does it provide an independent detection procedure, complementing a more robust Bayesian analysis, but it requires significantly less time to compute. In particular, the optimal statistic produces results for various spatial correlation functions within seconds; a full Bayesian analysis including correlations has to run for many weeks on a supercomputing cluster. 
 
 However, the optimal statistic gives biased results 
 when the pulsars have significant red noise 
@@ -131,8 +130,8 @@ and its uncertainty, while requiring only a few minutes more than the more tradi
 %can be used to compute the optimal statistic with any choice of the ORF, 
 %allowing additional spatial correlations to be tested very quickly.
 Furthermore, the same Bayesian analysis drawn upon by the noise marginalization 
-can be used to compute the optimal statistic with any choice of overlap-reduction function (ORF), 
-allowing for quick testing of various spatial correlations. 
+can be used to compute the optimal statistic for any choice of spatial correlations 
+simply by changing the overlap-reduction function (ORF). 
 This technique is used to perform the frequentist searches 
 for common red signals with monopole, dipole, and Hellings-Downs spatial correlations 
 in the NANOGrav 11-year data set \citep{abb+17b}.
@@ -140,13 +139,14 @@ in the NANOGrav 11-year data set \citep{abb+17b}.
 This paper is organized as follows. In Sec.~\ref{sec:marg_os} 
 we lay out the procedure for computing the noise-marginalized optimal statistic. 
 We use simulations to compare the noise-marginalized optimal statistic 
-to the optimal statistic computed using fixed noise. 
+to the optimal statistic computed with fixed noise. 
 In Sec.~\ref{sec:spatial} we determine how well 
 the noise-marginalized optimal statistic can 
 differentiate between monopole, dipole, and Hellings-Downs spatial correlations. 
-In Sec.~\ref{sec:skyscrambles} we determine how well the noise-marginalized optimal statistic 
-can assess the significance of a GW detection by performing sky scrambles \citep{cs2016, tlb+2017}. 
-%We also compare our sky scramble results to the Bayesian analysis of sky scrambles done by \citet{tlb+2017}. 
+In Sec.~\ref{sec:skyscrambles} we use the noise-marginalized optimal statistic 
+to perform sky scrambles, 
+which assess the significance of Hellings-Downs spatial correlations 
+by scrambling the pulsars' sky positions \citep{cs2016, tlb+2017}. 
 We summarize our results in Sec.~\ref{sec:conclusion} 
 and discuss future applications of the noise-marginalized optimal statistic.
 
