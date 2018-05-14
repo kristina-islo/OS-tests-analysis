@@ -26,18 +26,18 @@
 
 \begin{document}
 
-\title{The noise-marginalized optimal statistic: A robust hybrid frequentist-Bayesian statistic for a stochastic gravitational-wave background in pulsar timing arrays}
+\title{The noise-marginalized optimal statistic: A robust hybrid frequentist-Bayesian statistic for the stochastic gravitational-wave background in pulsar timing arrays}
 %\title{Assessing spatial correlations in pulsar timing arrays with the noise-marginalized optimal statistic}
 
 \author{Sarah J.\ Vigeland}
 \affiliation{Center for Gravitation, Cosmology and Astrophysics, University of Wisconsin--Milwaukee, PO Box 413, Milwaukee WI, 53201, USA}
 
-\author{Kristina P.\ Islo}
+\author{Kristina Islo}
 \affiliation{Center for Gravitation, Cosmology and Astrophysics, University of Wisconsin--Milwaukee, PO Box 413, Milwaukee WI, 53201, USA}
 
 \author{Stephen R.\ Taylor}
-\affiliation{Jet Propulsion Laboratory, California Institute of Technology, 4800 Oak Grove Drive, Pasadena, California 91106, USA}
 \affiliation{Theoretical AstroPhysics Including Relativity (TAPIR), MC 350-17, California Institute of Technology, Pasadena, California 91125, USA}
+\affiliation{Jet Propulsion Laboratory, California Institute of Technology, 4800 Oak Grove Drive, Pasadena, California 91106, USA}
 
 \author{Justin A.\ Ellis}
 \affiliation{Department of Physics and Astronomy, West Virginia University, P.O. Box 6315, Morgantown, WV 26506, USA}
@@ -57,7 +57,7 @@ which emit low-frequency gravitational waves (GWs).
 The incoherent superposition of these sources produce a stochastic GW background (GWB) 
 that can be observed by pulsar timing arrays (PTAs). 
 The optimal statistic is a frequentist estimator of the amplitude of the GWB 
-that specifically looks for the spatial correlations induced by the GWB in PTA data. 
+that specifically looks for the spatial correlations between pulsars induced by the GWB. 
 In this paper, we introduce an improved method for computing the optimal statistic 
 that marginalizes over the red noise in individual pulsars. 
 We use simulations to demonstrate that this method 
@@ -80,7 +80,7 @@ gravitational wave background (GWB)
 made up of the incoherent superposition of GWs from inspiraling 
 supermassive black hole binaries (SMBHBs) 
 \citep{1995ApJ...446..543R, 2003ApJ...583..616J, 2003ApJ...590..691W}. 
-By monitoring the ultra-regular periodic emission from these pulsars using radio telescopes, 
+By monitoring the periodic emission from these pulsars using radio telescopes, 
 we can probe the dynamics of the spacetime through which the pulses travel. 
 This is done by searching for correlations in the pulsar timing residuals, 
 which measure the difference between the expected and observed pulse times of arrival. 
@@ -93,10 +93,10 @@ including one where they contain evidence of the GWB
 \citep{vlm+2009,lah+2013}. 
 %Bayesian inference is a powerful technique because it allows us to compare arbitrarily complicated models. 
 Bayesian inference is a powerful tool because 
-it performs a non-linear fit and 
-accounts for degeneracies between parameters. 
+it properly accounts for degeneracies between parameters 
+and incorporate all sources of uncertainty into the analysis. 
 However, running a full Bayesian analysis is computationally intensive, 
-particularly when searching for evidence of Hellings-Downs spatial correlations --
+particularly when searching for evidence of Hellings-Downs (HD) spatial correlations --
 the ``smoking gun'' of the GWB.
 
 The significance of the GWB can also be assessed using the 
@@ -110,12 +110,12 @@ optimal statistic, a frequentist estimator for the GWB amplitude \citep{abc+2009
 %several weeks to run on a supercomputing cluster.
 Not only does it provide an independent detection procedure, complementing a more robust Bayesian analysis, but it requires significantly less time to compute. In particular, the optimal statistic produces results for various spatial correlation functions within seconds; a full Bayesian analysis including correlations has to run for many weeks on a supercomputing cluster. 
 
-However, the optimal statistic gives biased results 
-when the pulsars have significant red noise 
-due to the strong covariance between the individual red noise parameters 
-and the GWB amplitude. 
+However, when pulsars have significant red noise, 
+the optimal statistic gives biased results 
+due to the strong covariance 
+between the individual red noise parameters and the GWB amplitude. 
 Many individual pulsars show evidence for red noise \citep{lam+2017,abb+17}, 
-and uncertainty in the position of the Solar System barycenter leads to 
+and uncertainty in the position of the Solar System barycenter (SSB) leads to 
 a common red process in all pulsars \citep{abb+17b}. 
 %In this paper, we present a technique for improving the accuracy of the optimal statistic 
 %by marginalizing the optimal statistic over the individual red noise parameters 
@@ -135,8 +135,11 @@ and its uncertainty, while requiring only a few minutes more than the more tradi
 Furthermore, the same Bayesian analysis drawn upon by the noise marginalization 
 can be used to compute the optimal statistic for any choice of spatial correlations 
 simply by changing the overlap-reduction function (ORF). 
+For example, clock errors lead to a common red signal with monopole spatial correlations \citep{hcm+2012}, 
+while uncertainty in the SSB produces dipole spatial correlations \citep{chm+2010}. 
 This technique is used to perform the frequentist searches 
-for common red signals with monopole, dipole, and Hellings-Downs spatial correlations 
+for common red signals with Hellings-Downs, 
+monopole, and dipole spatial correlations 
 in the NANOGrav 11-year data set \citep{abb+17b}.
 
 This paper is organized as follows. In Sec.~\ref{sec:marg_os} 
@@ -151,7 +154,7 @@ to perform sky scrambles,
 which assess the significance of Hellings-Downs spatial correlations 
 by scrambling the pulsars' sky positions \citep{cs2016, tlb+2017}. 
 We summarize our results in Sec.~\ref{sec:conclusion} 
-and discuss future applications of the noise-marginalized optimal statistic.
+as well as discuss future applications of the noise-marginalized optimal statistic.
 
 
 \section{Noise-marginalized optimal statistic}
@@ -160,20 +163,20 @@ and discuss future applications of the noise-marginalized optimal statistic.
 The optimal statistic is a frequentist estimator 
 for the amplitude of an isotropic stochastic GWB, 
 and can be derived by analytically maximizing 
-the PTA likelihood function in the weak-signal regime (see~\citet{abc+2009}). 
+the PTA likelihood function in the weak-signal regime \citep{abc+2009,ccs+2015}. 
 It is constructed from the timing residuals $\res$, 
 which can be written as 
 \begin{equation}
 	\res = M {\bf{\epsilon}} + F {\bf{a}} + U {\bf{j}} + {\bf{n}} \,.
 \end{equation}
-The design matrix $M$ and timing model parameter uncertainties $\epsilon$ 
-describe the contributions to the residuals from uncertainties in the timing model. 
+The term $M\epsilon$ describes the contributions to the residuals 
+from perturbations to the timing model. 
 The term $U{\bf{j}}$ describes noise that is correlated for observations made at the same time 
-at different frequencies and uncorrelated over different observing epochs, 
-while ${\bf{n}}$ describes uncorrelated white noise.
+at different frequencies and uncorrelated over different observing epochs (ECORR), 
+while ${\bf{n}}$ describes uncorrelated white noise from TOA measurement uncertainties.
 The term $F{\bf{a}}$ describes red noise, 
 including both red noise intrinsic to the pulsar 
-and a common red noise signal common to all the pulsar (such as a GW signal). 
+and a common red noise signal common to all pulsars (such as a GW signal). 
 We model the red noise as a Fourier series,
 \begin{equation}
 	F {\bf{a}} = \sum_{j=1}^N \left[ a_j \sin\left( \frac{2\pi j t}{T} \right) + b_j \cos \left( \frac{2\pi j t}{T} \right) \right] \,,
@@ -236,7 +239,7 @@ $C_a$ and $S_{ab}$,
 	S_{ab} &=& \left. \left\langle \res_a \res_b^T \right\rangle \right|_{a \neq b} \,,
 \end{eqnarray}
 where $\res_a$ is a vector of the residuals of the $a$th pulsar in the PTA. 
-For the GWB with power spectrum $P_\mathrm{gw}(f)$ 
+For the GWB with power spectral density (PSD) $P_\mathrm{gw}(f)$ 
 and overlap reduction function (ORF) $\Gamma_{ab}$, 
 the cross-covariance matrices are
 \begin{equation}
@@ -253,9 +256,9 @@ and the ORF is the Hellings-Downs curve \citep{hd1983},
 		&& \left. + 3 \left( \frac{1-\cos\theta_{ab}}{2} \right) \ln \left( \frac{1-\cos\theta_{ab}}{2} \right) \right]  \,,
 \end{eqnarray}
 where $\theta_{ab}$ is the angle between the pulsars. 
-We model the power-spectrum of the GWB as a power law:
+We model the PSD of the GWB as a power law:
 \begin{equation}
-	P_\mathrm{gw}(f) = \Agw \left( \frac{f}{f_\mathrm{yr}} \right)^{-\gamma} \,,
+	P_\mathrm{gw}(f) = \frac{\Agw^2}{12\pi^2} \left( \frac{f}{f_\mathrm{yr}} \right)^{-\gamma} \,,
 \end{equation}
 where $\gamma = 13/3$ assuming SMBHBs evolve solely due to GW emission and $f_\mathrm{yr} \equiv 1/(1\,\mathrm{yr})$. 
 The optimal statistic $\hat{A}^2$ is given by
@@ -278,13 +281,13 @@ the significance of $\hat{A}^2 \neq 0$ is given by the signal-to-noise ratio (SN
 	\rho = \frac{\sum_{ab} \res_a^T {C_a^{-1} \tilde{S}_{ab} C_b^{-1} \res_b}}{ \left[ \sum_{ab} \Tr \left( C_a^{-1} \tilde{S}_{ab} C_b^{-1} \tilde{S}_{ba} \right) \right]^{1/2}} \,.
 \end{equation}
 
-
 When constructing the residuals $\res_a$, 
 we typically fix the red noise parameters to the values that 
-maximize the likelihood. 
+maximize the single-pulsar likelihood. 
 However, this leads to a bias in the optimal statistic 
 because the individual red noise and common red noise parameters 
-are highly covariant. 
+are highly covariant, 
+with the optimal statistic systematically lower than the true value of $\Agw^2$. 
 In this section, we compare three techniques for computing the optimal statistic. 
 First, we fix the individual pulsars' red noise parameters to the 
 maximum-likelihood values from individual Bayesian pulsar noise analyses. 
@@ -302,7 +305,10 @@ consisting of 18 MSPs with observation times up to 11 years
 and sky positions matching the 18 longest-observed pulsars in the 
 NANOGrav 11-year data set \citep{abb+17}. 
 We include white noise for all pulsars, plus 
-red noise parametrized as a power law, $P_a(f) = A_\mathrm{red} f^{-\gamma}$, 
+red noise parametrized as a power law, 
+\begin{equation}
+	P_a(f) = \frac{A_\mathrm{red}^2}{12\pi^2} \left( \frac{f}{f_\mathrm{yr}} \right)^{-\gamma} \,,
+\end{equation}
 for those pulsars that show evidence of red noise 
 (see Table~\ref{tab:sim} for more details).
 We use the PTA data analysis package 
@@ -441,16 +447,19 @@ $\hat{A}^2 = (2.4\pm1.2)\times10^{-29}$ and $\rho = 4.1 \pm 1.7$.
 	\label{fig:os_compare}
 \end{figure*}
 
-The fixed-noise and noise-marginalized analyses give the same results 
+The fixed-noise and noise-marginalized analyses 
+using the common noise results give the same results 
 for $\Agw = 5\times10^{-15}$, 
 but there are differences between them when analyzing data sets 
 containing smaller injected values of $\Agw$. 
 In Fig.~\ref{fig:os_compare} we show a P--P plot 
 of the cumulative fraction of simulations for which the injected $\Agw^2$ lies within 
-a given confidence interval of the measured $\hat{A}^2$, 
-assuming a Gaussian distribution with mean equal to the measured $\hat{A}^2$ 
-and variance $\sigma^2_{\hat{A}^2}$, 
-determined from the distribution of $\hat{A}^2$ for our simulations. 
+a given confidence interval of the measured $\hat{A}^2$. 
+The confidence interval of $\hat{A}^2$ is determined 
+assuming $\hat{A}^2$ follows a Gaussian distribution, 
+with mean and variance $\sigma^2_{\hat{A}^2}$ 
+taken from the distribution for $\hat{A}^2$ 
+found from our 200 realizations of the GWB (i.e.,~the top panel of Fig.~\ref{fig:os_datasetstats}).
 If $\hat{A}^2$ has a Gaussian distribution centered around $\Agw^2$, 
 the curves should lie along a straight line with slope equal to unity (the dotted, diagonal lines in Fig.~\ref{fig:os_compare}).
 
@@ -517,7 +526,7 @@ using the monopole and dipole ORFs, respectively.
 The mean SNR using the quadrupole ORF, averaged over realizations of the GWB, is 4.1, 
 and we find an SNR greater than this using the monopole and dipole ORFs in just 
 3\% and 3.5\% of our simulations, respectively.
-\begin{figure}[tb]
+\begin{figure}[t]
 	\includegraphics[width=0.9\columnwidth]{plots/optstat_spatial_A5e-15.pdf}
 	\caption{Noise-marginalized mean optimal statistic and mean SNR for 200 simulated data sets 
 			containing an injected GWB with $\Agw = 5\times10^{-15}$. 
@@ -532,7 +541,11 @@ and we find an SNR greater than this using the monopole and dipole ORFs in just
 \label{sec:skyscrambles}
 
 The significance of spatial correlations can also be tested with ``sky scrambles,'' 
-where the ORF is altered in order to simulate changing the pulsars' positions \citep{cs2016}. 
+where the ORF is altered in order to simulate changing the pulsars' positions \citep{cs2016,tlb+2017}. 
+The scrambled ORFs are required to have small values of $\bar{M}$ 
+with the true ORF and each other so that they form a nearly-orthogonal set. 
+This ensures that the distribution of $\hat{A}^2$ computed using the scrambled ORFs 
+forms the null hypothesis distribution. 
 \citet{tlb+2017} showed how sky scrambles affect the Bayes' factor for simulated data sets. 
 Here we perform a similar analysis using frequentist methods.
 
@@ -542,10 +555,13 @@ We required the scrambled ORFs to have $\bar{M} < 0.2$
 with respect to the true ORF and each other. 
 This threshold was chosen to be comparable to the match statistics 
 between the Hellings-Downs ORF with monopole and dipole ORFs 
-given in Sec.~\ref{sec:spatial}.
-For each simulation, 
-we computed the noise-marginalized mean optimal statistic and mean SNR 
-for each scrambled ORF, and compared to the values found using the true ORF.
+given in Sec.~\ref{sec:spatial}. 
+We did not chose a smaller threshold because significantly more time 
+would have been needed to generate 725 scrambled ORFs. 
+For each simulation, we computed the 
+noise-marginalized mean optimal statistic and mean SNR 
+for each scrambled ORF, 
+and compared them to the values found using the true ORF.
 
 Figure~\ref{fig:skyscrambles_dataset_sample} shows the results of a sky scramble analysis 
 for a sample data set with $\Agw=5\times10^{-15}$. 
@@ -556,8 +572,11 @@ In Fig.~\ref{fig:skyscrambles_pvalues}, we plot the distribution of $p$-values o
 For a GWB with $\Agw = 5\times10^{-15}$, 96\% of the simulations have $p \leq 0.05$, 
 and 75\% of the simulations have $p \leq 0.003$. 
 For a GWB with $\Agw = 10^{-15}$, 60\% of the simulations have $p \leq 0.05$, 
-and 33\% have $p \leq 0.003$.
-\begin{figure}[tb]
+and 33\% have $p \leq 0.003$. 
+This shows that for smaller values of \Agw, 
+there is a greater chance that noise fluctuations will appear 
+to have the spatial correlations of the GWB.
+\begin{figure}[t]
 	\includegraphics[width=0.9\columnwidth]{plots/optstat_scrambled_dataset11.pdf}
 	\caption{Comparison between the noise-marginalized mean optimal statistic and mean SNR 
 			with and without sky scrambles for a simulated data set 
@@ -639,6 +658,9 @@ and measure the significance of HD spatial correlations through the $p$-value.
 The primary strength of the optimal statistic is how quickly it can be computed. 
 This is useful for analyses where the significance of many spatial correlations are compared, 
 as with the sky scrambles. 
+An upcoming paper will use the noise-marginalized optimal statistic 
+to determine how well the spatial correlations corresponding to alternate GW polarizations 
+can be measured. 
 It also makes the optimal statistic a valuable tool for analyzing simulations 
 where many realizations of the GWB are compared. 
 The noise marginalization technique described in this paper is key 
@@ -650,9 +672,9 @@ for which red noise is significant.
 \acknowledgments
 We thank Joe Romano, Xavier Siemens, Jolien Creighton, and Jeffrey Hazboun for useful discussions. 
 This work was supported by NSF Physics Frontier Center Grant 1430284. 
-SRT was partially supported by appointment to the NASA Postdoctoral Program 
-at the Jet Propulsion Laboratory, which is administered by Oak Ridge Associated Universities 
-and the Universities Space Research Association through a contract with NASA. 
+%SRT was partially supported by appointment to the NASA Postdoctoral Program 
+%at the Jet Propulsion Laboratory, which is administered by Oak Ridge Associated Universities 
+%and the Universities Space Research Association through a contract with NASA. 
 JAE was partially supported by NASA through Einstein Fellowship Grant PF4-150120. 
 
 
