@@ -4,9 +4,24 @@ import h5py as h5
 import scipy.interpolate as interp
 import scipy.ndimage.filters as filter
 
+from astropy.io import fits
+from astropy.table import Table
+
 from PAL2 import PALmodels, PALutils, pputils as pp
 
 import makesims_nano
+
+
+def load_fits_file(filename):
+    
+    myfile = fits.open(filename)
+    
+    table = Table(myfile[1].data)
+    pars = table.colnames
+    data = np.array(table)
+    chain = np.array([data[ii] for ii in pars]).T
+    
+    return pars, chain
 
 
 def get_ml_vals(cp):
@@ -257,18 +272,24 @@ def compute_os(orf, rho, sig):
     return opt, sig
 
 
-# reads in sky scramble positions from files provided by Steve Taylor
 def read_in_skyscrambles(directory, nscrambles):
+
+    data = np.load('../data/scrambles_nano_thresh0.2.npz')
     
-    orfs = []
-    
-    for n in range(nscrambles):
-        data = np.loadtxt(directory + 'PositionSet_{0:d}.dat'.format(n),
-                          skiprows=1, usecols=(1,2))
-                          
-        orfs.append(compute_orf(data[:,1], data[:,0]))
-    
-    return orfs
+    return data['orfs'][:nscrambles]
+
+# reads in sky scramble positions from files provided by Steve Taylor
+#def read_in_skyscrambles(directory, nscrambles):
+#
+#    orfs = []
+#
+#    for n in range(nscrambles):
+#        data = np.loadtxt(directory + 'PositionSet_{0:d}.dat'.format(n),
+#                          skiprows=1, usecols=(1,2))
+#
+#        orfs.append(compute_orf(data[:,1], data[:,0]))
+#
+#    return orfs
 
 
 # initialize the optimal statistic using the noise values from file
@@ -637,7 +658,10 @@ if __name__ == '__main__':
         os.makedirs(outputdir)
 
     chaindir = '../data/chains/' + dataset + '/fix_spec_nf_30/'
-    chain = np.loadtxt(chaindir + 'chain_1.txt')
+    if os.path.isfile(chaindir + 'chain.fits'):
+        _, chain = load_fits_file(chaindir + 'chain.fits')
+    else:
+        chain = np.loadtxt(chaindir + 'chain_1.txt')
     burn = int(0.25*chain.shape[0])
 
     index = np.argmax(chain[:,-3])
@@ -663,7 +687,7 @@ if __name__ == '__main__':
         opts2, sigs2 = np.zeros(nreal), np.zeros(nreal)
     
     if args.computeSkyScrambles:
-        xi_ss = read_in_skyscrambles(skyScrambleDir, nscrambles)
+        xi_ss = read_in_skyscrambles(args.skyScrambleDir, nscrambles)
         opt_ss = [ np.zeros(nreal) for i in range(nscrambles) ]
         sig_ss = [ np.zeros(nreal) for i in range(nscrambles) ]
 
