@@ -530,10 +530,31 @@ and we find an SNR greater than this using the monopole and dipole ORFs in just
 	\includegraphics[width=0.9\columnwidth]{plots/optstat_spatial_A5e-15.pdf}
 	\caption{Noise-marginalized mean optimal statistic and mean SNR for 200 simulated data sets 
 			containing an injected GWB with $\Agw = 5\times10^{-15}$. 
-			We compare the values found using monopole (blue), dipole (orange), 
-			and quadrupole (green) spatial correlations. 
+			We compare the values of the mean optimal statistic and the SNR found 
+			using monopole (blue), dipole (orange), and quadrupole (green) spatial correlations. 
 			The dashed vertical line indicates the injected value, $\hat{A}^2 = 2.5 \times 10^{-29}$.}
 	\label{fig:os_ORF}
+\end{figure}
+
+This overlap between the monopole, dipole, and quadrupole ORFs also means that 
+a common red process that does not have Hellings-Downs correlations  
+may be confused for a GWB. Figure~\ref{fig:os_dipole} shows the results of 25 simulations 
+containing a stochastic signal with dipole spatial correlations. 
+Although a dipole signal has been injected, 
+the Hellings-Downs ORF gives a mean SNR greater than 5 in 84\% of the simulations. 
+However, both the monopole and Hellings-Downs ORFs give smaller values of 
+the mean $\hat{A}^2$ and mean SNR compared to the dipole ORF. 
+This demonstrates the importance of comparing the SNR from different spatial correlations 
+when determining the type of spatial correlations present.
+\begin{figure}[t]
+	\includegraphics[width=0.9\columnwidth]{plots/optstat_dipole_A5e-15.pdf}
+	\caption{Noise-marginalized mean optimal statistic and mean SNR for 25 simulated data sets 
+			containing an injected stochastic signal with dipole spatial correlations and $A = 5\times10^{-15}$. 
+			We compare the values of the optimal statistic and mean SNR 
+			found using monopole (blue), dipole (orange), 
+			and quadrupole (green) spatial correlations. 
+			The dashed vertical line indicates the injected value, $\hat{A}^2 = 2.5 \times 10^{-29}$.}
+	\label{fig:os_dipole}
 \end{figure}
 
 
@@ -670,7 +691,7 @@ for which red noise is significant.
 
 
 \acknowledgments
-We thank Joe Romano, Xavier Siemens, Jolien Creighton, and Jeffrey Hazboun for useful discussions. 
+We thank Joe Romano, Xavier Siemens, and Jolien Creighton for useful discussions. 
 This work was supported by NSF Physics Frontier Center Grant 1430284. 
 %SRT was partially supported by appointment to the NASA Postdoctoral Program 
 %at the Jet Propulsion Laboratory, which is administered by Oak Ridge Associated Universities 
