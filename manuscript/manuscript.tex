@@ -63,7 +63,7 @@ that marginalizes over the red noise in individual pulsars.
 We use simulations to demonstrate that this method 
 more accurately determines the strength of the GWB, 
 and we use the noise-marginalized optimal statistic 
-to compare the significance of monopole, dipole, and Hellings-Downs spatial correlations 
+to compare the significance of monopole, dipole, and Hellings-Downs (HD) spatial correlations 
 and perform sky scrambles.
 \end{abstract}
 
@@ -138,7 +138,7 @@ simply by changing the overlap-reduction function (ORF).
 For example, clock errors lead to a common red signal with monopole spatial correlations \citep{hcm+2012}, 
 while uncertainty in the SSB produces dipole spatial correlations \citep{chm+2010}. 
 This technique is used to perform the frequentist searches 
-for common red signals with Hellings-Downs, 
+for common red signals with HD, 
 monopole, and dipole spatial correlations 
 in the NANOGrav 11-year data set \citep{abb+17b}.
 
@@ -148,10 +148,10 @@ We use simulations to compare the noise-marginalized optimal statistic
 to the optimal statistic computed with fixed noise. 
 In Sec.~\ref{sec:spatial} we determine how well 
 the noise-marginalized optimal statistic can 
-differentiate between monopole, dipole, and Hellings-Downs spatial correlations. 
+differentiate between monopole, dipole, and HD spatial correlations. 
 In Sec.~\ref{sec:skyscrambles} we use the noise-marginalized optimal statistic 
 to perform sky scrambles, 
-which assess the significance of Hellings-Downs spatial correlations 
+which assess the significance of HD spatial correlations 
 by scrambling the pulsars' sky positions \citep{cs2016, tlb+2017}. 
 We summarize our results in Sec.~\ref{sec:conclusion} 
 as well as discuss future applications of the noise-marginalized optimal statistic.
@@ -250,7 +250,7 @@ where
 	\phi_{ab}^\mathrm{gw} = \Gamma_{ab} \, P_\mathrm{gw}(f) \,,
 	\label{eq:phi_gw}
 \end{equation}
-and the ORF is the Hellings-Downs curve \citep{hd1983}, 
+and the ORF is the HD curve \citep{hd1983}, 
 \begin{eqnarray}
 	\Gamma_{ab} &=& \frac{1}{2} \left[ 1 - \frac{1}{2} \left( \frac{1-\cos\theta_{ab}}{2} \right) \right. \nonumber \\
 		&& \left. + 3 \left( \frac{1-\cos\theta_{ab}}{2} \right) \ln \left( \frac{1-\cos\theta_{ab}}{2} \right) \right]  \,,
@@ -395,7 +395,7 @@ than the other two.
 %but the two are consistent at $1.6\sigma$.
 
 In Fig.~\ref{fig:os_datasetstats} we show the optimal statistic 
-for 200 different realizations of a GWB with $\Agw = 5\times10^{-15}$ 
+for 300 different realizations of a GWB with $\Agw = 5\times10^{-15}$ 
 computed using the three techniques described above. 
 For the noise-marginalized analysis, we plot 
 the mean values of $\hat{A}^2$ and $\rho$. 
@@ -424,7 +424,7 @@ $\hat{A}^2 = (2.4\pm1.2)\times10^{-29}$ and $\rho = 4.1 \pm 1.7$.
 
 \begin{figure}[tb]
 	\includegraphics[width=0.9\columnwidth]{plots/optstat_A5e-15.pdf}
-	\caption{Optimal statistic and SNR for 200 simulated data sets 
+	\caption{Optimal statistic and SNR for 300 simulated data sets 
 			containing a GWB with $\Agw = 5\times10^{-15}$. 
 			The fixed-noise analysis using the individual noise values (blue) 
 			systematically underestimates $\hat{A}^2$, while both the 
@@ -459,7 +459,7 @@ The confidence interval of $\hat{A}^2$ is determined
 assuming $\hat{A}^2$ follows a Gaussian distribution, 
 with mean and variance $\sigma^2_{\hat{A}^2}$ 
 taken from the distribution for $\hat{A}^2$ 
-found from our 200 realizations of the GWB (i.e.,~the top panel of Fig.~\ref{fig:os_datasetstats}).
+found from our 300 realizations of the GWB (i.e.,~the top panel of Fig.~\ref{fig:os_datasetstats}).
 If $\hat{A}^2$ has a Gaussian distribution centered around $\Agw^2$, 
 the curves should lie along a straight line with slope equal to unity (the dotted, diagonal lines in Fig.~\ref{fig:os_compare}).
 
@@ -504,45 +504,45 @@ by computing the ``match statistic'' \citep{cs2016},
 \end{equation}
 where $\Gamma$ and $\Gamma'$ are two different ORFs. 
 For the 18 pulsars used in these simulations, the 
-match statistic for monopole and Hellings-Downs correlations is $\bar{M} = 0.264$, 
-and the match statistic for dipole and Hellings-Downs correlations is $\bar{M} = 0.337$. 
+match statistic for monopole and HD correlations is $\bar{M} = 0.264$, 
+and the match statistic for dipole and HD correlations is $\bar{M} = 0.337$. 
 These match statistics describe a fundamental limit on our ability 
-to identify the spatial correlations of a common red signal as Hellings-Downs 
+to identify the spatial correlations of a common red signal as HD 
 rather than monopole or dipole 
 that depends only on the number of pulsars in our PTA and their sky positions.
 
 Figure~\ref{fig:os_ORF} shows the noise-marginalized 
 mean value of $\hat{A}^2$ and the mean SNR 
-computed assuming monopole, dipole, and quadrupole spatial correlations 
-for 200 simulated data sets. Using a monopole or dipole ORF 
+computed assuming monopole, dipole, and HD spatial correlations 
+for 300 simulated data sets. Using a monopole or dipole ORF 
 gives a lower value for the mean optimal statistic and mean SNR compared to the 
-Hellings-Downs ORF. 
-Using quadrupole spatial correlations gives $\hat{A}^2 = (2.4 \pm 1.2) \times 10^{-29}$, 
+HD ORF. 
+Using HD spatial correlations gives $\hat{A}^2 = (2.4 \pm 1.2) \times 10^{-29}$, 
 while using monopole spatial correlations gives $\hat{A}^2 = (2.5 \pm 3.1) \times 10^{-30}$, 
 and dipole spatial correlations gives $\hat{A}^2 = (5.3 \pm 4.2) \times 10^{-30}$. 
 We find a noise-marginalized mean SNR above 1.0 in 97\% of our simulated data sets 
-using the quadrupole ORF, and in 50\% and 68\% of our simulated data sets 
+using the HD ORF, and in 50\% and 68\% of our simulated data sets 
 using the monopole and dipole ORFs, respectively. 
-The mean SNR using the quadrupole ORF, averaged over realizations of the GWB, is 4.1, 
+The mean SNR using the HD ORF, averaged over realizations of the GWB, is 4.1, 
 and we find an SNR greater than this using the monopole and dipole ORFs in just 
 3\% and 3.5\% of our simulations, respectively.
 \begin{figure}[t]
 	\includegraphics[width=0.9\columnwidth]{plots/optstat_spatial_A5e-15.pdf}
-	\caption{Noise-marginalized mean optimal statistic and mean SNR for 200 simulated data sets 
+	\caption{Noise-marginalized mean optimal statistic and mean SNR for 300 simulated data sets 
 			containing an injected GWB with $\Agw = 5\times10^{-15}$. 
 			We compare the values of the mean optimal statistic and the SNR found 
-			using monopole (blue), dipole (orange), and quadrupole (green) spatial correlations. 
+			using monopole (blue), dipole (orange), and HD (green) spatial correlations. 
 			The dashed vertical line indicates the injected value, $\hat{A}^2 = 2.5 \times 10^{-29}$.}
 	\label{fig:os_ORF}
 \end{figure}
 
-This overlap between the monopole, dipole, and quadrupole ORFs also means that 
-a common red process that does not have Hellings-Downs correlations  
+This overlap between the monopole, dipole, and HD ORFs also means that 
+a common red process that does not have HD correlations  
 may be confused for a GWB. Figure~\ref{fig:os_dipole} shows the results of 25 simulations 
 containing a stochastic signal with dipole spatial correlations. 
 Although a dipole signal has been injected, 
-the Hellings-Downs ORF gives a mean SNR greater than 5 in 84\% of the simulations. 
-However, both the monopole and Hellings-Downs ORFs give smaller values of 
+the HD ORF gives a mean SNR greater than 5 in 84\% of the simulations. 
+However, both the monopole and HD ORFs give smaller values of 
 the mean $\hat{A}^2$ and mean SNR compared to the dipole ORF. 
 This demonstrates the importance of comparing the SNR from different spatial correlations 
 when determining the type of spatial correlations present.
@@ -552,7 +552,7 @@ when determining the type of spatial correlations present.
 			containing an injected stochastic signal with dipole spatial correlations and $A = 5\times10^{-15}$. 
 			We compare the values of the optimal statistic and mean SNR 
 			found using monopole (blue), dipole (orange), 
-			and quadrupole (green) spatial correlations. 
+			and HD (green) spatial correlations. 
 			The dashed vertical line indicates the injected value, $\hat{A}^2 = 2.5 \times 10^{-29}$.}
 	\label{fig:os_dipole}
 \end{figure}
@@ -575,7 +575,7 @@ using a Monte Carlo algorithm.
 We required the scrambled ORFs to have $\bar{M} < 0.2$ 
 with respect to the true ORF and each other. 
 This threshold was chosen to be comparable to the match statistics 
-between the Hellings-Downs ORF with monopole and dipole ORFs 
+between the HD ORF with monopole and dipole ORFs 
 given in Sec.~\ref{sec:spatial}. 
 We did not chose a smaller threshold because significantly more time 
 would have been needed to generate 725 scrambled ORFs. 
@@ -589,7 +589,8 @@ for a sample data set with $\Agw=5\times10^{-15}$.
 For this particular realization of the GWB, 
 none of the 725 scrambled ORFs resulted in a mean SNR greater than 
 the mean SNR using the true ORF ($p < 0.0014$).
-In Fig.~\ref{fig:skyscrambles_pvalues}, we plot the distribution of $p$-values of the 725 sky scrambles. 
+In Fig.~\ref{fig:skyscrambles_pvalues}, we plot the distribution of $p$-values of the 725 sky scrambles 
+for 300 realizations of the GWB. 
 For a GWB with $\Agw = 5\times10^{-15}$, 95\% of the simulations have $p \leq 0.05$, 
 and 74\% of the simulations have $p \leq 0.003$. 
 For a GWB with $\Agw = 10^{-15}$, 76\% of the simulations have $p \leq 0.05$, 
@@ -610,7 +611,7 @@ to have the spatial correlations of the GWB.
 \begin{figure}[tb]
 	\includegraphics[width=0.9\columnwidth]{plots/optstat_scrambled.pdf}
 	\caption{Distribution of $p$-values for the noise-marginalized optimal statistic mean SNR 
-			using the true ORF compared to 725 sky scrambles. 
+			using the true ORF compared to 725 sky scrambles from 300 realizations of the GWB. 
 			We show results for simulations with $\Agw=5\times10^{-15}$ (blue) and $\Agw=10^{-15}$ (orange).}
 	\label{fig:skyscrambles_pvalues}
 \end{figure}
@@ -648,7 +649,7 @@ to have the spatial correlations of the GWB.
 \label{sec:conclusion}
 
 The definitive signature of a GWB in PTA data is spatial correlations 
-described by the Hellings-Downs curve. 
+described by the HD curve. 
 Searching for these using a full Bayesian approach is computationally expensive, 
 requiring many weeks on a supercomputing cluster. 
 In contrast, the optimal statistic can be computed in seconds. 
@@ -669,7 +670,7 @@ Furthermore, the results from a single Bayesian analysis,
 which are needed to marginalize over the red noise parameters, 
 can be used to compute the optimal statistic for many different spatial correlations. 
 In Sec.~\ref{sec:spatial} we use the noise-marginalized optimal statistic 
-to compare the strength of monopole, dipole, and quadrupole correlations 
+to compare the strength of monopole, dipole, and HD correlations 
 in simulated PTA data with a GWB. 
 In Sec.~\ref{sec:skyscrambles} we use the noise-marginalized optimal statistic 
 to perform sky scramble analyses, where we compare the mean SNR 
