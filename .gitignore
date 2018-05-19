@@ -47,6 +47,11 @@ data/optstat/*
 data/optstat_individual/*
 data/optstat_common/*
 
+# Run scripts #
+######################
+codes/runscript?.sh
+codes/runscript_*.sh
+
 # Manuscript #
 ######################
 manuscript/manuscript.aux
