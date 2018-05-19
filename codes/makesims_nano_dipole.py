@@ -1,9 +1,13 @@
 # modification of simulation code that injects a common signal
 # with power-law PSD and dipole spatial correlations
 
+from __future__ import division
+
 import numpy as np
 import os,sys,glob,math
 import json
+
+import scipy.interpolate as interp
 
 import ephem
 import libstempo.toasim as LT
@@ -84,17 +88,18 @@ def createdipole(psr, Amp, gam, noCorr=False, seed=None, turnover=False,
     ORF = np.zeros((Npulsars,Npulsars))
     for i in range(Npulsars):
         for j in range(Npulsars):
-            zeta = anis.calczeta(psrlocs[:,0][i],psrlocs[:,0][j],
-                                 psrlocs[:,1][i],psrlocs[:,1][j])
-            ORF[i,j] = np.cos(zeta)
-        
+#            zeta = anis.calczeta(psrlocs[:,0][i],psrlocs[:,0][j],
+#                                 psrlocs[:,1][i],psrlocs[:,1][j])
+#            ORF[i,j] = np.cos(zeta)
+            if i == j:
+                # linear algebra wizardry courtesy of Steve
+                # this ensures the matrix is positive definite so the Cholesky transform can be used
+                ORF[i,j] = 1. + 1e-6
+            else:
+                ORF[i,j] = np.sin(psrlocs[i,1])*np.sin(psrlocs[j,1])*np.cos(psrlocs[i,0]-psrlocs[j,0]) + \
+                            np.cos(psrlocs[i,1])*np.cos(psrlocs[j,1])
     ORF *= 2.0
-        
-    # linear algebra wizardry courtesy of Steve
-    # this ensures the matrix is positive definite so the Cholesky transform can be used
-    for i in range(Npulsars):
-        ORF[i,i] += 1e-6
-
+   
     # Define frequencies spanning from DC to Nyquist.
     # This is a vector spanning these frequencies in increments of 1/(dur*howml).
     f = np.arange(0, 1/(2*dt), 1/(dur*howml))
@@ -203,7 +208,7 @@ def create_dataset(dataset, Agwb):
                             components=30)
 
     # dipole signal
-    createdipole(psrs, 5e-15, 13./3., seed=None)
+    createdipole(psrs, Agwb, 13./3., seed=None)
     
     for psr in psrs:
         psr.fit(iters=2)
