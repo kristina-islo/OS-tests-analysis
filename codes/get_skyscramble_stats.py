@@ -1,33 +1,17 @@
 import numpy as np
-import os,sys,glob,math
 
-datadir = '../data/optstat/'
-datasetname = 'dataset'
-ndatasets = 100
 
-outputfilename = datadir + datasetname + 'stats_skyscrambles.dat'
-
-f = open(outputfilename, 'w')
-
-for n in range(ndatasets):
-    name = datadir + datasetname + str(n)
-    if os.path.exists(name):
-        data = np.loadtxt(name + '/marg_os.dat')
-        snr = np.mean(data[:,2])
-        
-        nscrambles = 210
-        scrambled_snr = []
-        for N in range(nscrambles):
-            ss = np.loadtxt(name + '/marg_os_skyscramble{0}.dat'.format(N))
-            scrambled_snr.append(np.mean(ss[:,2]))
-        
-        count = 0
-        for i in range(len(scrambled_snr)):
-            if scrambled_snr[i] >= snr:
-                count += 1
+def get_skyscramble_stats(datasetname, nscrambles):
     
-        pvalue = float(count)/float(nscrambles)
+    output = open('../data/optstat_common/{0}/skyscramble_summary.dat'.format(datasetname), 'w')
 
-        f.write('{0:<10}  {1:>3.0f}  {2:.4f}\n'.format(datasetname+str(n), count, pvalue))
+    for n in range(nscrambles):
+        ss = np.loadtxt('../data/optstat_common/{0}/marg_os_skyscramble{1}.dat'.format(datasetname,n))
+        output.write('skyscramble{0:<3}  {1:>18}  {2}\n'.format(n, np.mean(ss[:,0]), np.mean(ss[:,2])))
 
-f.close()
+    output.close()
+
+
+for i in range(299,300):
+    print 'Making skyscramble summary file for dataset_nano_A1e-15_{0}'.format(i)
+    get_skyscramble_stats('dataset_nano_A1e-15_{0}'.format(i), 725)
