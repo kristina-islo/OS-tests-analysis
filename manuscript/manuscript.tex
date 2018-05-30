@@ -52,8 +52,8 @@
 \begin{abstract}
 Observations have revealed that nearly all galaxies 
 contain supermassive black holes (SMBHs) at their centers. 
-When galaxies merge, these SMBHs form SMBH binaries (SMBHBs), 
-which emit low-frequency gravitational waves (GWs). 
+When galaxies merge, these SMBHs form SMBH binaries (SMBHBs) 
+that emit low-frequency gravitational waves (GWs). 
 The incoherent superposition of these sources produce a stochastic GW background (GWB) 
 that can be observed by pulsar timing arrays (PTAs). 
 The optimal statistic is a frequentist estimator of the amplitude of the GWB 
@@ -83,18 +83,18 @@ supermassive black hole binaries (SMBHBs)
 By monitoring the periodic emission from these pulsars using radio telescopes, 
 we can probe the dynamics of the spacetime through which the pulses travel. 
 This is done by searching for correlations in the pulsar timing residuals, 
-which measure the difference between the expected and observed pulse times of arrival. 
+which measure the differences between the expected and observed pulse times of arrival. 
 Current upper limits on the stochastic background from PTAs are approaching 
 theoretical predictions for the GWB \citep{PPTA2013,EPTA2015,abb+17b}
 
 PTAs primarily use Bayesian data analysis to compare the inferred probabilities 
 of various models for the residuals, 
-including one where they contain evidence of the GWB 
+including one where they contain the GWB 
 \citep{vlm+2009,lah+2013}. 
 %Bayesian inference is a powerful technique because it allows us to compare arbitrarily complicated models. 
 Bayesian inference is a powerful tool because 
 it properly accounts for degeneracies between parameters 
-and incorporate all sources of uncertainty into the analysis. 
+and incorporates all sources of uncertainty into the analysis. 
 However, running a full Bayesian analysis is computationally intensive, 
 particularly when searching for evidence of Hellings-Downs (HD) spatial correlations --
 the ``smoking gun'' of the GWB.
@@ -108,9 +108,9 @@ optimal statistic, a frequentist estimator for the GWB amplitude \citep{abc+2009
 %in less than a second, 
 %whereas a Bayesian analysis with spatial correlations requires 
 %several weeks to run on a supercomputing cluster.
-Not only does it provide an independent detection procedure, complementing a more robust Bayesian analysis, but it requires significantly less time to compute. In particular, the optimal statistic produces results for various spatial correlation functions within seconds; a full Bayesian analysis including correlations has to run for many weeks on a supercomputing cluster. 
+Not only does it provide an independent detection procedure, complementing a more robust Bayesian analysis, but it requires significantly less time to compute. In particular, the optimal statistic produces results for a given spatial correlation function within seconds; a full Bayesian analysis including correlations has to run for many weeks on a supercomputing cluster. 
 
-However, when pulsars have significant red noise, 
+However, when pulsars have significant red noise 
 the optimal statistic gives biased results 
 due to the strong covariance 
 between the individual red noise parameters and the GWB amplitude. 
@@ -123,7 +123,7 @@ a common red process in all pulsars \citep{abb+17b}.
 %This hybrid approach produces a more accurate 
 %estimate of \Agw\ and its uncertainty. 
 Here we present a technique for improving the accuracy of the optimal statistic by including an additional step: 
-marginalizing over the individual pulsar red noise parameters 
+marginalizing over the individual pulsars' red noise parameters 
 using the posterior distributions from a full Bayesian analysis of all the pulsars. 
 This hybrid approach produces a more precise estimate of the GWB amplitude \Agw\ 
 and its uncertainty, while requiring only a few minutes more than the more traditional method of computation. 
@@ -247,10 +247,10 @@ the cross-covariance matrices are
 \end{equation}
 where
 \begin{equation}
-	\phi_{ab}^\mathrm{gw} = \Gamma_{ab} \, P_\mathrm{gw}(f) \,,
+	\phi_{ab}^\mathrm{gw} = \Gamma_{ab} \, P_\mathrm{gw}(f) \,.
 	\label{eq:phi_gw}
 \end{equation}
-and the ORF is the HD curve \citep{hd1983}, 
+The ORF is the HD curve \citep{hd1983}, 
 \begin{eqnarray}
 	\Gamma_{ab} &=& \frac{1}{2} \left[ 1 - \frac{1}{2} \left( \frac{1-\cos\theta_{ab}}{2} \right) \right. \nonumber \\
 		&& \left. + 3 \left( \frac{1-\cos\theta_{ab}}{2} \right) \ln \left( \frac{1-\cos\theta_{ab}}{2} \right) \right]  \,,
@@ -287,7 +287,8 @@ maximize the single-pulsar likelihood.
 However, this leads to a bias in the optimal statistic 
 because the individual red noise and common red noise parameters 
 are highly covariant, 
-with the optimal statistic systematically lower than the true value of $\Agw^2$. 
+with the optimal statistic computed using fixed red noise parameters 
+systematically lower than the true value of $\Agw^2$. 
 In this section, we compare three techniques for computing the optimal statistic. 
 First, we fix the individual pulsars' red noise parameters to the 
 maximum-likelihood values from individual Bayesian pulsar noise analyses. 
@@ -301,8 +302,9 @@ red noise parameters from the posteriors generated by the common Bayesian analys
 
 We use these methods to compute the optimal statistic 
 for simulated ``NANOGrav-like'' data sets 
-consisting of 18 MSPs with observation times up to 11 years 
-and sky positions matching the 18 longest-observed pulsars in the 
+consisting of 18 MSPs with observation times, 
+sky positions, and noise properties 
+matching the 18 longest-observed pulsars in the 
 NANOGrav 11-year data set \citep{abb+17}. 
 We include white noise for all pulsars, plus 
 red noise parametrized as a power law, 
@@ -538,7 +540,7 @@ and we find an SNR greater than this using the monopole and dipole ORFs in just
 
 This overlap between the monopole, dipole, and HD ORFs also means that 
 a common red process that does not have HD correlations  
-may be confused for a GWB. Figure~\ref{fig:os_dipole} shows the results of 25 simulations 
+may be confused for a GWB. Figure~\ref{fig:os_dipole} shows the results of 300 simulations 
 containing a stochastic signal with dipole spatial correlations. 
 Although a dipole signal has been injected, 
 the HD ORF gives a mean SNR greater than 5 in 82\% of the simulations. 
@@ -550,7 +552,7 @@ This demonstrates the importance of comparing the SNR from different spatial cor
 when determining the type of spatial correlations present.
 \begin{figure}[t]
 	\includegraphics[width=0.9\columnwidth]{plots/optstat_dipole_A5e-15.pdf}
-	\caption{Noise-marginalized mean optimal statistic and mean SNR for 25 simulated data sets 
+	\caption{Noise-marginalized mean optimal statistic and mean SNR for 300 simulated data sets 
 			containing an injected stochastic signal with dipole spatial correlations and $A = 5\times10^{-15}$. 
 			We compare the values of the optimal statistic and mean SNR 
 			found using monopole (blue), dipole (orange), 
@@ -570,7 +572,7 @@ with the true ORF and each other so that they form a nearly-orthogonal set.
 This ensures that the distribution of $\hat{A}^2$ computed using the scrambled ORFs 
 forms the null hypothesis distribution. 
 \citet{tlb+2017} showed how sky scrambles affect the Bayes' factor for simulated data sets. 
-Here we perform a similar analysis using frequentist methods.
+We performed a similar analysis using frequentist methods.
 
 We generated 725 scrambled ORFs 
 using a Monte Carlo algorithm. 
@@ -694,7 +696,8 @@ for which red noise is significant.
 
 
 \acknowledgments
-We thank Joe Lazio, Andrea Lommen, Joe Romano, Xavier Siemens, and Jolien Creighton for useful discussions. 
+We thank Joe Lazio, Andrea Lommen, Joe Romano, Xavier Siemens, 
+and Jolien Creighton for useful discussions. 
 This work was supported by NSF Physics Frontier Center Grant 1430284. 
 %SRT was partially supported by appointment to the NASA Postdoctoral Program 
 %at the Jet Propulsion Laboratory, which is administered by Oak Ridge Associated Universities 
@@ -702,7 +705,7 @@ This work was supported by NSF Physics Frontier Center Grant 1430284.
 JAE was partially supported by NASA through Einstein Fellowship Grant PF4-150120. 
 We are grateful for computational resources provided by the Leonard E Parker
 Center for Gravitation, Cosmology and Astrophysics at the University of
-Wisconsin-Milwaukee.
+Wisconsin-Milwaukee supported by NSF Grant 0923409.
 
 
 \bibliographystyle{apsrev}
